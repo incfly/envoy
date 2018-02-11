@@ -55,8 +55,8 @@ void testUtil(const std::string& client_ctx_json, const std::string& server_ctx_
   Json::ObjectSharedPtr server_ctx_loader = TestEnvironment::jsonLoadFromString(server_ctx_json);
   ServerContextConfigImpl server_ctx_config(*server_ctx_loader);
   ContextManagerImpl manager(runtime);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, "", {}, true, manager,
-                                                        stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, manager, stats_store,
+                                                        std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket(Network::Test::getCanonicalLoopbackAddress(version), nullptr,
@@ -152,8 +152,8 @@ const std::string testUtilV2(const envoy::api::v2::Listener& server_proto,
       std::vector<std::string> sni_domains(filter_chain.filter_chain_match().sni_domains().begin(),
                                            filter_chain.filter_chain_match().sni_domains().end());
       Ssl::ServerContextConfigImpl server_ctx_config(filter_chain.tls_context());
-      server_transport_socket_factories.emplace_back(new Ssl::ServerSslSocketFactory(
-          server_ctx_config, "test_listener", sni_domains, false, manager, stats_store));
+      server_transport_socket_factories.emplace_back(
+          new Ssl::ServerSslSocketFactory(server_ctx_config, manager, stats_store, sni_domains));
     }
   }
   ASSERT(server_transport_socket_factories.size() >= 1);
@@ -735,8 +735,8 @@ TEST_P(SslSocketTest, FlushCloseDuringHandshake) {
   Json::ObjectSharedPtr server_ctx_loader = TestEnvironment::jsonLoadFromString(server_ctx_json);
   ServerContextConfigImpl server_ctx_config(*server_ctx_loader);
   ContextManagerImpl manager(runtime);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, "", {}, true, manager,
-                                                        stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, manager, stats_store,
+                                                        std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket(Network::Test::getCanonicalLoopbackAddress(GetParam()), nullptr,
@@ -793,8 +793,8 @@ TEST_P(SslSocketTest, HalfClose) {
   Json::ObjectSharedPtr server_ctx_loader = TestEnvironment::jsonLoadFromString(server_ctx_json);
   ServerContextConfigImpl server_ctx_config(*server_ctx_loader);
   ContextManagerImpl manager(runtime);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, "", {}, true, manager,
-                                                        stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, manager, stats_store,
+                                                        std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket(Network::Test::getCanonicalLoopbackAddress(GetParam()), nullptr,
@@ -876,8 +876,8 @@ TEST_P(SslSocketTest, ClientAuthMultipleCAs) {
   Json::ObjectSharedPtr server_ctx_loader = TestEnvironment::jsonLoadFromString(server_ctx_json);
   ServerContextConfigImpl server_ctx_config(*server_ctx_loader);
   ContextManagerImpl manager(runtime);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, "", {}, true, manager,
-                                                        stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, manager, stats_store,
+                                                        std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket(Network::Test::getCanonicalLoopbackAddress(GetParam()), nullptr,
@@ -955,10 +955,10 @@ void testTicketSessionResumption(const std::string& server_ctx_json1,
   Json::ObjectSharedPtr server_ctx_loader2 = TestEnvironment::jsonLoadFromString(server_ctx_json2);
   ServerContextConfigImpl server_ctx_config1(*server_ctx_loader1);
   ServerContextConfigImpl server_ctx_config2(*server_ctx_loader2);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory1(server_ctx_config1, "server1", {}, false,
-                                                         manager, stats_store);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory2(server_ctx_config2, "server2", {}, false,
-                                                         manager, stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory1(server_ctx_config1, manager, stats_store,
+                                                         std::vector<std::string>{});
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory2(server_ctx_config2, manager, stats_store,
+                                                         std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket1(Network::Test::getCanonicalLoopbackAddress(ip_version), nullptr,
@@ -1279,10 +1279,10 @@ TEST_P(SslSocketTest, ClientAuthCrossListenerSessionResumption) {
   Json::ObjectSharedPtr server2_ctx_loader = TestEnvironment::jsonLoadFromString(server2_ctx_json);
   ServerContextConfigImpl server2_ctx_config(*server2_ctx_loader);
   ContextManagerImpl manager(runtime);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, "server1", {}, false,
-                                                        manager, stats_store);
-  Ssl::ServerSslSocketFactory server2_ssl_socket_factory(server2_ctx_config, "server2", {}, false,
-                                                         manager, stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, manager, stats_store,
+                                                        std::vector<std::string>{});
+  Ssl::ServerSslSocketFactory server2_ssl_socket_factory(server2_ctx_config, manager, stats_store,
+                                                         std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket(Network::Test::getCanonicalLoopbackAddress(GetParam()), nullptr,
@@ -1390,8 +1390,8 @@ TEST_P(SslSocketTest, SslError) {
   Json::ObjectSharedPtr server_ctx_loader = TestEnvironment::jsonLoadFromString(server_ctx_json);
   ServerContextConfigImpl server_ctx_config(*server_ctx_loader);
   ContextManagerImpl manager(runtime);
-  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, "", {}, true, manager,
-                                                        stats_store);
+  Ssl::ServerSslSocketFactory server_ssl_socket_factory(server_ctx_config, manager, stats_store,
+                                                        std::vector<std::string>{});
 
   Event::DispatcherImpl dispatcher;
   Network::TcpListenSocket socket(Network::Test::getCanonicalLoopbackAddress(GetParam()), nullptr,
@@ -2030,8 +2030,8 @@ public:
     server_ctx_loader_ = TestEnvironment::jsonLoadFromString(server_ctx_json_);
     server_ctx_config_.reset(new ServerContextConfigImpl(*server_ctx_loader_));
     manager_.reset(new ContextManagerImpl(runtime_));
-    server_ssl_socket_factory_.reset(
-        new ServerSslSocketFactory(*server_ctx_config_, "", {}, true, *manager_, stats_store_));
+    server_ssl_socket_factory_.reset(new ServerSslSocketFactory(
+        *server_ctx_config_, *manager_, stats_store_, std::vector<std::string>{}));
 
     listener_ = dispatcher_->createListener(socket_, listener_callbacks_, true, false);
 

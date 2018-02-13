@@ -5,6 +5,7 @@
 
 #include "common/api/os_sys_calls_impl.h"
 #include "common/common/assert.h"
+#include "common/common/empty_string.h"
 #include "common/common/fmt.h"
 #include "common/config/utility.h"
 #include "common/network/listen_socket_impl.h"
@@ -128,9 +129,10 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
       local_drain_manager_(parent.factory_.createDrainManager(config.drain_type())),
       metadata_(config.has_metadata() ? config.metadata()
                                       : envoy::api::v2::core::Metadata::default_instance()) {
-  // TODO(htuch): Support multiple filter chains #1280, add constraint to ensure we have at least on
-  // filter chain #1308.
-  ASSERT(config.filter_chains().size() >= 1);
+  if (config.filter_chains().empty()) {
+    throw EnvoyException(
+        fmt::format("error adding listener '{}': no filter chains defined", address_->asString()));
+  }
 
   // Add listen socket options from the config.
   addListenSocketOption(std::make_shared<ListenerSocketOptionImpl>(config));
@@ -159,19 +161,9 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
         factory.createFilterFactoryFromProto(Envoy::ProtobufWkt::Empty(), *this));
   }
 
-  absl::optional<uint64_t> filters_hash;
   for (const auto& filter_chain : config.filter_chains()) {
     std::vector<std::string> sni_domains(filter_chain.filter_chain_match().sni_domains().begin(),
                                          filter_chain.filter_chain_match().sni_domains().end());
-    if (!filters_hash) {
-      filters_hash = RepeatedPtrUtil::hash(filter_chain.filters());
-      filter_factories_ =
-          parent_.factory_.createNetworkFilterFactoryList(filter_chain.filters(), *this);
-    } else if (filters_hash.value() != RepeatedPtrUtil::hash(filter_chain.filters())) {
-      throw EnvoyException(fmt::format("error adding listener '{}': use of different filter chains "
-                                       "is currently not supported",
-                                       address_->asString()));
-    }
 
     // If the cluster doesn't have transport socke configured, override with default transport
     // socket implementation based on tls_context. We copy by value first then override if
@@ -179,7 +171,7 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
     auto transport_socket = filter_chain.transport_socket();
     if (!filter_chain.has_transport_socket()) {
       if (filter_chain.has_tls_context()) {
-        transport_socket.set_name(Extensions::TransportSockets::TransportSocketNames::get().SSL);
+        transport_socket.set_name(Extensions::TransportSockets::TransportSocketNames::get().TLS);
         MessageUtil::jsonConvert(filter_chain.tls_context(), *transport_socket.mutable_config());
       } else {
         transport_socket.set_name(
@@ -192,17 +184,11 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
     ProtobufTypes::MessagePtr message =
         Config::Utility::translateToFactoryConfig(transport_socket, config_factory);
 
-    // Each transport socket factory owns one SslServerContext, we need to store them all in a
-    // vector since Ssl::ContextManager doesn't own SslServerContext. While transportSocketFacotry()
-    // always returns the first element of transport_socket_factories_, other transport socket
-    // factories are needed when the default Ssl::ServerContext updates SSL context based on
-    // ClientHello. This behavior is a workaround for initial SNI support before the full SNI based
-    // filter chain match is implemented.
-    transport_socket_factories_.emplace_back(
-        config_factory.createTransportSocketFactory(*message, *this, sni_domains));
-    ASSERT(transport_socket_factories_.back() != nullptr);
+    addFilterChain(
+        transport_socket.name(), sni_domains,
+        std::move(config_factory.createTransportSocketFactory(*message, *this, sni_domains)),
+        std::move(parent_.factory_.createNetworkFilterFactoryList(filter_chain.filters(), *this)));
   }
-  ASSERT(!transport_socket_factories_.empty());
 }
 
 ListenerImpl::~ListenerImpl() {
@@ -215,8 +201,72 @@ ListenerImpl::~ListenerImpl() {
   filter_factories_.clear();
 }
 
-bool ListenerImpl::createNetworkFilterChain(Network::Connection& connection) {
-  return Configuration::FilterChainUtility::buildFilterChain(connection, filter_factories_);
+bool ListenerImpl::isWildcardServerName(const std::string& name) {
+  return name.size() > 2 && name[0] == '*' && name[1] == '.';
+}
+
+void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
+                                  const std::vector<std::string>& server_names,
+                                  Network::TransportSocketFactoryPtr&& transport_socket_factory,
+                                  std::vector<Network::NetworkFilterFactoryCb> filters_factory) {
+  ASSERT(transport_socket_factory != nullptr);
+  ASSERT(!filters_factory.empty());
+
+  const auto filter_chain = std::make_shared<FilterChainImpl>(std::move(transport_socket_factory),
+                                                              std::move(filters_factory));
+  // Save mappings.
+  if (server_names.empty()) {
+    filter_chain_exact_match_factories_[transport_socket_name][EMPTY_STRING] = filter_chain;
+  } else {
+    for (const auto& name : server_names) {
+      if (isWildcardServerName(name)) {
+        filter_chain_wildcard_match_factories_[transport_socket_name][name] = filter_chain;
+      } else {
+        filter_chain_exact_match_factories_[transport_socket_name][name] = filter_chain;
+      }
+    }
+  }
+}
+
+const Network::FilterChainSharedPtr
+ListenerImpl::findFilterChain(const std::string& transport_protocol_name,
+                              const std::string& server_name) const {
+  const auto exact_match = filter_chain_exact_match_factories_.find(transport_protocol_name);
+  if (exact_match != filter_chain_exact_match_factories_.end()) {
+    const auto server_match = exact_match->second.find(server_name);
+    if (server_match != exact_match->second.end()) {
+      return server_match->second;
+    }
+  }
+
+  // Try to construct and match wildcard domain.
+  const size_t pos = server_name.find('.');
+  if (pos > 0 && pos < server_name.size() - 1) {
+    const std::string wildcard = '*' + server_name.substr(pos);
+    const auto wildcard_match =
+        filter_chain_wildcard_match_factories_.find(transport_protocol_name);
+    if (wildcard_match != filter_chain_wildcard_match_factories_.end()) {
+      const auto server_match = wildcard_match->second.find(wildcard);
+      if (server_match != wildcard_match->second.end()) {
+        return server_match->second;
+      }
+    }
+  }
+
+  if (exact_match != filter_chain_exact_match_factories_.end()) {
+    const auto server_match = exact_match->second.find(EMPTY_STRING);
+    if (server_match != exact_match->second.end()) {
+      return server_match->second;
+    }
+  }
+
+  return nullptr;
+}
+
+bool ListenerImpl::createNetworkFilterChain(
+    Network::Connection& connection,
+    const std::vector<Network::NetworkFilterFactoryCb>& filter_factories) {
+  return Configuration::FilterChainUtility::buildFilterChain(connection, filter_factories);
 }
 
 bool ListenerImpl::createListenerFilterChain(Network::ListenerFilterManager& manager) {

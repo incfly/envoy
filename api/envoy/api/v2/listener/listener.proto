@@ -87,6 +87,9 @@ message FilterChainMatch {
   // listener in determining a filter chain match.
   // [#not-implemented-hide:]
   google.protobuf.UInt32Value destination_port = 8;
+
+  // TODO
+  string transport_protocol = 9;
 }
 
 // A filter chain wraps a set of match criteria, an option TLS context, a set of filters, and

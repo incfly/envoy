@@ -10,6 +10,8 @@ namespace Network {
 
 class Connection;
 class ConnectionSocket;
+class TransportSocket;
+typedef std::unique_ptr<TransportSocket> TransportSocketPtr;
 
 /**
  * Status codes returned by filters that can cause future filters to not get iterated to.
@@ -233,6 +235,40 @@ public:
 typedef std::function<void(ListenerFilterManager& filter_manager)> ListenerFilterFactoryCb;
 
 /**
+ * TODO
+ */
+class FilterChain {
+public:
+  virtual ~FilterChain() {}
+
+  /**
+   * TODO
+   */
+  virtual TransportSocketPtr createTransportSocket() const PURE;
+
+  /**
+   * TODO
+   */
+  virtual const std::vector<NetworkFilterFactoryCb>& getNetworkFilterFactories() const PURE;
+};
+
+typedef std::shared_ptr<FilterChain> FilterChainSharedPtr;
+
+/**
+ * TODO
+ */
+class FilterChainManager {
+public:
+  virtual ~FilterChainManager() {}
+
+  /**
+   * TODO
+   */
+  virtual const FilterChainSharedPtr findFilterChain(const std::string& transport_socket_name,
+                                                     const std::string& server_name) const PURE;
+};
+
+/**
  * Creates a chain of network filters for a new connection.
  */
 class FilterChainFactory {
@@ -242,10 +278,13 @@ public:
   /**
    * Called to create the network filter chain.
    * @param connection supplies the connection to create the chain on.
+   * @param filter_factories TODO
    * @return true if filter chain was created successfully. Otherwise
    *   false, e.g. filter chain is empty.
    */
-  virtual bool createNetworkFilterChain(Connection& connection) PURE;
+  virtual bool
+  createNetworkFilterChain(Connection& connection,
+                           const std::vector<NetworkFilterFactoryCb>& filter_factories) PURE;
 
   /**
    * Called to create the listener filter chain.

@@ -213,6 +213,7 @@ envoy_cc_library(
         "//source/common/protobuf:utility_lib",
         "//source/common/ssl:context_config_lib",
         "//source/extensions/filters/listener:well_known_names",
+        "//source/extensions/filters/network:well_known_names",
         "//source/extensions/transport_sockets:well_known_names",
         "@envoy_api//envoy/api/v2:lds_cc",
     ],

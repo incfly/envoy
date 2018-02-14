@@ -19,6 +19,7 @@
 #include "server/listener_socket_option_impl.h"
 
 #include "extensions/filters/listener/well_known_names.h"
+#include "extensions/filters/network/well_known_names.h"
 #include "extensions/transport_sockets/well_known_names.h"
 
 namespace Envoy {
@@ -161,7 +162,13 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
         factory.createFilterFactoryFromProto(Envoy::ProtobufWkt::Empty(), *this));
   }
 
+  absl::optional<bool> downstream_sends_first;
+  bool is_tls, is_http;
+  bool install_tls_inspector = false;
   for (const auto& filter_chain : config.filter_chains()) {
+    is_tls = false;
+    is_http = false;
+
     std::vector<std::string> sni_domains(filter_chain.filter_chain_match().sni_domains().begin(),
                                          filter_chain.filter_chain_match().sni_domains().end());
 
@@ -173,6 +180,7 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
       if (filter_chain.has_tls_context()) {
         transport_socket.set_name(Extensions::TransportSockets::TransportSocketNames::get().TLS);
         MessageUtil::jsonConvert(filter_chain.tls_context(), *transport_socket.mutable_config());
+        is_tls = true;
       } else {
         transport_socket.set_name(
             Extensions::TransportSockets::TransportSocketNames::get().RAW_BUFFER);
@@ -188,6 +196,41 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
         transport_socket.name(), sni_domains,
         std::move(config_factory.createTransportSocketFactory(*message, *this, sni_domains)),
         std::move(parent_.factory_.createNetworkFilterFactoryList(filter_chain.filters(), *this)));
+
+    // Check if downstream is expected to send data first (e.g. TLS, HTTP).
+    for (const auto& filter : filter_chain.filters()) {
+      if (filter.name() ==
+          Extensions::NetworkFilters::NetworkFilterNames::get().HTTP_CONNECTION_MANAGER) {
+        is_http = true;
+        break;
+      }
+    }
+
+    if (!downstream_sends_first) {
+      downstream_sends_first = is_tls || is_http || !sni_domains.empty();
+    } else if (downstream_sends_first.value() != (is_tls || is_http || !sni_domains.empty())) {
+      throw EnvoyException(fmt::format(fmt::format(
+          "error adding listener '{}': mixing incompatible filter chains", address_->asString())));
+    }
+
+    install_tls_inspector = is_tls || !sni_domains.empty();
+  }
+
+  // Automatically inject TLS Inspector if it wasn't configured explicitly and it's needed.
+  if (install_tls_inspector) {
+    for (const auto& filter : config.listener_filters()) {
+      if (filter.name() == Extensions::ListenerFilters::ListenerFilterNames::get().TLS_INSPECTOR) {
+        install_tls_inspector = false;
+        break;
+      }
+    }
+    if (install_tls_inspector) {
+      auto& factory =
+          Config::Utility::getAndCheckFactory<Configuration::NamedListenerFilterConfigFactory>(
+              Extensions::ListenerFilters::ListenerFilterNames::get().TLS_INSPECTOR);
+      listener_filter_factories_.push_back(
+          factory.createFilterFactoryFromProto(Envoy::ProtobufWkt::Empty(), *this));
+    }
   }
 }
 

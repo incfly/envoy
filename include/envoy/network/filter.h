@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "envoy/buffer/buffer.h"
+#include "envoy/network/transport_socket.h"
 #include "envoy/upstream/host_description.h"
 
 namespace Envoy {
@@ -10,8 +11,6 @@ namespace Network {
 
 class Connection;
 class ConnectionSocket;
-class TransportSocket;
-typedef std::unique_ptr<TransportSocket> TransportSocketPtr;
 
 /**
  * Status codes returned by filters that can cause future filters to not get iterated to.

@@ -263,7 +263,9 @@ void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
   } else {
     for (const auto& name : server_names) {
       if (isWildcardServerName(name)) {
-        filter_chain_wildcard_match_factories_[transport_socket_name][name] = filter_chain;
+        // Add mapping for the wildcard domain, i.e. example.com for *.example.com.
+        const std::string wildcard = name.substr(2);
+        filter_chain_wildcard_match_factories_[transport_socket_name][wildcard] = filter_chain;
       } else {
         filter_chain_exact_match_factories_[transport_socket_name][name] = filter_chain;
       }
@@ -282,14 +284,12 @@ ListenerImpl::findFilterChain(const std::string& transport_protocol_name,
     }
   }
 
-  // Try to construct and match wildcard domain.
-  const size_t pos = server_name.find('.');
-  if (pos > 0 && pos < server_name.size() - 1) {
-    const std::string wildcard = '*' + server_name.substr(pos);
-    const auto wildcard_match =
-        filter_chain_wildcard_match_factories_.find(transport_protocol_name);
-    if (wildcard_match != filter_chain_wildcard_match_factories_.end()) {
-      const auto server_match = wildcard_match->second.find(wildcard);
+  const auto wildcard_match = filter_chain_wildcard_match_factories_.find(transport_protocol_name);
+  if (wildcard_match != filter_chain_wildcard_match_factories_.end()) {
+    const size_t pos = server_name.find('.');
+    if (pos > 0 && pos < server_name.size() - 1) {
+      // Match on the wildcard domain, i.e. wildcard_match[example.com] for www.example.com.
+      const auto server_match = wildcard_match->second.find(server_name, pos + 1);
       if (server_match != wildcard_match->second.end()) {
         return server_match->second;
       }

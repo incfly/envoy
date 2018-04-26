@@ -282,6 +282,11 @@ private:
                       std::vector<Network::NetworkFilterFactoryCb> filters_factory);
   static bool isWildcardServerName(const std::string& name);
 
+  // Mapping of FilterChain's configured transport protocol and server name, i.e.
+  //   map[transport_protocol][server_name] => FilterChain
+  //
+  // Two maps are used for performance reasons, in order to facilitate hash lookups for
+  // exact server names and wildcard domains (i.e. example.com for *.example.com).
   std::unordered_map<std::string, std::unordered_map<std::string, Network::FilterChainSharedPtr>>
       filter_chain_exact_match_factories_;
   std::unordered_map<std::string, std::unordered_map<std::string, Network::FilterChainSharedPtr>>

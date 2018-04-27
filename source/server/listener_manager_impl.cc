@@ -241,7 +241,7 @@ ListenerImpl::~ListenerImpl() {
   // active. This is done here explicitly by setting a boolean and then clearing the factory
   // vector for clarity.
   initialize_canceled_ = true;
-  filter_factories_.clear();
+  filter_chains_.clear();
 }
 
 bool ListenerImpl::isWildcardServerName(const std::string& name) {

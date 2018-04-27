@@ -252,9 +252,6 @@ void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
                                   const std::vector<std::string>& server_names,
                                   Network::TransportSocketFactoryPtr&& transport_socket_factory,
                                   std::vector<Network::NetworkFilterFactoryCb> filters_factory) {
-  ASSERT(transport_socket_factory != nullptr);
-  ASSERT(!filters_factory.empty());
-
   const auto filter_chain = std::make_shared<FilterChainImpl>(std::move(transport_socket_factory),
                                                               std::move(filters_factory));
   // Save mappings.

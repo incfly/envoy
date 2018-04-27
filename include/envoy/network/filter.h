@@ -243,6 +243,11 @@ public:
   /**
    * TODO
    */
+  virtual bool implementsSecureTransport() const PURE;
+
+  /**
+   * TODO
+   */
   virtual TransportSocketPtr createTransportSocket() const PURE;
 
   /**

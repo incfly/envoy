@@ -320,6 +320,10 @@ public:
       : transport_socket_factory_(std::move(transport_socket_factory)),
         filters_factory_(std::move(filters_factory)) {}
 
+  bool implementsSecureTransport() const {
+    return transport_socket_factory_->implementsSecureTransport();
+  }
+
   Network::TransportSocketPtr createTransportSocket() const {
     return transport_socket_factory_->createTransportSocket();
   }

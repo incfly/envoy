@@ -225,9 +225,14 @@ private:
     AdminFilterChain() {}
 
     // Network::FilterChain
+    bool implementsSecureTransport() const override {
+      return transport_socket_factory_.implementsSecureTransport();
+    }
+
     Network::TransportSocketPtr createTransportSocket() const override {
       return transport_socket_factory_.createTransportSocket();
     }
+
     const std::vector<Network::NetworkFilterFactoryCb>& getNetworkFilterFactories() const override {
       return empty_network_filter_factory_;
     }

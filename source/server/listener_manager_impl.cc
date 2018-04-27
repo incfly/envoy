@@ -259,15 +259,14 @@ void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
                                                               std::move(filters_factory));
   // Save mappings.
   if (server_names.empty()) {
-    filter_chain_exact_match_factories_[transport_socket_name][EMPTY_STRING] = filter_chain;
+    filter_chain_factories_[transport_socket_name][EMPTY_STRING] = filter_chain;
   } else {
     for (const auto& name : server_names) {
       if (isWildcardServerName(name)) {
-        // Add mapping for the wildcard domain, i.e. example.com for *.example.com.
-        const std::string wildcard = name.substr(2);
-        filter_chain_wildcard_match_factories_[transport_socket_name][wildcard] = filter_chain;
+        // Add mapping for the wildcard domain, i.e. ".example.com" for "*.example.com".
+        filter_chain_factories_[transport_socket_name][name.substr(1)] = filter_chain;
       } else {
-        filter_chain_exact_match_factories_[transport_socket_name][name] = filter_chain;
+        filter_chain_factories_[transport_socket_name][name] = filter_chain;
       }
     }
   }
@@ -276,31 +275,28 @@ void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
 const Network::FilterChainSharedPtr
 ListenerImpl::findFilterChain(const std::string& transport_protocol_name,
                               const std::string& server_name) const {
-  const auto exact_match = filter_chain_exact_match_factories_.find(transport_protocol_name);
-  if (exact_match != filter_chain_exact_match_factories_.end()) {
-    const auto server_match = exact_match->second.find(server_name);
-    if (server_match != exact_match->second.end()) {
-      return server_match->second;
+  const auto transport_protocol_match = filter_chain_factories_.find(transport_protocol_name);
+  if (transport_protocol_match != filter_chain_factories_.end()) {
+    // Match on exact server name, i.e. "www.example.com" for "www.example.com".
+    const auto server_name_exact_match = transport_protocol_match->second.find(server_name);
+    if (server_name_exact_match != transport_protocol_match->second.end()) {
+      return server_name_exact_match->second;
     }
-  }
 
-  const auto wildcard_match = filter_chain_wildcard_match_factories_.find(transport_protocol_name);
-  if (wildcard_match != filter_chain_wildcard_match_factories_.end()) {
+    // Match on the wildcard domain, i.e. ".example.com" for "www.example.com".
     const size_t pos = server_name.find('.');
     if (pos > 0 && pos < server_name.size() - 1) {
-      // Match on the wildcard domain, i.e. wildcard_match[example.com] for www.example.com.
-      const std::string wildcard = server_name.substr(pos + 1);
-      const auto server_match = wildcard_match->second.find(wildcard);
-      if (server_match != wildcard_match->second.end()) {
-        return server_match->second;
+      const std::string wildcard = server_name.substr(pos);
+      const auto server_name_wildcard_match = transport_protocol_match->second.find(wildcard);
+      if (server_name_wildcard_match != transport_protocol_match->second.end()) {
+        return server_name_wildcard_match->second;
       }
     }
-  }
 
-  if (exact_match != filter_chain_exact_match_factories_.end()) {
-    const auto server_match = exact_match->second.find(EMPTY_STRING);
-    if (server_match != exact_match->second.end()) {
-      return server_match->second;
+    // Catch-all for given transport protocol.
+    const auto server_name_catchall_match = transport_protocol_match->second.find(EMPTY_STRING);
+    if (server_name_catchall_match != transport_protocol_match->second.end()) {
+      return server_name_catchall_match->second;
     }
   }
 

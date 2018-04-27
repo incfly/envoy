@@ -285,12 +285,11 @@ private:
   // Mapping of FilterChain's configured transport protocol and server name, i.e.
   //   map[transport_protocol][server_name] => FilterChain
   //
-  // Two maps are used for performance reasons, in order to facilitate hash lookups for
-  // exact server names and wildcard domains (i.e. example.com for *.example.com).
+  // For the server_name lookups, both exact server names and wildcard domains are part of the same
+  // map, in which wildcard domains are prefixed with "." (i.e. ".example.com" for "*.example.com")
+  // to differentiate between exact and wildcard entries.
   std::unordered_map<std::string, std::unordered_map<std::string, Network::FilterChainSharedPtr>>
-      filter_chain_exact_match_factories_;
-  std::unordered_map<std::string, std::unordered_map<std::string, Network::FilterChainSharedPtr>>
-      filter_chain_wildcard_match_factories_;
+      filter_chain_factories_;
 
   ListenerManagerImpl& parent_;
   Network::Address::InstanceConstSharedPtr address_;

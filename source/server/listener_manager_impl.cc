@@ -192,10 +192,9 @@ ListenerImpl::ListenerImpl(const envoy::api::v2::Listener& config, ListenerManag
     ProtobufTypes::MessagePtr message =
         Config::Utility::translateToFactoryConfig(transport_socket, config_factory);
 
-    addFilterChain(
-        transport_socket.name(), sni_domains,
-        std::move(config_factory.createTransportSocketFactory(*message, *this, sni_domains)),
-        std::move(parent_.factory_.createNetworkFilterFactoryList(filter_chain.filters(), *this)));
+    addFilterChain(transport_socket.name(), sni_domains,
+                   config_factory.createTransportSocketFactory(*message, *this, sni_domains),
+                   parent_.factory_.createNetworkFilterFactoryList(filter_chain.filters(), *this));
 
     // Check if downstream is expected to send data first (e.g. TLS, HTTP).
     for (const auto& filter : filter_chain.filters()) {

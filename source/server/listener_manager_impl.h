@@ -289,7 +289,7 @@ private:
   // map, in which wildcard domains are prefixed with "." (i.e. ".example.com" for "*.example.com")
   // to differentiate between exact and wildcard entries.
   std::unordered_map<std::string, std::unordered_map<std::string, Network::FilterChainSharedPtr>>
-      filter_chain_factories_;
+      filter_chains_;
 
   ListenerManagerImpl& parent_;
   Network::Address::InstanceConstSharedPtr address_;

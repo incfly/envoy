@@ -259,14 +259,14 @@ void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
                                                               std::move(filters_factory));
   // Save mappings.
   if (server_names.empty()) {
-    filter_chain_factories_[transport_socket_name][EMPTY_STRING] = filter_chain;
+    filter_chains_[transport_socket_name][EMPTY_STRING] = filter_chain;
   } else {
     for (const auto& name : server_names) {
       if (isWildcardServerName(name)) {
         // Add mapping for the wildcard domain, i.e. ".example.com" for "*.example.com".
-        filter_chain_factories_[transport_socket_name][name.substr(1)] = filter_chain;
+        filter_chains_[transport_socket_name][name.substr(1)] = filter_chain;
       } else {
-        filter_chain_factories_[transport_socket_name][name] = filter_chain;
+        filter_chains_[transport_socket_name][name] = filter_chain;
       }
     }
   }
@@ -275,8 +275,8 @@ void ListenerImpl::addFilterChain(const std::string& transport_socket_name,
 const Network::FilterChainSharedPtr
 ListenerImpl::findFilterChain(const std::string& transport_protocol_name,
                               const std::string& server_name) const {
-  const auto transport_protocol_match = filter_chain_factories_.find(transport_protocol_name);
-  if (transport_protocol_match != filter_chain_factories_.end()) {
+  const auto transport_protocol_match = filter_chains_.find(transport_protocol_name);
+  if (transport_protocol_match != filter_chains_.end()) {
     // Match on exact server name, i.e. "www.example.com" for "www.example.com".
     const auto server_name_exact_match = transport_protocol_match->second.find(server_name);
     if (server_name_exact_match != transport_protocol_match->second.end()) {

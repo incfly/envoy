@@ -285,7 +285,9 @@ typedef std::unique_ptr<FakeRawConnection> FakeRawConnectionPtr;
 /**
  * Provides a fake upstream server for integration testing.
  */
-class FakeUpstream : Logger::Loggable<Logger::Id::testing>, public Network::FilterChainFactory {
+class FakeUpstream : Logger::Loggable<Logger::Id::testing>,
+                     public Network::FilterChainManager,
+                     public Network::FilterChainFactory {
 public:
   FakeUpstream(const std::string& uds_path, FakeHttpConnection::Type type);
   FakeUpstream(uint32_t port, FakeHttpConnection::Type type, Network::Address::IpVersion version,
@@ -304,8 +306,19 @@ public:
   waitForHttpConnection(Event::Dispatcher& client_dispatcher,
                         std::vector<std::unique_ptr<FakeUpstream>>& upstreams);
 
+  // Network::FilterChainManager
+  const Network::FilterChainSharedPtr
+  findFilterChain(const std::string& transport_socket_name,
+                  const std::string& server_name) const override {
+    UNREFERENCED_PARAMETER(transport_socket_name);
+    UNREFERENCED_PARAMETER(server_name);
+    return fake_filter_chain_;
+  }
+
   // Network::FilterChainFactory
-  bool createNetworkFilterChain(Network::Connection& connection) override;
+  bool createNetworkFilterChain(
+      Network::Connection& connection,
+      const std::vector<Network::NetworkFilterFactoryCb>& filter_factories) override;
   bool createListenerFilterChain(Network::ListenerFilterManager& listener) override;
   void set_allow_unexpected_disconnects(bool value) { allow_unexpected_disconnects_ = value; }
 
@@ -325,11 +338,9 @@ private:
 
   private:
     // Network::ListenerConfig
+    Network::FilterChainManager& filterChainManager() override { return parent_; }
     Network::FilterChainFactory& filterChainFactory() override { return parent_; }
     Network::Socket& socket() override { return *parent_.socket_; }
-    Network::TransportSocketFactory& transportSocketFactory() override {
-      return *parent_.transport_socket_factory_;
-    }
     bool bindToPort() override { return true; }
     bool handOffRestoredDestinationConnections() const override { return false; }
     uint32_t perConnectionBufferLimitBytes() override { return 0; }
@@ -341,9 +352,31 @@ private:
     std::string name_;
   };
 
+  class FakeFilterChain : public Network::FilterChain {
+  public:
+    FakeFilterChain(Network::TransportSocketFactoryPtr&& transport_socket_factory)
+        : transport_socket_factory_(std::move(transport_socket_factory)) {}
+
+    // Network::FilterChain
+    bool implementsSecureTransport() const override {
+      return transport_socket_factory_->implementsSecureTransport();
+    }
+
+    Network::TransportSocketPtr createTransportSocket() const override {
+      return transport_socket_factory_->createTransportSocket();
+    }
+
+    const std::vector<Network::NetworkFilterFactoryCb>& getNetworkFilterFactories() const override {
+      return empty_network_filter_factory_;
+    }
+
+  private:
+    const Network::TransportSocketFactoryPtr transport_socket_factory_;
+    const std::vector<Network::NetworkFilterFactoryCb> empty_network_filter_factory_{};
+  };
+
   void threadRoutine();
 
-  Network::TransportSocketFactoryPtr transport_socket_factory_;
   Network::SocketPtr socket_;
   ConditionalInitializer server_initialized_;
   // Guards any objects which can be altered both in the upstream thread and the
@@ -358,5 +391,6 @@ private:
   bool allow_unexpected_disconnects_;
   const bool enable_half_close_;
   FakeListener listener_;
+  Network::FilterChainSharedPtr fake_filter_chain_;
 };
 } // namespace Envoy

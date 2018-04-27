@@ -54,11 +54,9 @@ public:
   }
 
   // Listener
+  Network::FilterChainManager& filterChainManager() override { return manager_; }
   Network::FilterChainFactory& filterChainFactory() override { return factory_; }
   Network::Socket& socket() override { return socket_; }
-  Network::TransportSocketFactory& transportSocketFactory() override {
-    return transport_socket_factory_;
-  }
   bool bindToPort() override { return true; }
   bool handOffRestoredDestinationConnections() const override { return false; }
   uint32_t perConnectionBufferLimitBytes() override { return 0; }
@@ -76,13 +74,16 @@ public:
     conn_->connect();
     if (read) {
       read_filter_.reset(new NiceMock<Network::MockReadFilter>());
-      EXPECT_CALL(factory_, createNetworkFilterChain(_))
-          .WillOnce(Invoke([&](Network::Connection& connection) -> bool {
-            server_connection_ = &connection;
-            connection.addConnectionCallbacks(server_callbacks_);
-            connection.addReadFilter(read_filter_);
-            return true;
-          }));
+      EXPECT_CALL(factory_, createNetworkFilterChain(_, _))
+          .WillOnce(Invoke(
+              [&](Network::Connection& connection,
+                  const std::vector<Network::NetworkFilterFactoryCb>& filter_factories) -> bool {
+                UNREFERENCED_PARAMETER(filter_factories);
+                server_connection_ = &connection;
+                connection.addConnectionCallbacks(server_callbacks_);
+                connection.addReadFilter(read_filter_);
+                return true;
+              }));
     }
     EXPECT_CALL(connection_callbacks_, onEvent(Network::ConnectionEvent::Connected))
         .WillOnce(Invoke([&](Network::ConnectionEvent) -> void { dispatcher_.exit(); }));
@@ -128,9 +129,9 @@ public:
 
   Event::DispatcherImpl dispatcher_;
   Network::TcpListenSocket socket_;
-  Network::RawBufferSocketFactory transport_socket_factory_;
   Stats::IsolatedStoreImpl stats_store_;
   Network::ConnectionHandlerPtr connection_handler_;
+  Network::MockFilterChainManager manager_;
   Network::MockFilterChainFactory factory_;
   Network::ClientConnectionPtr conn_;
   NiceMock<Network::MockConnectionCallbacks> connection_callbacks_;
@@ -313,7 +314,7 @@ TEST_P(ProxyProtocolTest, Closed) {
 TEST_P(ProxyProtocolTest, ClosedEmpty) {
   // We may or may not get these, depending on the operating system timing.
   EXPECT_CALL(factory_, createListenerFilterChain(_)).Times(AtLeast(0));
-  EXPECT_CALL(factory_, createNetworkFilterChain(_)).Times(AtLeast(0));
+  EXPECT_CALL(factory_, createNetworkFilterChain(_, _)).Times(AtLeast(0));
   conn_->connect();
   conn_->close(Network::ConnectionCloseType::NoFlush);
   dispatcher_.run(Event::Dispatcher::RunType::NonBlock);
@@ -345,11 +346,9 @@ public:
   }
 
   // Network::ListenerConfig
+  Network::FilterChainManager& filterChainManager() override { return manager_; }
   Network::FilterChainFactory& filterChainFactory() override { return factory_; }
   Network::Socket& socket() override { return socket_; }
-  Network::TransportSocketFactory& transportSocketFactory() override {
-    return transport_socket_factory_;
-  }
   bool bindToPort() override { return true; }
   bool handOffRestoredDestinationConnections() const override { return false; }
   uint32_t perConnectionBufferLimitBytes() override { return 0; }
@@ -360,13 +359,16 @@ public:
   void connect() {
     conn_->connect();
     read_filter_.reset(new NiceMock<Network::MockReadFilter>());
-    EXPECT_CALL(factory_, createNetworkFilterChain(_))
-        .WillOnce(Invoke([&](Network::Connection& connection) -> bool {
-          server_connection_ = &connection;
-          connection.addConnectionCallbacks(server_callbacks_);
-          connection.addReadFilter(read_filter_);
-          return true;
-        }));
+    EXPECT_CALL(factory_, createNetworkFilterChain(_, _))
+        .WillOnce(Invoke(
+            [&](Network::Connection& connection,
+                const std::vector<Network::NetworkFilterFactoryCb>& filter_factories) -> bool {
+              UNREFERENCED_PARAMETER(filter_factories);
+              server_connection_ = &connection;
+              connection.addConnectionCallbacks(server_callbacks_);
+              connection.addReadFilter(read_filter_);
+              return true;
+            }));
     EXPECT_CALL(connection_callbacks_, onEvent(Network::ConnectionEvent::Connected))
         .WillOnce(Invoke([&](Network::ConnectionEvent) -> void { dispatcher_.exit(); }));
     dispatcher_.run(Event::Dispatcher::RunType::Block);
@@ -401,10 +403,10 @@ public:
 
   Event::DispatcherImpl dispatcher_;
   Network::TcpListenSocket socket_;
-  Network::RawBufferSocketFactory transport_socket_factory_;
   Network::Address::InstanceConstSharedPtr local_dst_address_;
   Stats::IsolatedStoreImpl stats_store_;
   Network::ConnectionHandlerPtr connection_handler_;
+  Network::MockFilterChainManager manager_;
   Network::MockFilterChainFactory factory_;
   Network::ClientConnectionPtr conn_;
   NiceMock<Network::MockConnectionCallbacks> connection_callbacks_;

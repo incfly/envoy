@@ -257,12 +257,25 @@ public:
   MOCK_METHOD1(addAcceptFilter_, void(Network::ListenerFilterPtr&));
 };
 
+class MockFilterChainManager : public FilterChainManager {
+public:
+  MockFilterChainManager();
+  ~MockFilterChainManager();
+
+  // Network::FilterChainManager
+  MOCK_CONST_METHOD2(findFilterChain,
+                     const Network::FilterChainSharedPtr(const std::string& transport_socket_name,
+                                                         const std::string& server_name));
+};
+
 class MockFilterChainFactory : public FilterChainFactory {
 public:
   MockFilterChainFactory();
   ~MockFilterChainFactory();
 
-  MOCK_METHOD1(createNetworkFilterChain, bool(Connection& connection));
+  MOCK_METHOD2(createNetworkFilterChain,
+               bool(Connection& connection,
+                    const std::vector<Network::NetworkFilterFactoryCb>& filter_factories));
   MOCK_METHOD1(createListenerFilterChain, bool(ListenerFilterManager& listener));
 };
 
@@ -321,9 +334,9 @@ public:
   MockListenerConfig();
   ~MockListenerConfig();
 
+  MOCK_METHOD0(filterChainManager, FilterChainManager&());
   MOCK_METHOD0(filterChainFactory, FilterChainFactory&());
   MOCK_METHOD0(socket, Socket&());
-  MOCK_METHOD0(transportSocketFactory, TransportSocketFactory&());
   MOCK_METHOD0(bindToPort, bool());
   MOCK_CONST_METHOD0(handOffRestoredDestinationConnections, bool());
   MOCK_METHOD0(perConnectionBufferLimitBytes, uint32_t());

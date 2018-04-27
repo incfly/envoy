@@ -186,8 +186,10 @@ TEST_F(ListenerManagerImplWithRealFiltersTest, SslContext) {
 
   EXPECT_CALL(listener_factory_, createListenSocket(_, _, true));
   manager_->addOrUpdateListener(parseListenerFromJson(json), true);
-  EXPECT_TRUE(
-      manager_->listeners().back().get().transportSocketFactory().implementsSecureTransport());
+  auto filter_chain =
+      manager_->listeners().back().get().filterChainManager().findFilterChain("tls", "");
+  ASSERT_NE(filter_chain, nullptr);
+  EXPECT_TRUE(filter_chain->implementsSecureTransport());
 }
 
 TEST_F(ListenerManagerImplWithRealFiltersTest, BadListenerConfig) {
@@ -1009,10 +1011,10 @@ TEST_F(ListenerManagerImplWithRealFiltersTest,
   )EOF",
                                                        Network::Address::IpVersion::v4);
 
-  EXPECT_THROW_WITH_MESSAGE(manager_->addOrUpdateListener(parseListenerFromV2Yaml(yaml), true),
-                            EnvoyException,
-                            "error adding listener '127.0.0.1:1234': filter chains with mixed use "
-                            "of Session Ticket Keys are currently not supported");
+  EXPECT_CALL(server_.random_, uuid());
+  EXPECT_CALL(listener_factory_, createListenSocket(_, _, true));
+  manager_->addOrUpdateListener(parseListenerFromV2Yaml(yaml), true);
+  EXPECT_EQ(1U, manager_->listeners().size());
 }
 
 TEST_F(ListenerManagerImplWithRealFiltersTest, SniWithTwoDifferentFilterChains) {
@@ -1059,10 +1061,10 @@ TEST_F(ListenerManagerImplWithRealFiltersTest, SniWithTwoDifferentFilterChains) 
   )EOF",
                                                        Network::Address::IpVersion::v4);
 
-  EXPECT_THROW_WITH_MESSAGE(manager_->addOrUpdateListener(parseListenerFromV2Yaml(yaml), true),
-                            EnvoyException,
-                            "error adding listener '127.0.0.1:1234': use of different filter "
-                            "chains is currently not supported");
+  EXPECT_CALL(server_.random_, uuid());
+  EXPECT_CALL(listener_factory_, createListenSocket(_, _, true));
+  manager_->addOrUpdateListener(parseListenerFromV2Yaml(yaml), true);
+  EXPECT_EQ(1U, manager_->listeners().size());
 }
 
 TEST_F(ListenerManagerImplWithRealFiltersTest, TlsCertificateInline) {

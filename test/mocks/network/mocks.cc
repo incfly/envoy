@@ -166,6 +166,9 @@ MockListenerFilterCallbacks::~MockListenerFilterCallbacks() {}
 MockListenerFilterManager::MockListenerFilterManager() {}
 MockListenerFilterManager::~MockListenerFilterManager() {}
 
+MockFilterChainManager::MockFilterChainManager() {}
+MockFilterChainManager::~MockFilterChainManager() {}
+
 MockFilterChainFactory::MockFilterChainFactory() {
   ON_CALL(*this, createListenerFilterChain(_)).WillByDefault(Return(true));
 }

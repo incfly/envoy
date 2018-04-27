@@ -116,6 +116,7 @@ envoy_cc_library(
         "//include/envoy/network:listen_socket_interface",
         "//source/common/common:assert_lib",
         "//source/common/ssl:context_lib",
+        "//source/extensions/transport_sockets:well_known_names",
     ],
 )
 

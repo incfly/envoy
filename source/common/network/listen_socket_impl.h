@@ -11,6 +11,8 @@
 
 #include "common/common/assert.h"
 
+#include "extensions/transport_sockets/well_known_names.h"
+
 namespace Envoy {
 namespace Network {
 
@@ -93,7 +95,13 @@ public:
   void setDetectedTransportProtocol(absl::string_view protocol) override {
     transport_protocol_ = std::string(protocol);
   }
-  absl::string_view detectedTransportProtocol() const override { return transport_protocol_; }
+  absl::string_view detectedTransportProtocol() const override {
+    if (!transport_protocol_.empty()) {
+      return transport_protocol_;
+    } else {
+      return Extensions::TransportSockets::TransportSocketNames::get().RAW_BUFFER;
+    }
+  }
 
   void setRequestedServerName(absl::string_view server_name) override {
     server_name_ = std::string(server_name);

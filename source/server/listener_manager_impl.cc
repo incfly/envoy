@@ -289,7 +289,8 @@ ListenerImpl::findFilterChain(const std::string& transport_protocol_name,
     const size_t pos = server_name.find('.');
     if (pos > 0 && pos < server_name.size() - 1) {
       // Match on the wildcard domain, i.e. wildcard_match[example.com] for www.example.com.
-      const auto server_match = wildcard_match->second.find(server_name, pos + 1);
+      const std::string wildcard = server_name.substr(pos + 1);
+      const auto server_match = wildcard_match->second.find(wildcard);
       if (server_match != wildcard_match->second.end()) {
         return server_match->second;
       }

@@ -98,6 +98,18 @@ api_proto_library(
     visibility = [
         ":friends",
     ],
+    deps = [
+        ":base",
+        ":credentials",
+    ],
+)
+
+api_proto_library(
+    name = "credentials",
+    srcs = ["credentials.proto"],
+    visibility = [
+        ":friends",
+    ],
     deps = [":base"],
 )
 

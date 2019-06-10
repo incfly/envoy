@@ -20,6 +20,7 @@ envoy_cc_library(
         "//source/common/common:assert_lib",
         "//source/common/common:minimal_logger_lib",
         "@envoy_api//envoy/api/v2/auth:cert_cc",
+        "@envoy_api//envoy/admin/v2alpha:config_dump_cc",
     ],
 )
 

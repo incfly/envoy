@@ -16,6 +16,7 @@ namespace Secret {
 
 class SecretManagerImpl : public SecretManager {
 public:
+  SecretManagerImpl(Server::Admin& admin);
   void addStaticSecret(const envoy::api::v2::auth::Secret& secret) override;
 
   TlsCertificateConfigProviderSharedPtr
@@ -42,6 +43,8 @@ public:
       Server::Configuration::TransportSocketFactoryContext& secret_provider_context) override;
 
 private:
+  ProtobufTypes::MessagePtr dumpSecretConfigs();
+
   template <class SecretType>
   class DynamicSecretProviders : public Logger::Loggable<Logger::Id::secret> {
   public:
@@ -91,6 +94,8 @@ private:
   // map hash code of SDS config source and SdsApi object.
   DynamicSecretProviders<TlsCertificateSdsApi> certificate_providers_;
   DynamicSecretProviders<CertificateValidationContextSdsApi> validation_context_providers_;
+
+  Server::ConfigTracker::EntryOwnerPtr config_tracker_entry_;
 };
 
 } // namespace Secret

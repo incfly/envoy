@@ -1,6 +1,7 @@
 #include "common/secret/secret_manager_impl.h"
 
 #include "envoy/common/exception.h"
+#include "envoy/admin/v2alpha/config_dump.pb.h"
 
 #include "common/common/assert.h"
 #include "common/secret/sds_api.h"
@@ -11,6 +12,12 @@
 namespace Envoy {
 namespace Secret {
 
+SecretManagerImpl::SecretManagerImpl(Server::Admin& admin) :
+  config_tracker_entry_(
+      admin.getConfigTracker().add("secrets", [this] {
+        return dumpSecretConfigs();
+        })) {
+}
 void SecretManagerImpl::addStaticSecret(const envoy::api::v2::auth::Secret& secret) {
   switch (secret.type_case()) {
   case envoy::api::v2::auth::Secret::TypeCase::kTlsCertificate: {
@@ -78,6 +85,13 @@ SecretManagerImpl::findOrCreateCertificateValidationContextProvider(
   return validation_context_providers_.findOrCreate(sds_config_source, config_name,
                                                     secret_provider_context);
 }
+
+ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
+  auto config_dump = std::make_unique<envoy::admin::v2alpha::SecretsConfigDump>();
+  config_dump->set_version_info("jianfeih-test-version");
+  return config_dump;
+}
+
 
 } // namespace Secret
 } // namespace Envoy

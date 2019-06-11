@@ -86,9 +86,21 @@ SecretManagerImpl::findOrCreateCertificateValidationContextProvider(
                                                     secret_provider_context);
 }
 
+// TODO: problem, unable to set the resource name from secrets, need to associate more
+// metadata with secrets.
 ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   auto config_dump = std::make_unique<envoy::admin::v2alpha::SecretsConfigDump>();
   config_dump->set_version_info("jianfeih-test-version");
+  auto secrets = certificate_providers_.allSecrets();
+  for (const auto& cert_secrets : secrets) {
+    auto dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
+    auto secret = dynamic_secret->mutable_secret();
+    secret->set_name("foo");
+    auto tls_certificate = secret->mutable_tls_certificate();
+    tls_certificate->MergeFrom(*(cert_secrets->secret()));
+    tls_certificate->clear_private_key();
+    // tls_certificate->clear_password();
+  }
   return config_dump;
 }
 

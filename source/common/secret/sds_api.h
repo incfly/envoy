@@ -30,12 +30,20 @@ namespace Secret {
  */
 class SdsApi : public Config::SubscriptionCallbacks {
 public:
+  struct SecretData {
+    const std::string resource_name;
+    std::string version_info_;
+    SystemTime last_updated_;
+  };
+
   SdsApi(const LocalInfo::LocalInfo& local_info, Event::Dispatcher& dispatcher,
          Runtime::RandomGenerator& random, Stats::Store& stats,
          Upstream::ClusterManager& cluster_manager, Init::Manager& init_manager,
          const envoy::api::v2::core::ConfigSource& sds_config, const std::string& sds_config_name,
          std::function<void()> destructor_cb,
          ProtobufMessage::ValidationVisitor& validation_visitor, Api::Api& api);
+
+  SecretData secretData();
 
   // Config::SubscriptionCallbacks
   void onConfigUpdate(const Protobuf::RepeatedPtrField<ProtobufWkt::Any>& resources,
@@ -47,6 +55,7 @@ public:
     return MessageUtil::anyConvert<envoy::api::v2::auth::Secret>(resource, validation_visitor_)
         .name();
   }
+
 
 protected:
   // Creates new secrets.
@@ -60,6 +69,7 @@ private:
   Init::TargetImpl init_target_;
   const LocalInfo::LocalInfo& local_info_;
   Event::Dispatcher& dispatcher_;
+  TimeSource& time_source_;
   Runtime::RandomGenerator& random_;
   Stats::Store& stats_;
   Upstream::ClusterManager& cluster_manager_;
@@ -67,11 +77,14 @@ private:
   const envoy::api::v2::core::ConfigSource sds_config_;
   std::unique_ptr<Config::Subscription> subscription_;
   const std::string sds_config_name_;
+  SystemTime last_updated_;
+  SecretData secret_data_;
 
   uint64_t secret_hash_;
   Cleanup clean_up_;
   ProtobufMessage::ValidationVisitor& validation_visitor_;
   Api::Api& api_;
+
 };
 
 class TlsCertificateSdsApi;

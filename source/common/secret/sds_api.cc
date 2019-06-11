@@ -19,8 +19,12 @@ SdsApi::SdsApi(const LocalInfo::LocalInfo& local_info, Event::Dispatcher& dispat
                const std::string& sds_config_name, std::function<void()> destructor_cb,
                ProtobufMessage::ValidationVisitor& validation_visitor, Api::Api& api)
     : init_target_(fmt::format("SdsApi {}", sds_config_name), [this] { initialize(); }),
-      local_info_(local_info), dispatcher_(dispatcher), random_(random), stats_(stats),
+      local_info_(local_info), dispatcher_(dispatcher),
+      time_source_(dispatcher.timeSource()),
+      random_(random), stats_(stats),
       cluster_manager_(cluster_manager), sds_config_(sds_config), sds_config_name_(sds_config_name),
+      last_updated_(time_source_.systemTime()),
+      secret_data_{sds_config_name_, "uninitialized", time_source_.systemTime()},
       secret_hash_(0), clean_up_(destructor_cb), validation_visitor_(validation_visitor),
       api_(api) {
   Config::Utility::checkLocalInfo("sds", local_info_);
@@ -32,7 +36,7 @@ SdsApi::SdsApi(const LocalInfo::LocalInfo& local_info, Event::Dispatcher& dispat
 }
 
 void SdsApi::onConfigUpdate(const Protobuf::RepeatedPtrField<ProtobufWkt::Any>& resources,
-                            const std::string&) {
+                            const std::string& version_info) {
   validateUpdateSize(resources.size());
   auto secret =
       MessageUtil::anyConvert<envoy::api::v2::auth::Secret>(resources[0], validation_visitor_);
@@ -50,7 +54,9 @@ void SdsApi::onConfigUpdate(const Protobuf::RepeatedPtrField<ProtobufWkt::Any>& 
     setSecret(secret);
     update_callback_manager_.runCallbacks();
   }
-
+  last_updated_ = time_source_.systemTime();
+  secret_data_.last_updated_ = time_source_.systemTime();
+  secret_data_.version_info_ = version_info;
   init_target_.ready();
 }
 
@@ -83,6 +89,10 @@ void SdsApi::initialize() {
       Grpc::Common::typeUrl(envoy::api::v2::auth::Secret().GetDescriptor()->full_name()),
       validation_visitor_, api_, *this);
   subscription_->start({sds_config_name_});
+}
+
+SdsApi::SecretData SdsApi::secretData() {
+  return secret_data_;
 }
 
 } // namespace Secret

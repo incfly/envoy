@@ -71,6 +71,17 @@ private:
       return secret_provider;
     }
 
+    std::vector<std::shared_ptr<SecretType>> allSecrets() {
+      std::vector<std::shared_ptr<SecretType>> secrets;
+      for (const auto& secret_entry : dynamic_secret_providers_) {
+        std::shared_ptr<SecretType> secret_provider = secret_entry.second.lock();
+        if (secret_provider) {
+          secrets.push_back(secret_provider);
+        }
+      }
+      return secrets;
+    }
+
   private:
     // Removes dynamic secret provider which has been deleted.
     void removeDynamicSecretProvider(const std::string& map_key) {

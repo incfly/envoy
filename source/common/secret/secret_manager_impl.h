@@ -14,7 +14,7 @@
 namespace Envoy {
 namespace Secret {
 
-class SecretManagerImpl : public SecretManager {
+class SecretManagerImpl : public SecretManager, public Logger::Loggable<Logger::Id::secret> {
 public:
   SecretManagerImpl(Server::Admin& admin);
   void addStaticSecret(const envoy::api::v2::auth::Secret& secret) override;
@@ -76,6 +76,7 @@ private:
       for (const auto& secret_entry : dynamic_secret_providers_) {
         std::shared_ptr<SecretType> secret_provider = secret_entry.second.lock();
         if (secret_provider) {
+          ENVOY_LOG(info, "jianfeih debug the secret is {}", secret_provider);
           secrets.push_back(secret_provider);
         }
       }

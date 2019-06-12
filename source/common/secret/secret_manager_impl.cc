@@ -4,6 +4,7 @@
 #include "envoy/admin/v2alpha/config_dump.pb.h"
 
 #include "common/common/assert.h"
+#include "common/common/logger.h"
 #include "common/secret/sds_api.h"
 #include "common/secret/secret_provider_impl.h"
 #include "common/ssl/certificate_validation_context_config_impl.h"
@@ -95,9 +96,21 @@ ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   for (const auto& cert_secrets : secrets) {
     auto dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
     auto secret = dynamic_secret->mutable_secret();
+    // ENVOY_LOG(debug, "jianfeih debug in the loop {}", cert_secrets);
+    ENVOY_LOG(info, "jianfeih debug the secret is {}", cert_secrets);
+    auto secret_data = cert_secrets->secretData();
+    auto tls_cert = cert_secrets->secret();
+    if (tls_cert) {
+      ENVOY_LOG(info, "jianfeih debug the cert is not empty {}", tls_cert->DebugString());
+    } else {
+      ProtobufWkt::Timestamp last_updated_ts;
+      TimestampUtil::systemClockToTimestamp(secret_data.last_updated_, last_updated_ts);
+      ENVOY_LOG(info, "jianfeih debug the cert is empty {} {}", secret_data.resource_name, last_updated_ts);
+    }
     secret->set_name("foo");
+    cert_secrets->secret();
     auto tls_certificate = secret->mutable_tls_certificate();
-    tls_certificate->MergeFrom(*(cert_secrets->secret()));
+    //tls_certificate->MergeFrom(*(cert_secrets->secret()));
     tls_certificate->clear_private_key();
     // tls_certificate->clear_password();
   }

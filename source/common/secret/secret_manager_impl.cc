@@ -87,32 +87,55 @@ SecretManagerImpl::findOrCreateCertificateValidationContextProvider(
                                                     secret_provider_context);
 }
 
-// TODO: problem, unable to set the resource name from secrets, need to associate more
-// metadata with secrets.
+// TODO: question, what's the handling of static inlined stuff? they're just internal constructs
+// not needed to be exposed, maybe?
 ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   auto config_dump = std::make_unique<envoy::admin::v2alpha::SecretsConfigDump>();
-  config_dump->set_version_info("jianfeih-test-version");
+  // config_dump->set_version_info("jianfeih-test-version");
   auto secrets = certificate_providers_.allSecrets();
   for (const auto& cert_secrets : secrets) {
-    auto dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
-    auto secret = dynamic_secret->mutable_secret();
-    // ENVOY_LOG(debug, "jianfeih debug in the loop {}", cert_secrets);
-    ENVOY_LOG(info, "jianfeih debug the secret is {}", cert_secrets);
     auto secret_data = cert_secrets->secretData();
     auto tls_cert = cert_secrets->secret();
-    if (tls_cert) {
-      ENVOY_LOG(info, "jianfeih debug the cert is not empty {}", tls_cert->DebugString());
-    } else {
-      ProtobufWkt::Timestamp last_updated_ts;
-      TimestampUtil::systemClockToTimestamp(secret_data.last_updated_, last_updated_ts);
-      ENVOY_LOG(info, "jianfeih debug the cert is empty {} {}", secret_data.resource_name, last_updated_ts);
+    auto dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
+    auto secret = dynamic_secret->mutable_secret();
+
+    ProtobufWkt::Timestamp last_updated_ts;
+    TimestampUtil::systemClockToTimestamp(secret_data.last_updated_, last_updated_ts);
+    dynamic_secret->set_version_info(secret_data.version_info_);
+    *dynamic_secret->mutable_last_updated() = last_updated_ts;
+    secret->set_name(secret_data.resource_name);
+    // ENVOY_LOG(info, "jianfeih debug the secret is {}", cert_secrets);
+    // TODO: handling this should be log the secret data but not the cert to signify
+    // stuck at sds updates level.
+    if (!tls_cert) {
+      // ENVOY_LOG(info, "jianfeih debug the cert is empty");
+      continue;
     }
-    secret->set_name("foo");
-    cert_secrets->secret();
+    //ENVOY_LOG(info, "jianfeih debug the cert is empty {} {} {}",
+        //secret_data.resource_name, last_updated_ts, secret_data.version_info_);
     auto tls_certificate = secret->mutable_tls_certificate();
-    //tls_certificate->MergeFrom(*(cert_secrets->secret()));
+    tls_certificate->MergeFrom(*tls_cert);
     tls_certificate->clear_private_key();
-    // tls_certificate->clear_password();
+    tls_certificate->clear_password();
+  }
+
+  // Handling validation Context provided via SDS.
+  auto context_secrets = validation_context_providers_.allSecrets();
+  for (const auto& validation_context_secret : context_secrets) {
+    auto secret_data = validation_context_secret->secretData();
+    auto validation_context = validation_context_secret->secret();
+    auto dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
+    auto secret = dynamic_secret->mutable_secret();
+    ProtobufWkt::Timestamp last_updated_ts;
+    TimestampUtil::systemClockToTimestamp(secret_data.last_updated_, last_updated_ts);
+    dynamic_secret->set_version_info(secret_data.version_info_);
+    *dynamic_secret->mutable_last_updated() = last_updated_ts;
+    secret->set_name(secret_data.resource_name);
+    if (!validation_context) {
+      continue;
+    }
+    auto dump_context = secret->mutable_validation_context();
+    dump_context->MergeFrom(*validation_context);
   }
   return config_dump;
 }

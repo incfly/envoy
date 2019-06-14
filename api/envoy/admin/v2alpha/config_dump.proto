@@ -223,7 +223,8 @@ message ScopedRoutesConfigDump {
 
 // Config dump for SDS.
 message SecretsConfigDump {
-  string version_info = 1;
+  // TODO: does it make sense to include a veresion_info here? what criteria we aggregated on?
+  // string version_info;
 
   message DynamicSecret {
     // The name assigned to the secret.
@@ -232,8 +233,13 @@ message SecretsConfigDump {
     // Per resource verison information.
     string version_info = 2;
 
+    // The timestamp when the Cluster was last updated.
+    google.protobuf.Timestamp last_updated = 3;
+
     // Security sensitive information should be stripped.
-    envoy.api.v2.auth.Secret secret = 3;
+    envoy.api.v2.auth.Secret secret = 4;
   }
+
+  // List of all the secrets fetched via SDS.
   repeated DynamicSecret dynamic_secrets = 2;
 }

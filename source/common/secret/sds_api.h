@@ -43,6 +43,8 @@ public:
          std::function<void()> destructor_cb,
          ProtobufMessage::ValidationVisitor& validation_visitor, Api::Api& api);
 
+  // TODO: what's the thread model of the admin::config_dump vs xDS config updates?
+  // any lock mechanism needed?
   SecretData secretData();
 
   // Config::SubscriptionCallbacks

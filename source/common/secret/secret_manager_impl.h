@@ -76,7 +76,6 @@ private:
       for (const auto& secret_entry : dynamic_secret_providers_) {
         std::shared_ptr<SecretType> secret_provider = secret_entry.second.lock();
         if (secret_provider) {
-          ENVOY_LOG(info, "jianfeih debug the secret is {}", secret_provider);
           secrets.push_back(secret_provider);
         }
       }

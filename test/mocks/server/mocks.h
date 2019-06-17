@@ -339,11 +339,12 @@ public:
   MockInstance();
   ~MockInstance();
 
-  Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
+  // Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
 
   MOCK_METHOD0(admin, Admin&());
   MOCK_METHOD0(api, Api::Api&());
   MOCK_METHOD0(clusterManager, Upstream::ClusterManager&());
+  MOCK_METHOD0(secretManager, Secret::SecretManager&());
   MOCK_METHOD0(sslContextManager, Ssl::ContextManager&());
   MOCK_METHOD0(dispatcher, Event::Dispatcher&());
   MOCK_METHOD0(dnsResolver, Network::DnsResolverSharedPtr());
@@ -379,7 +380,8 @@ public:
 
   TimeSource& timeSource() override { return time_system_; }
 
-  std::unique_ptr<Secret::SecretManager> secret_manager_;
+  // std::unique_ptr<Secret::SecretManager> secret_manager_;
+  testing::NiceMock<Secret::MockSecretManager> secret_manager_;
   testing::NiceMock<ThreadLocal::MockInstance> thread_local_;
   NiceMock<Stats::MockIsolatedStatsStore> stats_store_;
   std::shared_ptr<testing::NiceMock<Network::MockDnsResolver>> dns_resolver_{
@@ -488,9 +490,10 @@ public:
   MockTransportSocketFactoryContext();
   ~MockTransportSocketFactoryContext();
 
-  Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
+  //Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
 
   MOCK_METHOD0(admin, Server::Admin&());
+  MOCK_METHOD0(secretManager, Secret::SecretManager&());
   MOCK_METHOD0(sslContextManager, Ssl::ContextManager&());
   MOCK_CONST_METHOD0(statsScope, Stats::Scope&());
   MOCK_METHOD0(clusterManager, Upstream::ClusterManager&());
@@ -505,7 +508,8 @@ public:
   MOCK_METHOD0(messageValidationVisitor, ProtobufMessage::ValidationVisitor&());
   MOCK_METHOD0(api, Api::Api&());
 
-  std::unique_ptr<Secret::SecretManager> secret_manager_;
+  //std::unique_ptr<Secret::SecretManager> secret_manager_;
+  testing::NiceMock<Secret::MockSecretManager> secret_manager_;
   testing::NiceMock<Api::MockApi> api_;
 };
 

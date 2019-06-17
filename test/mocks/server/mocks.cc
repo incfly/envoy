@@ -123,8 +123,8 @@ MockWorker::MockWorker() {
 }
 MockWorker::~MockWorker() = default;
 
-MockInstance::MockInstance()
-    : secret_manager_(new Secret::SecretManagerImpl()), cluster_manager_(timeSource()),
+MockInstance::MockInstance() : 
+      cluster_manager_(timeSource()),
       ssl_context_manager_(timeSource()), singleton_manager_(new Singleton::ManagerImpl(
                                               Thread::threadFactoryForTest().currentThreadId())),
       grpc_context_(stats_store_.symbolTable()), http_context_(stats_store_.symbolTable()) {
@@ -197,8 +197,8 @@ MockFactoryContext::MockFactoryContext()
 
 MockFactoryContext::~MockFactoryContext() = default;
 
-MockTransportSocketFactoryContext::MockTransportSocketFactoryContext()
-    : secret_manager_(new Secret::SecretManagerImpl()) {
+MockTransportSocketFactoryContext::MockTransportSocketFactoryContext() {
+      //secret_manager_(new Secret::SecretManagerImpl()) {
   ON_CALL(*this, api()).WillByDefault(ReturnRef(api_));
   ON_CALL(*this, messageValidationVisitor())
       .WillByDefault(ReturnRef(ProtobufMessage::getStrictValidationVisitor()));

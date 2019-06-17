@@ -241,5 +241,5 @@ message SecretsConfigDump {
   }
 
   // List of all the secrets fetched via SDS.
-  repeated DynamicSecret dynamic_secrets = 2;
+  repeated DynamicSecret dynamic_secrets = 1;
 }

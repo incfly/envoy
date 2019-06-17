@@ -16,7 +16,7 @@ namespace Secret {
 
 class SecretManagerImpl : public SecretManager, public Logger::Loggable<Logger::Id::secret> {
 public:
-  SecretManagerImpl(Server::Admin& admin);
+  SecretManagerImpl(Server::ConfigTracker& config_tracker);
   void addStaticSecret(const envoy::api::v2::auth::Secret& secret) override;
 
   TlsCertificateConfigProviderSharedPtr

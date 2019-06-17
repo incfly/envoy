@@ -309,7 +309,7 @@ void InstanceImpl::initialize(const Options& options,
 
   loadServerFlags(initial_config.flagsPath());
 
-  secret_manager_ = std::make_unique<Secret::SecretManagerImpl>(*admin_);
+  secret_manager_ = std::make_unique<Secret::SecretManagerImpl>(admin_->getConfigTracker());
 
   // Initialize the overload manager early so other modules can register for actions.
   overload_manager_ = std::make_unique<OverloadManagerImpl>(

@@ -13,9 +13,8 @@
 namespace Envoy {
 namespace Secret {
 
-SecretManagerImpl::SecretManagerImpl(Server::Admin& admin) :
-  config_tracker_entry_(
-      admin.getConfigTracker().add("secrets", [this] {
+SecretManagerImpl::SecretManagerImpl(Server::ConfigTracker& config_tracker) :
+  config_tracker_entry_(config_tracker.add("secrets", [this] {
         return dumpSecretConfigs();
         })) {
 }

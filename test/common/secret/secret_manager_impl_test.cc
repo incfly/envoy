@@ -214,9 +214,7 @@ tls_certificate:
             tls_config.privateKey());
 }
 
-// TODO: test to add, inline bytes for tls_certficate, and validation context.
-// check the output is correct, private key is purged.
-// Maybe more test to see the last update time.
+// TODO: maybe more test to see the last update time.
 TEST_F(SecretManagerImplTest, ConfigDumpHandler) {
   Server::MockInstance server;
   auto secret_manager = std::make_unique<SecretManagerImpl>(config_tracker_);
@@ -230,11 +228,13 @@ TEST_F(SecretManagerImplTest, ConfigDumpHandler) {
   Stats::IsolatedStoreImpl stats;
   NiceMock<Upstream::MockClusterManager> cluster_manager;
   NiceMock<Init::MockManager> init_manager;
-  EXPECT_CALL(secret_context, localInfo()).WillOnce(ReturnRef(local_info));
-  EXPECT_CALL(secret_context, dispatcher()).WillOnce(ReturnRef(dispatcher));
-  EXPECT_CALL(secret_context, random()).WillOnce(ReturnRef(random));
-  EXPECT_CALL(secret_context, stats()).WillOnce(ReturnRef(stats));
-  EXPECT_CALL(secret_context, clusterManager()).WillOnce(ReturnRef(cluster_manager));
+  EXPECT_CALL(secret_context, localInfo()).WillRepeatedly(ReturnRef(local_info));
+  EXPECT_CALL(secret_context, dispatcher()).WillRepeatedly(ReturnRef(dispatcher));
+  EXPECT_CALL(secret_context, random()).WillRepeatedly(ReturnRef(random));
+  EXPECT_CALL(secret_context, stats()).WillRepeatedly(ReturnRef(stats));
+  EXPECT_CALL(secret_context, clusterManager())
+    //.Times(2)
+    .WillRepeatedly(ReturnRef(cluster_manager));
   EXPECT_CALL(secret_context, initManager()).WillRepeatedly(Return(&init_manager));
 
   auto secret_provider =
@@ -252,15 +252,16 @@ tls_certificate:
   TestUtility::loadFromYaml(TestEnvironment::substitute(yaml), typed_secret);
   Protobuf::RepeatedPtrField<ProtobufWkt::Any> secret_resources;
   secret_resources.Add()->PackFrom(typed_secret);
-  dynamic_cast<TlsCertificateSdsApi&>(*secret_provider).onConfigUpdate(secret_resources, "");
+  dynamic_cast<TlsCertificateSdsApi&>(*secret_provider).onConfigUpdate(secret_resources, "keycert-v1");
   Ssl::TlsCertificateConfigImpl tls_config(*secret_provider->secret(), *api_);
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_CERT_CHAIN", tls_config.certificateChain());
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_PRIVATE_KEY", tls_config.privateKey());
-  Logger::Registry::setLogLevel(spdlog::level::info);
+  //Logger::Registry::setLogLevel(spdlog::level::info);
 
   // Private key is retained.
   const std::string expected_secrets_config_dump = R"EOF(
 dynamic_secrets:
+  version_info: "keycert-v1"
   last_updated:
     seconds: 1234567891
     nanos: 234000000
@@ -270,12 +271,47 @@ dynamic_secrets:
       certificate_chain:
         inline_string: "DUMMY_INLINE_BYTES_FOR_CERT_CHAIN"
 )EOF";
-
-  Logger::Registry::setLogLevel(spdlog::level::info);
   checkConfigDump(expected_secrets_config_dump);
 
   // Add a dynamic tls validatoin context provider.
-  time_system_.setSystemTime(std::chrono::milliseconds(1234567892222));
+  time_system_.setSystemTime(std::chrono::milliseconds(1234567899000));
+  auto context_secret_provider = secret_manager->findOrCreateCertificateValidationContextProvider(
+      config_source, "abc.com.validation", secret_context);
+  const std::string validation_yaml =
+      R"EOF(
+name: "abc.com.validation"
+validation_context:
+  trusted_ca:
+    inline_string: "DUMMY_INLINE_STRING_TRUSTED_CA" 
+)EOF";
+  TestUtility::loadFromYaml(TestEnvironment::substitute(validation_yaml), typed_secret);
+  secret_resources.Clear();
+  secret_resources.Add()->PackFrom(typed_secret);
+  dynamic_cast<CertificateValidationContextSdsApi&>(*context_secret_provider)
+    .onConfigUpdate(secret_resources, "validation-context-v1");
+  Ssl::CertificateValidationContextConfigImpl cert_validation_context(*context_secret_provider->secret(), *api_);
+  EXPECT_EQ("DUMMY_INLINE_STRING_TRUSTED_CA", cert_validation_context.caCert());
+const std::string updated_config_dump = R"EOF(
+dynamic_secrets:
+- version_info: "keycert-v1"
+  last_updated:
+    seconds: 1234567891
+    nanos: 234000000
+  secret:
+    name: "abc.com"
+    tls_certificate:
+      certificate_chain:
+        inline_string: "DUMMY_INLINE_BYTES_FOR_CERT_CHAIN"
+- version_info: "validation-context-v1"
+  last_updated:
+    seconds: 1234567899
+  secret:
+    name: "abc.com.validation"
+    validation_context:
+      trusted_ca:
+        inline_string: "DUMMY_INLINE_STRING_TRUSTED_CA" 
+)EOF";
+  checkConfigDump(updated_config_dump);
 }
 
 } // namespace

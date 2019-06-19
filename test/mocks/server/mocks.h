@@ -20,6 +20,7 @@
 #include "envoy/stats/scope.h"
 #include "envoy/thread/thread.h"
 
+#include "common/grpc/context_impl.h"
 #include "common/http/context_impl.h"
 #include "common/secret/secret_manager_impl.h"
 #include "common/stats/fake_symbol_table_impl.h"
@@ -405,7 +406,7 @@ public:
   testing::NiceMock<MockListenerManager> listener_manager_;
   testing::NiceMock<MockOverloadManager> overload_manager_;
   Singleton::ManagerPtr singleton_manager_;
-  Grpc::Common grpc_context_;
+  Grpc::ContextImpl grpc_context_;
   Http::ContextImpl http_context_;
 };
 
@@ -480,7 +481,7 @@ public:
   Stats::IsolatedStoreImpl listener_scope_;
   Event::GlobalTimeSystem time_system_;
   testing::NiceMock<MockOverloadManager> overload_manager_;
-  Grpc::Common grpc_context_;
+  Grpc::ContextImpl grpc_context_;
   Http::ContextImpl http_context_;
   testing::NiceMock<Api::MockApi> api_;
 };
@@ -508,7 +509,7 @@ public:
   MOCK_METHOD0(messageValidationVisitor, ProtobufMessage::ValidationVisitor&());
   MOCK_METHOD0(api, Api::Api&());
 
-  //std::unique_ptr<Secret::SecretManager> secret_manager_;
+  testing::NiceMock<Upstream::MockClusterManager> cluster_manager_;
   testing::NiceMock<Secret::MockSecretManager> secret_manager_;
   testing::NiceMock<Api::MockApi> api_;
 };

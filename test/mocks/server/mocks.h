@@ -491,7 +491,7 @@ public:
   MockTransportSocketFactoryContext();
   ~MockTransportSocketFactoryContext();
 
-  //Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
+  // Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
 
   MOCK_METHOD0(admin, Server::Admin&());
   MOCK_METHOD0(secretManager, Secret::SecretManager&());

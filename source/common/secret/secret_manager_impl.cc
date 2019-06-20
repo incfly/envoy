@@ -1,7 +1,7 @@
 #include "common/secret/secret_manager_impl.h"
 
-#include "envoy/common/exception.h"
 #include "envoy/admin/v2alpha/config_dump.pb.h"
+#include "envoy/common/exception.h"
 
 #include "common/common/assert.h"
 #include "common/common/logger.h"
@@ -13,10 +13,8 @@
 namespace Envoy {
 namespace Secret {
 
-SecretManagerImpl::SecretManagerImpl(Server::ConfigTracker& config_tracker) :
-  config_tracker_entry_(config_tracker.add("secrets", [this] {
-        return dumpSecretConfigs();
-        })) {
+SecretManagerImpl::SecretManagerImpl(Server::ConfigTracker& config_tracker)
+    : config_tracker_entry_(config_tracker.add("secrets", [this] { return dumpSecretConfigs(); })) {
 }
 void SecretManagerImpl::addStaticSecret(const envoy::api::v2::auth::Secret& secret) {
   switch (secret.type_case()) {
@@ -110,8 +108,8 @@ ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
       // ENVOY_LOG(info, "jianfeih debug the cert is empty");
       continue;
     }
-    //ENVOY_LOG(info, "jianfeih debug the cert is empty {} {} {}",
-        //secret_data.resource_name, last_updated_ts, secret_data.version_info_);
+    // ENVOY_LOG(info, "jianfeih debug the cert is empty {} {} {}",
+    // secret_data.resource_name, last_updated_ts, secret_data.version_info_);
     auto tls_certificate = secret->mutable_tls_certificate();
     tls_certificate->MergeFrom(*tls_cert);
     tls_certificate->clear_private_key();
@@ -138,7 +136,6 @@ ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   }
   return config_dump;
 }
-
 
 } // namespace Secret
 } // namespace Envoy

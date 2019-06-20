@@ -394,8 +394,7 @@ TEST_P(IntegrationAdminTest, Admin) {
       "type.googleapis.com/envoy.admin.v2alpha.ListenersConfigDump",
       "type.googleapis.com/envoy.admin.v2alpha.ScopedRoutesConfigDump",
       "type.googleapis.com/envoy.admin.v2alpha.RoutesConfigDump",
-      "type.googleapis.com/envoy.admin.v2alpha.SecretsConfigDump"
-  };
+      "type.googleapis.com/envoy.admin.v2alpha.SecretsConfigDump"};
 
   for (Json::ObjectSharedPtr obj_ptr : json->getObjectArray("configs")) {
     EXPECT_TRUE(expected_types[index].compare(obj_ptr->getString("@type")) == 0);
@@ -411,7 +410,7 @@ TEST_P(IntegrationAdminTest, Admin) {
   envoy::admin::v2alpha::RoutesConfigDump route_config_dump;
   config_dump.configs(4).UnpackTo(&route_config_dump);
   EXPECT_EQ("route_config_0", route_config_dump.static_route_configs(0).route_config().name());
-  
+
   // .. TODO, do we need to add parsing and data input for the sds?
 }
 

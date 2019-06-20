@@ -47,7 +47,8 @@ public:
   MOCK_METHOD1(updateResources, void(const std::set<std::string>& update_to_these_names));
 };
 
-class MockSubscriptionFactory : public SubscriptionFactory, public Logger::Loggable<Logger::Id::secret>  {
+class MockSubscriptionFactory : public SubscriptionFactory,
+                                public Logger::Loggable<Logger::Id::secret> {
 public:
   MockSubscriptionFactory();
   ~MockSubscriptionFactory() override;
@@ -61,7 +62,7 @@ public:
   MockSubscription* subscription_{};
 
   // map from the config hash to the callbacks.
-  //std::unordered_map<uint64_t, SubscriptionCallbacks*> callbacks_map_;
+  // std::unordered_map<uint64_t, SubscriptionCallbacks*> callbacks_map_;
   SubscriptionCallbacks* callbacks_{};
 };
 

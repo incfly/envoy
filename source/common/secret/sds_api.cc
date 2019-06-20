@@ -17,8 +17,9 @@ SdsApi::SdsApi(envoy::api::v2::core::ConfigSource sds_config, absl::string_view 
     : init_target_(fmt::format("SdsApi {}", sds_config_name), [this] { initialize(); }),
       stats_(stats), sds_config_(std::move(sds_config)), sds_config_name_(sds_config_name),
       secret_hash_(0), clean_up_(std::move(destructor_cb)), validation_visitor_(validation_visitor),
-      subscription_factory_(subscription_factory), time_source_(time_source),
-      secret_data_{sds_config_name_, "uninitialized", time_source_.systemTime()} {
+      subscription_factory_(subscription_factory),
+      time_source_(time_source), secret_data_{sds_config_name_, "uninitialized",
+                                              time_source_.systemTime()} {
   // TODO(JimmyCYJ): Implement chained_init_manager, so that multiple init_manager
   // can be chained together to behave as one init_manager. In that way, we let
   // two listeners which share same SdsApi to register at separate init managers, and
@@ -81,9 +82,7 @@ void SdsApi::initialize() {
   subscription_->start({sds_config_name_});
 }
 
-SdsApi::SecretData SdsApi::secretData() {
-  return secret_data_;
-}
+SdsApi::SecretData SdsApi::secretData() { return secret_data_; }
 
 } // namespace Secret
 } // namespace Envoy

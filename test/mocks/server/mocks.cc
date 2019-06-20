@@ -123,10 +123,10 @@ MockWorker::MockWorker() {
 }
 MockWorker::~MockWorker() = default;
 
-MockInstance::MockInstance() : 
-      cluster_manager_(timeSource()),
-      ssl_context_manager_(timeSource()), singleton_manager_(new Singleton::ManagerImpl(
-                                              Thread::threadFactoryForTest().currentThreadId())),
+MockInstance::MockInstance()
+    : cluster_manager_(timeSource()), ssl_context_manager_(timeSource()),
+      singleton_manager_(
+          new Singleton::ManagerImpl(Thread::threadFactoryForTest().currentThreadId())),
       grpc_context_(stats_store_.symbolTable()), http_context_(stats_store_.symbolTable()) {
   ON_CALL(*this, threadLocal()).WillByDefault(ReturnRef(thread_local_));
   ON_CALL(*this, stats()).WillByDefault(ReturnRef(stats_store_));

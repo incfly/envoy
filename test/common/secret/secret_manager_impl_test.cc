@@ -1,21 +1,20 @@
 #include <memory>
 
-
 #include "envoy/admin/v2alpha/config_dump.pb.h"
 #include "envoy/api/v2/auth/cert.pb.h"
 #include "envoy/common/exception.h"
 
+#include "common/common/logger.h"
 #include "common/secret/sds_api.h"
 #include "common/secret/secret_manager_impl.h"
 #include "common/ssl/certificate_validation_context_config_impl.h"
 #include "common/ssl/tls_certificate_config_impl.h"
 
-#include "test/mocks/server/mocks.h"
 #include "test/mocks/event/mocks.h"
+#include "test/mocks/server/mocks.h"
 #include "test/test_common/environment.h"
 #include "test/test_common/simulated_time_system.h"
 #include "test/test_common/utility.h"
-#include "common/common/logger.h"
 
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
@@ -43,8 +42,7 @@ protected:
     EXPECT_EQ(expected_secrets_config_dump.DebugString(), secrets_config_dump.DebugString());
   }
 
-  void setupSecretProviderContext() {
-  }
+  void setupSecretProviderContext() {}
 
   Api::ApiPtr api_;
   testing::NiceMock<Server::MockConfigTracker> config_tracker_;
@@ -263,8 +261,8 @@ tls_certificate:
   Protobuf::RepeatedPtrField<ProtobufWkt::Any> secret_resources;
   secret_resources.Add()->PackFrom(typed_secret);
   init_target_handle->initialize(init_watcher);
-  secret_context.cluster_manager_.subscription_factory_.callbacks_->onConfigUpdate(
-      secret_resources,  "keycert-v1");
+  secret_context.cluster_manager_.subscription_factory_.callbacks_->onConfigUpdate(secret_resources,
+                                                                                   "keycert-v1");
   Ssl::TlsCertificateConfigImpl tls_config(*secret_provider->secret(), *api_);
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_CERT_CHAIN", tls_config.certificateChain());
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_PRIVATE_KEY", tls_config.privateKey());
@@ -299,14 +297,15 @@ validation_context:
   secret_resources.Add()->PackFrom(typed_secret);
 
   // TODO: different config source is needed here...
-  // helper function in the test class for easier run the test. 
-  //uint64_t hash = MessageUtil::hash(config_source);
+  // helper function in the test class for easier run the test.
+  // uint64_t hash = MessageUtil::hash(config_source);
   init_target_handle->initialize(init_watcher);
   secret_context.cluster_manager_.subscription_factory_.callbacks_->onConfigUpdate(
-    secret_resources,  "validation-context-v1");
-  Ssl::CertificateValidationContextConfigImpl cert_validation_context(*context_secret_provider->secret(), *api_);
+      secret_resources, "validation-context-v1");
+  Ssl::CertificateValidationContextConfigImpl cert_validation_context(
+      *context_secret_provider->secret(), *api_);
   EXPECT_EQ("DUMMY_INLINE_STRING_TRUSTED_CA", cert_validation_context.caCert());
-const std::string updated_config_dump = R"EOF(
+  const std::string updated_config_dump = R"EOF(
 dynamic_secrets:
 - version_info: "keycert-v1"
   last_updated:

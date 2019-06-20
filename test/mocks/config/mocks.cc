@@ -11,12 +11,14 @@ namespace Config {
 
 MockSubscriptionFactory::MockSubscriptionFactory() {
   ON_CALL(*this, subscriptionFromConfigSource(_, _, _, _))
-      .WillByDefault(testing::Invoke([this](const envoy::api::v2::core::ConfigSource&,
+      .WillByDefault(testing::Invoke([this](const envoy::api::v2::core::ConfigSource& config,
                                             absl::string_view, Stats::Scope&,
                                             SubscriptionCallbacks& callbacks) -> SubscriptionPtr {
         auto ret = std::make_unique<testing::NiceMock<MockSubscription>>();
         subscription_ = ret.get();
         callbacks_ = &callbacks;
+        //uint64_t hash = MessageUtil::hash(config);
+        //callbacks_map_[hash] = &callbacks;
         return ret;
       }));
   ON_CALL(*this, messageValidationVisitor())

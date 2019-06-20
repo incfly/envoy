@@ -222,7 +222,7 @@ tls_certificate:
             tls_config.privateKey());
 }
 
-// TODO: maybe more test to see the last update time.
+// TODO(incfly): maybe more test to see the last update time.
 TEST_F(SecretManagerImplTest, ConfigDumpHandler) {
   Server::MockInstance server;
   auto secret_manager = std::make_unique<SecretManagerImpl>(config_tracker_);
@@ -247,23 +247,6 @@ TEST_F(SecretManagerImplTest, ConfigDumpHandler) {
   EXPECT_CALL(secret_context, dispatcher()).WillRepeatedly(ReturnRef(dispatcher));
   EXPECT_CALL(secret_context, localInfo()).WillRepeatedly(ReturnRef(local_info));
 
-  //NiceMock<Server::Configuration::MockTransportSocketFactoryContext> secret_context;
-  //envoy::api::v2::core::ConfigSource config_source;
-  //NiceMock<LocalInfo::MockLocalInfo> local_info;
-  //NiceMock<Event::MockDispatcher> dispatcher;
-  //NiceMock<Runtime::MockRandomGenerator> random;
-  //Stats::IsolatedStoreImpl stats;
-  //NiceMock<Upstream::MockClusterManager> cluster_manager;
-  //NiceMock<Init::MockManager> init_manager;
-  //EXPECT_CALL(secret_context, localInfo()).WillRepeatedly(ReturnRef(local_info));
-  //EXPECT_CALL(secret_context, dispatcher()).WillRepeatedly(ReturnRef(dispatcher));
-  //EXPECT_CALL(secret_context, random()).WillRepeatedly(ReturnRef(random));
-  //EXPECT_CALL(secret_context, stats()).WillRepeatedly(ReturnRef(stats));
-  //EXPECT_CALL(secret_context, clusterManager())
-    ////.Times(2)
-    //.WillRepeatedly(ReturnRef(cluster_manager));
-  //EXPECT_CALL(secret_context, initManager()).WillRepeatedly(Return(&init_manager));
-
   auto secret_provider =
       secret_manager->findOrCreateTlsCertificateProvider(config_source, "abc.com", secret_context);
   const std::string yaml =
@@ -282,13 +265,11 @@ tls_certificate:
   init_target_handle->initialize(init_watcher);
   secret_context.cluster_manager_.subscription_factory_.callbacks_->onConfigUpdate(
       secret_resources,  "keycert-v1");
-  ////dynamic_cast<TlsCertificateSdsApi&>(*secret_provider).onConfigUpdate(secret_resources, "keycert-v1");
   Ssl::TlsCertificateConfigImpl tls_config(*secret_provider->secret(), *api_);
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_CERT_CHAIN", tls_config.certificateChain());
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_PRIVATE_KEY", tls_config.privateKey());
-  ////Logger::Registry::setLogLevel(spdlog::level::info);
 
-  //// Private key is retained.
+  //// Private key is removed.
   const std::string expected_secrets_config_dump = R"EOF(
 dynamic_secrets:
   version_info: "keycert-v1"
@@ -316,6 +297,11 @@ validation_context:
   TestUtility::loadFromYaml(TestEnvironment::substitute(validation_yaml), typed_secret);
   secret_resources.Clear();
   secret_resources.Add()->PackFrom(typed_secret);
+
+  // TODO: different config source is needed here...
+  // helper function in the test class for easier run the test. 
+  //uint64_t hash = MessageUtil::hash(config_source);
+  init_target_handle->initialize(init_watcher);
   secret_context.cluster_manager_.subscription_factory_.callbacks_->onConfigUpdate(
     secret_resources,  "validation-context-v1");
   Ssl::CertificateValidationContextConfigImpl cert_validation_context(*context_secret_provider->secret(), *api_);

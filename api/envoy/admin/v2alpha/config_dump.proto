@@ -230,7 +230,7 @@ message SecretsConfigDump {
     // The name assigned to the secret.
     string name = 1;
 
-    // Per resource verison information.
+    // Per resource version information.
     string version_info = 2;
 
     // The timestamp when the Cluster was last updated.

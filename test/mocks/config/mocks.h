@@ -60,7 +60,7 @@ public:
 
   MockSubscription* subscription_{};
 
-  // map from teh config hash to the callbacks.
+  // map from the config hash to the callbacks.
   //std::unordered_map<uint64_t, SubscriptionCallbacks*> callbacks_map_;
   SubscriptionCallbacks* callbacks_{};
 };

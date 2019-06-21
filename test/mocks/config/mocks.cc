@@ -11,7 +11,7 @@ namespace Config {
 
 MockSubscriptionFactory::MockSubscriptionFactory() {
   ON_CALL(*this, subscriptionFromConfigSource(_, _, _, _))
-      .WillByDefault(testing::Invoke([this](const envoy::api::v2::core::ConfigSource& config,
+      .WillByDefault(testing::Invoke([this](const envoy::api::v2::core::ConfigSource&,
                                             absl::string_view, Stats::Scope&,
                                             SubscriptionCallbacks& callbacks) -> SubscriptionPtr {
         auto ret = std::make_unique<testing::NiceMock<MockSubscription>>();

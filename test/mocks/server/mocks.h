@@ -381,7 +381,6 @@ public:
 
   TimeSource& timeSource() override { return time_system_; }
 
-  // std::unique_ptr<Secret::SecretManager> secret_manager_;
   testing::NiceMock<Secret::MockSecretManager> secret_manager_;
   testing::NiceMock<ThreadLocal::MockInstance> thread_local_;
   NiceMock<Stats::MockIsolatedStatsStore> stats_store_;

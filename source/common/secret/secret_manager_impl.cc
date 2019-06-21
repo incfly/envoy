@@ -90,10 +90,10 @@ ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   auto config_dump = std::make_unique<envoy::admin::v2alpha::SecretsConfigDump>();
   auto secrets = certificate_providers_.allSecrets();
   for (const auto& cert_secrets : secrets) {
-    auto secret_data = cert_secrets->secretData();
-    auto tls_cert = cert_secrets->secret();
-    auto dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
-    auto secret = dynamic_secret->mutable_secret();
+    const auto& secret_data = cert_secrets->secretData();
+    const auto& tls_cert = cert_secrets->secret();
+    const auto& dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
+    const auto& secret = dynamic_secret->mutable_secret();
 
     ProtobufWkt::Timestamp last_updated_ts;
     TimestampUtil::systemClockToTimestamp(secret_data.last_updated_, last_updated_ts);

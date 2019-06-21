@@ -34,10 +34,7 @@ protected:
     auto message_ptr = config_tracker_.config_tracker_callbacks_["secrets"]();
     const auto& secrets_config_dump =
         dynamic_cast<const envoy::admin::v2alpha::SecretsConfigDump&>(*message_ptr);
-
     envoy::admin::v2alpha::SecretsConfigDump expected_secrets_config_dump;
-    ENVOY_LOG(info, "jianfeih debug expected {}", expected_dump_yaml);
-    ENVOY_LOG(info, "jianfeih debug got {}", secrets_config_dump.DebugString());
     TestUtility::loadFromYaml(expected_dump_yaml, expected_secrets_config_dump);
     EXPECT_EQ(expected_secrets_config_dump.DebugString(), secrets_config_dump.DebugString());
   }
@@ -220,7 +217,6 @@ tls_certificate:
             tls_config.privateKey());
 }
 
-// TODO(incfly): maybe more test to see the last update time.
 TEST_F(SecretManagerImplTest, ConfigDumpHandler) {
   Server::MockInstance server;
   auto secret_manager = std::make_unique<SecretManagerImpl>(config_tracker_);
@@ -267,7 +263,7 @@ tls_certificate:
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_CERT_CHAIN", tls_config.certificateChain());
   EXPECT_EQ("DUMMY_INLINE_BYTES_FOR_PRIVATE_KEY", tls_config.privateKey());
 
-  //// Private key is removed.
+  // Private key is removed.
   const std::string expected_secrets_config_dump = R"EOF(
 dynamic_secrets:
   version_info: "keycert-v1"
@@ -296,8 +292,8 @@ validation_context:
   secret_resources.Clear();
   secret_resources.Add()->PackFrom(typed_secret);
 
-  // TODO: different config source is needed here...
-  // helper function in the test class for easier run the test.
+  // TODO(incfly): different config source is needed here...
+  // add helper function in the test class for easier add the test.
   // uint64_t hash = MessageUtil::hash(config_source);
   init_target_handle->initialize(init_watcher);
   secret_context.cluster_manager_.subscription_factory_.callbacks_->onConfigUpdate(

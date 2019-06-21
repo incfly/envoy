@@ -88,7 +88,6 @@ SecretManagerImpl::findOrCreateCertificateValidationContextProvider(
 // not needed to be exposed, maybe?
 ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   auto config_dump = std::make_unique<envoy::admin::v2alpha::SecretsConfigDump>();
-  // config_dump->set_version_info("jianfeih-test-version");
   auto secrets = certificate_providers_.allSecrets();
   for (const auto& cert_secrets : secrets) {
     auto secret_data = cert_secrets->secretData();
@@ -101,15 +100,11 @@ ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
     dynamic_secret->set_version_info(secret_data.version_info_);
     *dynamic_secret->mutable_last_updated() = last_updated_ts;
     secret->set_name(secret_data.resource_name);
-    // ENVOY_LOG(info, "jianfeih debug the secret is {}", cert_secrets);
-    // TODO: handling this should be log the secret data but not the cert to signify
-    // stuck at sds updates level.
+    // TODO(incfly): handling this should be log the secret data but not the cert to signify
+    // stuck at sds updates level?
     if (!tls_cert) {
-      // ENVOY_LOG(info, "jianfeih debug the cert is empty");
       continue;
     }
-    // ENVOY_LOG(info, "jianfeih debug the cert is empty {} {} {}",
-    // secret_data.resource_name, last_updated_ts, secret_data.version_info_);
     auto tls_certificate = secret->mutable_tls_certificate();
     tls_certificate->MergeFrom(*tls_cert);
     tls_certificate->clear_private_key();

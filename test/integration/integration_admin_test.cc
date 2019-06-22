@@ -411,7 +411,7 @@ TEST_P(IntegrationAdminTest, Admin) {
   config_dump.configs(4).UnpackTo(&route_config_dump);
   EXPECT_EQ("route_config_0", route_config_dump.static_route_configs(0).route_config().name());
 
-  // .. TODO, do we need to add parsing and data input for the sds?
+  // TODO(incfly) do we need to add parsing and data input for the sds?
 }
 
 TEST_P(IntegrationAdminTest, AdminOnDestroyCallbacks) {

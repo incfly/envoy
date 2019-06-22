@@ -340,8 +340,6 @@ public:
   MockInstance();
   ~MockInstance();
 
-  // Secret::SecretManager& secretManager() override { return *(secret_manager_.get()); }
-
   MOCK_METHOD0(admin, Admin&());
   MOCK_METHOD0(api, Api::Api&());
   MOCK_METHOD0(clusterManager, Upstream::ClusterManager&());

@@ -88,8 +88,8 @@ SecretManagerImpl::findOrCreateCertificateValidationContextProvider(
 // not needed to be exposed, maybe?
 ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
   auto config_dump = std::make_unique<envoy::admin::v2alpha::SecretsConfigDump>();
-  auto secrets = certificate_providers_.allSecrets();
-  for (const auto& cert_secrets : secrets) {
+  auto providers = certificate_providers_.allSecretProviders();
+  for (const auto& cert_secrets : providers) {
     const auto& secret_data = cert_secrets->secretData();
     const auto& tls_cert = cert_secrets->secret();
     const auto& dynamic_secret = config_dump->mutable_dynamic_secrets()->Add();
@@ -100,8 +100,8 @@ ProtobufTypes::MessagePtr SecretManagerImpl::dumpSecretConfigs() {
     dynamic_secret->set_version_info(secret_data.version_info_);
     *dynamic_secret->mutable_last_updated() = last_updated_ts;
     secret->set_name(secret_data.resource_name);
-    // TODO(incfly): handling this should be log the secret data but not the cert to signify
-    // stuck at sds updates level?
+    // TODO(incfly): this means the config is registered but Envoy hasn't received a
+    // valid push from SDS server yet... should we still dump it somehow?
     if (!tls_cert) {
       continue;
     }

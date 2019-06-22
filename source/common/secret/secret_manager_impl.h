@@ -71,15 +71,15 @@ private:
       return secret_provider;
     }
 
-    std::vector<std::shared_ptr<SecretType>> allSecrets() {
-      std::vector<std::shared_ptr<SecretType>> secrets;
+    std::vector<std::shared_ptr<SecretType>> allSecretProviders() {
+      std::vector<std::shared_ptr<SecretType>> providers;
       for (const auto& secret_entry : dynamic_secret_providers_) {
         std::shared_ptr<SecretType> secret_provider = secret_entry.second.lock();
         if (secret_provider) {
-          secrets.push_back(std::move(secret_provider));
+          providers.push_back(std::move(secret_provider));
         }
       }
-      return secrets;
+      return providers;
     }
 
   private:

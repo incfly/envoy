@@ -396,7 +396,7 @@ TEST_P(IntegrationAdminTest, Admin) {
       "type.googleapis.com/envoy.admin.v2alpha.RoutesConfigDump",
       "type.googleapis.com/envoy.admin.v2alpha.SecretsConfigDump"};
 
-  for (Json::ObjectSharedPtr obj_ptr : json->getObjectArray("configs")) {
+  for (const Json::ObjectSharedPtr& obj_ptr : json->getObjectArray("configs")) {
     EXPECT_TRUE(expected_types[index].compare(obj_ptr->getString("@type")) == 0);
     index++;
   }

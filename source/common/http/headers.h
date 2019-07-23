@@ -265,6 +265,8 @@ public:
     const std::string Http10String{"HTTP/1.0"};
     const std::string Http11String{"HTTP/1.1"};
     const std::string Http2String{"HTTP/2"};
+    // TODO(incfly): does all these string conform IETF spec or just internal impl?
+    const std::string HttpxString{"HTTP/x"};
   } ProtocolStrings;
 
   struct {

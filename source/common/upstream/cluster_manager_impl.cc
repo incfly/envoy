@@ -1247,6 +1247,11 @@ Http::ConnectionPool::InstancePtr ProdClusterManagerFactory::allocateConnPool(
       runtime_.snapshot().featureEnabled("upstream.use_http2", 100)) {
     return Http::ConnectionPool::InstancePtr{
         new Http::Http2::ProdConnPoolImpl(dispatcher, host, priority, options)};
+  } else if (protocol == Http::Protocol::Httpx) { 
+    // TODO(incfly): requires checking features to guard flow?
+    return Http::ConnectionPool::InstancePtr{
+      new Http::Httpx::ConnectionPoolImpl(dispatcher, host, priority, options);
+    };
   } else {
     return Http::ConnectionPool::InstancePtr{
         new Http::Http1::ProdConnPoolImpl(dispatcher, host, priority, options)};

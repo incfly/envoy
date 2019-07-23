@@ -1251,6 +1251,9 @@ TEST_F(ClusterManagerImplTest, ShutdownWithWarming) {
   EXPECT_TRUE(Mock::VerifyAndClearExpectations(cluster1.get()));
 }
 
+TEST_F(ClusterManagerImplTest, HttpxConnPool) {
+}
+
 TEST_F(ClusterManagerImplTest, DynamicAddRemove) {
   create(defaultConfig());
 

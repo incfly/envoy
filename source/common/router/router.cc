@@ -538,6 +538,7 @@ Http::ConnectionPool::Instance* Filter::getConnPool() {
     protocol = (features & Upstream::ClusterInfo::Features::HTTP2) ? Http::Protocol::Http2
                                                                    : Http::Protocol::Http11;
   }
+  // TODO(incfly): get rid of the hard code.
   return config_.cm_.httpConnPoolForCluster(route_entry_->clusterName(), route_entry_->priority(),
                                             protocol, this);
 }

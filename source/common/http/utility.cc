@@ -373,8 +373,6 @@ const std::string& Utility::getProtocolString(const Protocol protocol) {
     return Headers::get().ProtocolStrings.Http11String;
   case Protocol::Http2:
     return Headers::get().ProtocolStrings.Http2String;
-  case Protocol::Httpx:
-    return Headers::get().ProtocolStrings.HttpxString;
   }
 
   NOT_REACHED_GCOVR_EXCL_LINE;

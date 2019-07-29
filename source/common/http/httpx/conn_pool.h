@@ -24,6 +24,22 @@ namespace Httpx {
 
 /**
  * A connection pool implementation for HTTP1 and HTTP2 auto upgrade.
+ * Overview
+ * When the cluster configuration is default or not specified HTTP2 explicitly,
+ * and some flag-guarded configuration enables this httpx feature, the request
+ * will be bounded to this pool.
+ *
+ * The auto upgrade happens within two place,
+ * - When ActiveClient request createCodeClient, with additional data, TLS ALPN
+ *   informatin can help determine what CodecClient will be used.
+ * - Data plane H2C negotiation will be used. TODO: someone can help.
+ *
+ * TODO(incfly) Work Item
+ * - Finish E2E TLS + H2 config for setup example.
+ * - Basic HTTP1 request handled, all use cases. (just copy paste should be good).
+ * - Log out the data.nextProtocol == h2 case, printf verify works.
+ * - Copy Http2 Client handling stuff.
+ * - Flag guard? runtime feature?
  */
 class ConnPoolImpl : public ConnectionPool::Instance, public ConnPoolImplBase {
 public:

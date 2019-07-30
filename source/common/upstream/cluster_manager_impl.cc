@@ -24,6 +24,7 @@
 #include "common/http/async_client_impl.h"
 #include "common/http/http1/conn_pool.h"
 #include "common/http/http2/conn_pool.h"
+#include "common/http/httpx/conn_pool.h"
 #include "common/json/config_schemas.h"
 #include "common/network/resolver_impl.h"
 #include "common/network/utility.h"
@@ -1248,10 +1249,14 @@ Http::ConnectionPool::InstancePtr ProdClusterManagerFactory::allocateConnPool(
         new Http::Http2::ProdConnPoolImpl(dispatcher, host, priority, options)};
   }
   // TODO(incfly): modify here.
-  else {
+   else {
     return Http::ConnectionPool::InstancePtr{
-        new Http::Http1::ProdConnPoolImpl(dispatcher, host, priority, options)};
+        new Http::Httpx::ProdConnPoolImpl(dispatcher, host, priority, options)};
   }
+  //else {
+    //return Http::ConnectionPool::InstancePtr{
+        //new Http::Http1::ProdConnPoolImpl(dispatcher, host, priority, options)};
+  //}
 }
 
 Tcp::ConnectionPool::InstancePtr ProdClusterManagerFactory::allocateTcpConnPool(

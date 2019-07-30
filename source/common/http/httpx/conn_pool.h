@@ -35,7 +35,7 @@ namespace Httpx {
  * - Data plane H2C negotiation will be used. TODO: someone can help.
  *
  * TODO(incfly) Work Item
- * - Finish E2E TLS + H2 config for setup example.
+ * - [Done] Finish E2E TLS + H2 config for setup example.
  * - Basic HTTP1 request handled, all use cases. (just copy paste should be good).
  * - Log out the data.nextProtocol == h2 case, printf verify works.
  * - Copy Http2 Client handling stuff.
@@ -142,16 +142,16 @@ protected:
 /**
  * Production implementation of the ConnPoolImpl.
  */
-//class ProdConnPoolImpl : public ConnPoolImpl {
-//public:
-  //ProdConnPoolImpl(Event::Dispatcher& dispatcher, Upstream::HostConstSharedPtr host,
-                   //Upstream::ResourcePriority priority,
-                   //const Network::ConnectionSocket::OptionsSharedPtr& options)
-      //: ConnPoolImpl(dispatcher, host, priority, options) {}
+class ProdConnPoolImpl : public ConnPoolImpl {
+public:
+  ProdConnPoolImpl(Event::Dispatcher& dispatcher, Upstream::HostConstSharedPtr host,
+                   Upstream::ResourcePriority priority,
+                   const Network::ConnectionSocket::OptionsSharedPtr& options)
+      : ConnPoolImpl(dispatcher, host, priority, options) {}
 
-  //// ConnPoolImpl
-  //CodecClientPtr createCodecClient(Upstream::Host::CreateConnectionData& data) override;
-//};
+  // ConnPoolImpl
+  CodecClientPtr createCodecClient(Upstream::Host::CreateConnectionData& data) override;
+};
 
 } // namespace Httpx
 } // namespace Http

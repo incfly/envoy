@@ -341,16 +341,13 @@ void ConnPoolImpl::ActiveClient::onConnectTimeout() {
   codec_client_->close();
 }
 
-//CodecClientPtr ProdConnPoolImpl::createCodecClient(Upstream::Host::CreateConnectionData& data) {
-
-  //const bool strict_header_validation =
-      //Runtime::runtimeFeatureEnabled("envoy.reloadable_features.strict_header_validation");
-
-  //CodecClientPtr codec{new CodecClientProd(CodecClient::Type::HTTP1, std::move(data.connection_),
-                                           //data.host_description_, dispatcher_,
-                                           //strict_header_validation)};
-  //return codec;
-//}
+CodecClientPtr ProdConnPoolImpl::createCodecClient(Upstream::Host::CreateConnectionData& data) {
+  ENVOY_LOG(info, "incfly debugging creating a new connection with httpx pool");
+    // TODO(incfly): very next step here.... creating different codec client.
+  CodecClientPtr codec{new CodecClientProd(CodecClient::Type::HTTP1, std::move(data.connection_),
+                                           data.host_description_, dispatcher_)};
+  return codec;
+}
 
 } // namespace Http1
 } // namespace Http

@@ -113,6 +113,7 @@ protected:
     Upstream::HostDescriptionConstSharedPtr real_host_description_;
     StreamWrapperPtr stream_wrapper_;
     Event::TimerPtr connect_timer_;
+    Event::TimerPtr alpn_debug_timer_;
     Stats::TimespanPtr conn_length_;
     uint64_t remaining_requests_;
   };

@@ -355,10 +355,12 @@ int ServerContextImpl::alpnSelectCallback(const unsigned char** out, unsigned ch
   const uint8_t* alpn_data = &parsed_alpn_protocols_[0];
   size_t alpn_data_size = parsed_alpn_protocols_.size();
 
+  ENVOY_LOG_MISC(info, "jianfeih debug, server alpnselect callback, alpn {}", parsed_alpn_protocols_[0]);
   if (SSL_select_next_proto(const_cast<unsigned char**>(out), outlen, alpn_data, alpn_data_size, in,
                             inlen) != OPENSSL_NPN_NEGOTIATED) {
     return SSL_TLSEXT_ERR_NOACK;
   } else {
+    ENVOY_LOG_MISC(info, "jianfeih debug, server alpnselect callback, alpn {}, return code OK", parsed_alpn_protocols_[0]);
     return SSL_TLSEXT_ERR_OK;
   }
 }
@@ -677,6 +679,8 @@ ClientContextImpl::ClientContextImpl(Stats::Scope& scope,
     for (auto& ctx : tls_contexts_) {
       int rc = SSL_CTX_set_alpn_protos(ctx.ssl_ctx_.get(), &parsed_alpn_protocols_[0],
                                        parsed_alpn_protocols_.size());
+      ENVOY_LOG_MISC(info, "jianfeih debug  the client constructor return code {}, alpn value is {}, ssl_ctx_ {}",
+          rc, parsed_alpn_protocols_[0], ctx.ssl_ctx_.get());
       RELEASE_ASSERT(rc == 0, "");
     }
   }

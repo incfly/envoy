@@ -298,6 +298,8 @@ void ConnPoolImpl::StreamWrapper::onDecodeComplete() {
 ConnPoolImpl::ActiveClient::ActiveClient(ConnPoolImpl& parent)
     : parent_(parent),
       connect_timer_(parent_.dispatcher_.createTimer([this]() -> void { onConnectTimeout(); })),
+      //alpn_debug_timer_(parent_.dispatcher_.createTimer([this])() -> void {
+          //}),
       remaining_requests_(parent_.host_->cluster().maxRequestsPerConnection()) {
 
   parent_.conn_connect_ms_ = std::make_unique<Stats::Timespan>(
@@ -307,6 +309,10 @@ ConnPoolImpl::ActiveClient::ActiveClient(ConnPoolImpl& parent)
   real_host_description_ = data.host_description_;
   codec_client_ = parent_.createCodecClient(data);
   codec_client_->addConnectionCallbacks(*this);
+  alpn_debug_timer_ = parent_.dispatcher_.createTimer([this]() -> void {
+     ENVOY_LOG(info, "jianfeih debug timer conn data ", codec_client_->connection_->nextProtocol());
+     });
+  alpn_debug_timer_->enableTimer(std::chrono::milliseconds(5000));
 
   parent_.host_->cluster().stats().upstream_cx_total_.inc();
   parent_.host_->cluster().stats().upstream_cx_active_.inc();
@@ -343,7 +349,8 @@ void ConnPoolImpl::ActiveClient::onConnectTimeout() {
 
 CodecClientPtr ProdConnPoolImpl::createCodecClient(Upstream::Host::CreateConnectionData& data) {
   ENVOY_LOG(info, "incfly debugging creating a new connection with httpx pool");
-    // TODO(incfly): very next step here.... creating different codec client.
+  // TODO(incfly): very next step here.... creating different codec client.
+  ENVOY_LOG(info, "incfly conn data ", data.connection_->nextProtocol());
   CodecClientPtr codec{new CodecClientProd(CodecClient::Type::HTTP1, std::move(data.connection_),
                                            data.host_description_, dispatcher_)};
   return codec;

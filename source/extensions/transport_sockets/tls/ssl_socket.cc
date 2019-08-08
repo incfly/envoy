@@ -393,6 +393,7 @@ std::string SslSocket::protocol() const {
   const unsigned char* proto;
   unsigned int proto_len;
   SSL_get0_alpn_selected(ssl_.get(), &proto, &proto_len);
+  ENVOY_LOG(info, "jianfeih debug consulting the alpn in sslsocket.");
   return std::string(reinterpret_cast<const char*>(proto), proto_len);
 }
 
@@ -494,6 +495,7 @@ ClientSslSocketFactory::ClientSslSocketFactory(Envoy::Ssl::ClientContextConfigPt
       config_(std::move(config)),
       ssl_ctx_(manager_.createSslClientContext(stats_scope_, *config_)) {
   config_->setSecretUpdateCallback([this]() { onAddOrUpdateSecret(); });
+  ENVOY_LOG(info, "jianfeih debug Client Context field in constructor ssl_ctx_ {}", ssl_ctx_);
 }
 
 Network::TransportSocketPtr ClientSslSocketFactory::createTransportSocket(
@@ -505,12 +507,13 @@ Network::TransportSocketPtr ClientSslSocketFactory::createTransportSocket(
   {
     absl::ReaderMutexLock l(&ssl_ctx_mu_);
     ssl_ctx = ssl_ctx_;
+    ENVOY_LOG(info, "jianfeih debug the used for creatint socket ssl_ctx_ {} ", ssl_ctx_);
   }
   if (ssl_ctx) {
     return std::make_unique<SslSocket>(std::move(ssl_ctx), InitialState::Client,
                                        transport_socket_options);
   } else {
-    ENVOY_LOG(debug, "Create NotReadySslSocket");
+    ENVOY_LOG(info, "jianfeih debug Create NotReadySslSocket");
     stats_.upstream_context_secrets_not_ready_.inc();
     return std::make_unique<NotReadySslSocket>();
   }
@@ -523,6 +526,7 @@ void ClientSslSocketFactory::onAddOrUpdateSecret() {
   {
     absl::WriterMutexLock l(&ssl_ctx_mu_);
     ssl_ctx_ = manager_.createSslClientContext(stats_scope_, *config_);
+    ENVOY_LOG(info, "jianfeih debug onAddOrUpdateSecret ssl_ctx_ pointer {}", ssl_ctx_);
   }
   stats_.ssl_context_update_by_sds_.inc();
 }

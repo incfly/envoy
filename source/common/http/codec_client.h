@@ -153,8 +153,10 @@ protected:
   }
 
   const Type type_;
-  ClientConnectionPtr codec_;
+public:
   Network::ClientConnectionPtr connection_;
+protected:
+  ClientConnectionPtr codec_;
   Upstream::HostDescriptionConstSharedPtr host_;
   Event::TimerPtr idle_timer_;
   const absl::optional<std::chrono::milliseconds> idle_timeout_;

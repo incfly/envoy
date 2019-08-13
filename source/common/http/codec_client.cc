@@ -43,13 +43,14 @@ void CodecClient::close() { connection_->close(Network::ConnectionCloseType::NoF
 void CodecClient::upgrade() {
   type_ = Type::HTTP2;
   // TODO(incfly): what precheck needed?
-  // Reset fails because the unique_ptr will be reset, need a temporary transfer...
-  // TODO(incfly): here! still trigger a deconstructor? why?
-  // Seems because the assumption is the connection and codec_ both make assumptions of their ownership.
-  // which is wrong...
-  Network::ClientConnectionPtr connection = std::move(connection_);
+  // Server trace loc indicates http1 is used, client is using http2 but failed to pass the string.
+  // TODO: Corner case, the exception handling is not correct and segfault, which is wrong, separate
+  // issue must handle though.
+  // [Solved]
+  // codec_ connection_impl.cc destrcutor close the connection. Lifecycle of the connection is tied
+  // with codec client so okay before...
   codec_ = std::make_unique<Http2::ClientConnectionImpl>(
-        *connection, *this, host_->cluster().statsScope(), host_->cluster().http2Settings(),
+        *connection_, *this, host_->cluster().statsScope(), host_->cluster().http2Settings(),
         Http::DEFAULT_MAX_REQUEST_HEADERS_KB);
 }
 

@@ -1,0 +1,76 @@
+---
+node:
+  id: 'abc'
+  cluster: 'def'
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9001
+static_resources:
+  listeners:
+  - address:
+      socket_address:
+        address: 0.0.0.0
+        port_value: 9000
+    filter_chains:
+    - filter_chain_match:
+        application_protocols:
+        - "h2"
+      tls_context:
+        common_tls_context:
+          alpn_protocols:
+          - h2
+          tls_certificates:
+            - certificate_chain: { filename: "./test/config/integration/certs/servercert.pem" }
+              private_key: { filename: "./test/config/integration/certs/serverkey.pem" }
+      filters:
+      - config:
+          codec_type: auto
+          http_filters:
+          - config: {}
+            name: envoy.router
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - domains:
+              - "*"
+              name: service
+              routes:
+              - match:
+                  prefix: "/"
+                direct_response:
+                  status: 200
+                  body:
+                    inline_string: "hello world, from httpx-server-envoy-with-http1.1 alpn match."
+          stat_prefix: httpxtest
+        name: envoy.http_connection_manager
+    - filter_chain_match:
+        # empty
+      tls_context:
+        common_tls_context:
+          tls_certificates:
+            - certificate_chain: { filename: "./test/config/integration/certs/servercert.pem" }
+              private_key: { filename: "./test/config/integration/certs/serverkey.pem" }
+      filters:
+      - config:
+          codec_type: auto
+          http_filters:
+          - config: {}
+            name: envoy.router
+          route_config:
+            name: local_route
+            virtual_hosts:
+            - domains:
+              - "*"
+              name: service
+              routes:
+              - match:
+                  prefix: "/"
+                direct_response:
+                  status: 200
+                  body:
+                    inline_string: "hello world, from httpx-server-envoy."
+          stat_prefix: httpxtest
+        name: envoy.http_connection_manager

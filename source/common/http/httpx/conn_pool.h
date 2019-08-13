@@ -32,14 +32,15 @@ namespace Httpx {
  * The auto upgrade happens within two place,
  * - When ActiveClient request createCodeClient, with additional data, TLS ALPN
  *   informatin can help determine what CodecClient will be used.
- * - Data plane H2C negotiation will be used. TODO: someone can help.
+ * - Data plane H2C negotiation will be used. TODO(incfly): log an issue for this.
  *
  * TODO(incfly) Work Item
  * - [Done] Finish E2E TLS + H2 config for setup example.
- * - Basic HTTP1 request handled, all use cases. (just copy paste should be good).
- * - Log out the data.nextProtocol == h2 case, printf verify works.
+ * - [Done] HTTP1 request routed to httpx conn pool.
+ * - [Done] log out the ALPN in a timer callback, shows http/1.1.
+ *   [TODO] refator to create codec client in onConnectionEvent callback.
  * - Copy Http2 Client handling stuff.
- * - Flag guard? runtime feature?
+ * - Handling API change for this feauture in cluster.proto.
  */
 class ConnPoolImpl : public ConnectionPool::Instance, public ConnPoolImplBase {
 public:

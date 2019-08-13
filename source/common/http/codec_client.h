@@ -69,6 +69,11 @@ public:
   void close();
 
   /**
+   * Upgrade the codec from HTTP1 to HTTP2.
+   */
+  void upgrade();
+
+  /**
    * Send a codec level go away indication to the peer.
    */
   void goAway() { codec_->goAway(); }
@@ -82,6 +87,11 @@ public:
    * @return the underlying codec protocol.
    */
   Protocol protocol() { return codec_->protocol(); }
+
+
+  std::string ALPNProtocol() {
+    return connection_->nextProtocol();
+  }
 
   /**
    * @return the underlying connection error.
@@ -152,7 +162,8 @@ protected:
     }
   }
 
-  const Type type_;
+  // const Type type_;
+  Type type_;
 public:
   Network::ClientConnectionPtr connection_;
 protected:

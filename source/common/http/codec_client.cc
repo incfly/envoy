@@ -40,6 +40,19 @@ CodecClient::~CodecClient() = default;
 
 void CodecClient::close() { connection_->close(Network::ConnectionCloseType::NoFlush); }
 
+void CodecClient::upgrade() {
+  type_ = Type::HTTP2;
+  // TODO(incfly): what precheck needed?
+  // Reset fails because the unique_ptr will be reset, need a temporary transfer...
+  // TODO(incfly): here! still trigger a deconstructor? why?
+  // Seems because the assumption is the connection and codec_ both make assumptions of their ownership.
+  // which is wrong...
+  Network::ClientConnectionPtr connection = std::move(connection_);
+  codec_ = std::make_unique<Http2::ClientConnectionImpl>(
+        *connection, *this, host_->cluster().statsScope(), host_->cluster().http2Settings(),
+        Http::DEFAULT_MAX_REQUEST_HEADERS_KB);
+}
+
 void CodecClient::deleteRequest(ActiveRequest& request) {
   connection_->dispatcher().deferredDelete(request.removeFromList(active_requests_));
   if (codec_client_callbacks_) {

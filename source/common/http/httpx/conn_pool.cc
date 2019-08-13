@@ -187,6 +187,8 @@ void ConnPoolImpl::onConnectionEvent(ActiveClient& client, Network::ConnectionEv
   if (event == Network::ConnectionEvent::Connected) {
     conn_connect_ms_->complete();
     processIdleClient(client, false);
+    ENVOY_LOG(info, "incfly debug print out the connection alpn {}", client.codec_client_->ALPNProtocol());
+    client.codec_client_->upgrade();
   }
 }
 
@@ -309,10 +311,10 @@ ConnPoolImpl::ActiveClient::ActiveClient(ConnPoolImpl& parent)
   real_host_description_ = data.host_description_;
   codec_client_ = parent_.createCodecClient(data);
   codec_client_->addConnectionCallbacks(*this);
-  alpn_debug_timer_ = parent_.dispatcher_.createTimer([this]() -> void {
-     ENVOY_LOG(info, "jianfeih debug timer conn data {} ", codec_client_->connection_->nextProtocol());
-     });
-  alpn_debug_timer_->enableTimer(std::chrono::milliseconds(5000));
+  //alpn_debug_timer_ = parent_.dispatcher_.createTimer([this]() -> void {
+     //ENVOY_LOG(info, "jianfeih debug timer conn data {} ", codec_client_->connection_->nextProtocol());
+     //});
+  //alpn_debug_timer_->enableTimer(std::chrono::milliseconds(5000));
 
   parent_.host_->cluster().stats().upstream_cx_total_.inc();
   parent_.host_->cluster().stats().upstream_cx_active_.inc();
@@ -350,9 +352,6 @@ void ConnPoolImpl::ActiveClient::onConnectTimeout() {
 CodecClientPtr ProdConnPoolImpl::createCodecClient(Upstream::Host::CreateConnectionData& data) {
   CodecClientPtr codec{new CodecClientProd(CodecClient::Type::HTTP1, std::move(data.connection_),
                                            data.host_description_, dispatcher_)};
-  //ENVOY_LOG(info, "incfly debugging creating a new connection with httpx pool");
-  //// TODO(incfly): very next step here.... creating different codec client.
-  //ENVOY_LOG(info, "incfly conn data ", data.connection_->nextProtocol());
   return codec;
 }
 

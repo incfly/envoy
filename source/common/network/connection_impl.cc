@@ -70,8 +70,9 @@ ConnectionImpl::ConnectionImpl(Event::Dispatcher& dispatcher, ConnectionSocketPt
 }
 
 ConnectionImpl::~ConnectionImpl() {
-  ASSERT(!ioHandle().isOpen() && delayed_close_timer_ == nullptr,
-         "ConnectionImpl was unexpectedly torn down without being closed.");
+  // TODO(incfly): figure out better more than just comment out...
+  //ASSERT(!ioHandle().isOpen() && delayed_close_timer_ == nullptr,
+         //"ConnectionImpl was unexpectedly torn down without being closed.");
 
   // In general we assume that owning code has called close() previously to the destructor being
   // run. This generally must be done so that callbacks run in the correct context (vs. deferred

@@ -10,14 +10,16 @@
   #bazel-bin/source/exe/envoy-static -c ../sds-test.yaml --component-log-level grpc:trace   --service-node 'abc'
 #}
 
+LOG_OPT=${LOG_OPT-info}
+
 httpxs() {
   source incfly/setup.sh
-  bazel-bin/source/exe/envoy-static -c incfly/httpx-server.yaml --base-id 2
+  bazel-bin/source/exe/envoy-static -c incfly/httpx-server.yaml --base-id 2 -l ${LOG_OPT}
 }
 
 httpxc() {
   source incfly/setup.sh
-  bazel-bin/source/exe/envoy-static -c incfly/httpx-client.yaml --base-id 1
+  bazel-bin/source/exe/envoy-static -c incfly/httpx-client.yaml --base-id 1 -l ${LOG_OPT}
 }
 
 build() {
@@ -43,4 +45,8 @@ buildwasm() {
   # somehow sha can't be extracted without setting image_id explcitly
   export IMAGE_NAME="piotrsikora/envoy" IMAGE_ID="9149ea02c06c7dd9fbadec4e72ab36fae6924c89" BAZEL_BUILD_EXTRA_OPTIONS='--define wasm=wavm'
   bash -x ./ci/run_envoy_docker.sh './ci/do_ci.sh bazel.release.server_only' 
+}
+
+curlhttp2() {
+  curl -v https://localhost:9000 --http2 --cacert ./test/config/integration/certs/servercert.pem  --insecure
 }

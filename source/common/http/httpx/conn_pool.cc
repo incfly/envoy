@@ -186,9 +186,9 @@ void ConnPoolImpl::onConnectionEvent(ActiveClient& client, Network::ConnectionEv
   // whether the client is in the ready list (connected) or the busy list (failed to connect).
   if (event == Network::ConnectionEvent::Connected) {
     conn_connect_ms_->complete();
-    processIdleClient(client, false);
-    ENVOY_LOG(info, "incfly debug print out the connection alpn {}", client.codec_client_->ALPNProtocol());
+    ENVOY_LOG(info, "incfly debug connection alpn {}", client.codec_client_->ALPNProtocol());
     client.codec_client_->upgrade();
+    processIdleClient(client, false);
   }
 }
 

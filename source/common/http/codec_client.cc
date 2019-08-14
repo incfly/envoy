@@ -41,8 +41,12 @@ CodecClient::~CodecClient() = default;
 void CodecClient::close() { connection_->close(Network::ConnectionCloseType::NoFlush); }
 
 void CodecClient::upgrade() {
+  ENVOY_CONN_LOG(info, "incfly debug about to ugprade.", *connection_);
+  if (type_ == Type::HTTP2) {
+    return;
+  }
   type_ = Type::HTTP2;
-  // TODO(incfly): what precheck needed?
+  // TODO(incfly)
   // Server trace loc indicates http1 is used, client is using http2 but failed to pass the string.
   // TODO: Corner case, the exception handling is not correct and segfault, which is wrong, separate
   // issue must handle though.
@@ -52,6 +56,7 @@ void CodecClient::upgrade() {
   codec_ = std::make_unique<Http2::ClientConnectionImpl>(
         *connection_, *this, host_->cluster().statsScope(), host_->cluster().http2Settings(),
         Http::DEFAULT_MAX_REQUEST_HEADERS_KB);
+  ENVOY_CONN_LOG(info, "incfly debug ugprade finish.", *connection_);
 }
 
 void CodecClient::deleteRequest(ActiveRequest& request) {

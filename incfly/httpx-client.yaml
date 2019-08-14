@@ -41,6 +41,7 @@ static_resources:
         name: envoy.http_connection_manager
   clusters:
   - connect_timeout: 0.25s
+    # http2_protocol_options: {}
     tls_context:
       common_tls_context:
         alpn_protocols:

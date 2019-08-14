@@ -1,0 +1,194 @@
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:240] initializing epoch 0 (hot restart version=11.104)
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:242] statically linked extensions:
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:244]   access_loggers: envoy.file_access_log,envoy.http_grpc_access_log
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:247]   filters.http: envoy.buffer,envoy.cors,envoy.csrf,envoy.ext_authz,envoy.fault,envoy.filters.http.dynamic_forward_proxy,envoy.filters.http.grpc_http1_reverse_bridge,envoy.filters.http.header_to_metadata,envoy.filters.http.jwt_authn,envoy.filters.http.original_src,envoy.filters.http.rbac,envoy.filters.http.tap,envoy.grpc_http1_bridge,envoy.grpc_json_transcoder,envoy.grpc_web,envoy.gzip,envoy.health_check,envoy.http_dynamo_filter,envoy.ip_tagging,envoy.lua,envoy.rate_limit,envoy.router,envoy.squash
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:250]   filters.listener: envoy.listener.http_inspector,envoy.listener.original_dst,envoy.listener.original_src,envoy.listener.proxy_protocol,envoy.listener.tls_inspector
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:253]   filters.network: envoy.client_ssl_auth,envoy.echo,envoy.ext_authz,envoy.filters.network.dubbo_proxy,envoy.filters.network.mysql_proxy,envoy.filters.network.rbac,envoy.filters.network.sni_cluster,envoy.filters.network.thrift_proxy,envoy.filters.network.zookeeper_proxy,envoy.http_connection_manager,envoy.mongo_proxy,envoy.ratelimit,envoy.redis_proxy,envoy.tcp_proxy
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:255]   stat_sinks: envoy.dog_statsd,envoy.metrics_service,envoy.stat_sinks.hystrix,envoy.statsd
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:257]   tracers: envoy.dynamic.ot,envoy.lightstep,envoy.tracers.datadog,envoy.tracers.opencensus,envoy.zipkin
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:260]   transport_sockets.downstream: envoy.transport_sockets.alts,envoy.transport_sockets.tap,raw_buffer,tls
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:263]   transport_sockets.upstream: envoy.transport_sockets.alts,envoy.transport_sockets.tap,raw_buffer,tls
+[2019-08-14 00:26:06.712][10012][info][main] [source/server/server.cc:269] buffer implementation: old (libevent)
+[2019-08-14 00:26:06.729][10012][info][main] [source/server/server.cc:324] admin address: 0.0.0.0:9001
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.shrink_heap.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.732][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.747][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.748][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.763][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.764][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.764][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.764][10012][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:06.764][10012][info][main] [source/server/server.cc:438] runtime: layers:
+  - name: base
+    static_layer:
+      {}
+  - name: admin
+    admin_layer:
+      {}
+[2019-08-14 00:26:06.765][10012][warning][runtime] [source/common/runtime/runtime_impl.cc:486] Skipping unsupported runtime layer: name: "base"
+static_layer {
+}
+
+[2019-08-14 00:26:06.765][10012][info][config] [source/server/configuration_impl.cc:62] loading 0 static secret(s)
+[2019-08-14 00:26:06.765][10012][info][config] [source/server/configuration_impl.cc:68] loading 0 cluster(s)
+[2019-08-14 00:26:06.765][10017][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.765][10012][info][upstream] [source/common/upstream/cluster_manager_impl.cc:148] cm init: all clusters initialized
+[2019-08-14 00:26:06.766][10012][info][config] [source/server/configuration_impl.cc:72] loading 1 listener(s)
+[2019-08-14 00:26:06.766][10012][debug][config] [source/server/configuration_impl.cc:74] listener #0:
+[2019-08-14 00:26:06.766][10012][debug][config] [source/server/listener_manager_impl.cc:494] begin add/update listener: name=f413af49-decd-4c1c-ba16-9c11ac1da1ed hash=9341352588172287482
+[2019-08-14 00:26:06.772][10012][debug][config] [source/server/listener_manager_impl.cc:57]   filter #0:
+[2019-08-14 00:26:06.772][10012][debug][config] [source/server/listener_manager_impl.cc:58]     name: envoy.http_connection_manager
+[2019-08-14 00:26:06.772][10012][debug][config] [source/server/listener_manager_impl.cc:61]   config: {"route_config":{"virtual_hosts":[{"domains":["*"],"routes":[{"direct_response":{"status":200,"body":{"inline_string":"hello world, from httpx-server-envoy-with-http1.1 alpn match."}},"match":{"prefix":"/"}}],"name":"service"}],"name":"local_route"},"stat_prefix":"httpxtest","codec_type":"auto","http_filters":[{"config":{},"name":"envoy.router"}]}
+[2019-08-14 00:26:06.779][10012][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:340]     http filter #0
+[2019-08-14 00:26:06.779][10012][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:341]       name: envoy.router
+[2019-08-14 00:26:06.779][10012][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:345]     config: {}
+[2019-08-14 00:26:06.784][10012][debug][config] [source/server/listener_manager_impl.cc:57]   filter #0:
+[2019-08-14 00:26:06.784][10012][debug][config] [source/server/listener_manager_impl.cc:58]     name: envoy.http_connection_manager
+[2019-08-14 00:26:06.785][10012][debug][config] [source/server/listener_manager_impl.cc:61]   config: {"stat_prefix":"httpxtest","http_filters":[{"config":{},"name":"envoy.router"}],"route_config":{"name":"local_route","virtual_hosts":[{"domains":["*"],"name":"service","routes":[{"direct_response":{"status":200,"body":{"inline_string":"hello world, from httpx-server-envoy."}},"match":{"prefix":"/"}}]}]},"codec_type":"auto"}
+[2019-08-14 00:26:06.786][10012][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:340]     http filter #0
+[2019-08-14 00:26:06.786][10012][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:341]       name: envoy.router
+[2019-08-14 00:26:06.786][10012][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:345]     config: {}
+[2019-08-14 00:26:06.787][10012][warning][config] [source/server/listener_manager_impl.cc:308] adding listener '0.0.0.0:9000': filter chain match rules require TLS Inspector listener filter, but it isn't configured, trying to inject it (this might fail if Envoy is compiled without it)
+[2019-08-14 00:26:06.787][10012][debug][config] [source/server/listener_manager_impl.cc:376] add active listener: name=f413af49-decd-4c1c-ba16-9c11ac1da1ed, hash=9341352588172287482, address=0.0.0.0:9000
+[2019-08-14 00:26:06.787][10012][info][config] [source/server/configuration_impl.cc:97] loading tracing configuration
+[2019-08-14 00:26:06.787][10012][info][config] [source/server/configuration_impl.cc:117] loading stats sink configuration
+[2019-08-14 00:26:06.788][10012][info][main] [source/server/server.cc:506] all clusters initialized. initializing init manager
+[2019-08-14 00:26:06.788][10012][debug][init] [source/common/init/manager_impl.cc:45] init manager Server contains no targets
+[2019-08-14 00:26:06.788][10012][debug][init] [source/common/init/watcher_impl.cc:14] init manager Server initialized, notifying RunHelper
+[2019-08-14 00:26:06.788][10012][info][config] [source/server/listener_manager_impl.cc:770] all dependencies initialized. starting workers
+[2019-08-14 00:26:06.788][10019][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.788][10020][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.788][10021][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.788][10022][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.788][10023][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.788][10024][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.789][10026][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.789][10025][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.789][10028][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.789][10027][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.789][10029][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.789][10030][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.789][10031][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.790][10034][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.790][10032][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10033][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10035][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10037][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10036][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.790][10038][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.790][10039][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.790][10040][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10041][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10042][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.790][10043][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.790][10044][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.791][10045][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.791][10046][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.791][10048][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.791][10047][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.791][10049][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.791][10050][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.792][10051][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.792][10052][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.792][10054][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.792][10053][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.792][10056][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.792][10057][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.792][10055][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.792][10058][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.792][10059][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.792][10060][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.793][10061][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.793][10062][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.793][10063][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.793][10064][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.793][10065][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.793][10066][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.793][10067][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.793][10068][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.793][10069][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.794][10070][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.794][10071][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.794][10072][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.794][10073][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.794][10075][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.794][10074][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.794][10076][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.794][10077][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.795][10012][info][main] [source/server/server.cc:523] starting main dispatch loop
+[2019-08-14 00:26:06.795][10079][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.795][10078][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:06.795][10080][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.795][10081][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:06.795][10082][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:11.784][10012][debug][main] [source/server/server.cc:169] flushing stats
+[2019-08-14 00:26:13.337][10078][debug][filter] [source/extensions/filters/listener/tls_inspector/tls_inspector.cc:72] tls inspector: new connection accepted
+[2019-08-14 00:26:13.337][10078][trace][filter] [source/extensions/filters/listener/tls_inspector/tls_inspector.cc:141] tls inspector: recv: 140
+[2019-08-14 00:26:13.337][10078][trace][filter] [source/extensions/filters/listener/tls_inspector/tls_inspector.cc:162] tls inspector: done: true
+[2019-08-14 00:26:13.337][10078][debug][main] [source/server/connection_handler_impl.cc:280] [C0] new connection
+[2019-08-14 00:26:13.337][10078][trace][main] [source/common/event/dispatcher_impl.cc:158] item added to deferred deletion list (size=1)
+[2019-08-14 00:26:13.337][10078][trace][main] [source/common/event/dispatcher_impl.cc:76] clearing deferred deletion list (size=1)
+[2019-08-14 00:26:13.337][10078][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 3
+[2019-08-14 00:26:13.337][10078][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:26:13.341][10078][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C0] handshake error: 2
+[2019-08-14 00:26:13.341][10078][trace][connection] [source/common/network/connection_impl.cc:495] [C0] read ready
+[2019-08-14 00:26:13.341][10078][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C0] handshake error: 2
+[2019-08-14 00:26:13.342][10078][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 3
+[2019-08-14 00:26:13.342][10078][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:26:13.343][10078][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:156] [C0] handshake complete
+[2019-08-14 00:26:13.343][10078][trace][connection] [source/common/network/connection_impl.cc:495] [C0] read ready
+[2019-08-14 00:26:13.343][10078][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C0] ssl read returns: -1
+[2019-08-14 00:26:13.343][10078][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:147] [C0] ssl read 0 bytes into 0 slices
+[2019-08-14 00:26:13.344][10078][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 3
+[2019-08-14 00:26:13.344][10078][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:26:13.344][10078][trace][connection] [source/common/network/connection_impl.cc:495] [C0] read ready
+[2019-08-14 00:26:13.344][10078][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C0] ssl read returns: 213
+[2019-08-14 00:26:13.344][10078][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C0] ssl read returns: -1
+[2019-08-14 00:26:13.344][10078][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:147] [C0] ssl read 213 bytes into 1 slices
+[2019-08-14 00:26:13.344][10078][info][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:396] jianfeih debug consulting the alpn in sslsocket.
+[2019-08-14 00:26:13.344][10078][info][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:396] jianfeih debug consulting the alpn in sslsocket.
+[2019-08-14 00:26:13.345][10078][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:26:13.345][10078][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = (nil)
+[2019-08-14 00:26:13.345][10078][debug][http2] [source/common/http/http2/codec_impl.cc:726] [C0] setting stream-level initial window size to 268435456
+[2019-08-14 00:26:13.345][10078][debug][http2] [source/common/http/http2/codec_impl.cc:748] [C0] updating connection-level initial window size to 268435456
+[2019-08-14 00:26:13.345][10078][trace][http2] [source/common/http/http2/codec_impl.cc:343] [C0] dispatching 213 bytes
+[2019-08-14 00:26:13.345][10078][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: connection recv_window_size=0, local_window=268435456
+[2019-08-14 00:26:13.345][10078][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:26:13.345][10078][debug][http] [source/common/http/conn_manager_impl.cc:282] [C0] dispatch error: Received bad client magic byte string
+[2019-08-14 00:26:13.345][10078][debug][connection] [source/common/network/connection_impl.cc:102] [C0] closing data_to_write=0 type=2
+[2019-08-14 00:26:13.345][10078][debug][connection] [source/common/network/connection_impl.cc:652] [C0] setting delayed close timer with timeout 1000 ms
+[2019-08-14 00:26:14.344][10078][debug][connection] [source/common/network/connection_impl.cc:641] [C0] triggered delayed close
+[2019-08-14 00:26:14.344][10078][debug][connection] [source/common/network/connection_impl.cc:189] [C0] closing socket: 1
+[2019-08-14 00:26:14.344][10078][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:269] [C0] SSL shutdown: rc=0
+[2019-08-14 00:26:14.344][10078][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:200] [C0] 
+[2019-08-14 00:26:14.344][10078][debug][main] [source/server/connection_handler_impl.cc:80] [C0] adding to cleanup list
+[2019-08-14 00:26:14.344][10078][trace][main] [source/common/event/dispatcher_impl.cc:158] item added to deferred deletion list (size=1)
+[2019-08-14 00:26:14.344][10078][trace][main] [source/common/event/dispatcher_impl.cc:76] clearing deferred deletion list (size=1)
+[2019-08-14 00:26:14.345][10078][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:26:14.345][10078][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = (nil)
+[2019-08-14 00:26:16.788][10012][debug][main] [source/server/server.cc:169] flushing stats

@@ -1,0 +1,528 @@
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:240] initializing epoch 0 (hot restart version=11.104)
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:242] statically linked extensions:
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:244]   access_loggers: envoy.file_access_log,envoy.http_grpc_access_log
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:247]   filters.http: envoy.buffer,envoy.cors,envoy.csrf,envoy.ext_authz,envoy.fault,envoy.filters.http.dynamic_forward_proxy,envoy.filters.http.grpc_http1_reverse_bridge,envoy.filters.http.header_to_metadata,envoy.filters.http.jwt_authn,envoy.filters.http.original_src,envoy.filters.http.rbac,envoy.filters.http.tap,envoy.grpc_http1_bridge,envoy.grpc_json_transcoder,envoy.grpc_web,envoy.gzip,envoy.health_check,envoy.http_dynamo_filter,envoy.ip_tagging,envoy.lua,envoy.rate_limit,envoy.router,envoy.squash
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:250]   filters.listener: envoy.listener.http_inspector,envoy.listener.original_dst,envoy.listener.original_src,envoy.listener.proxy_protocol,envoy.listener.tls_inspector
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:253]   filters.network: envoy.client_ssl_auth,envoy.echo,envoy.ext_authz,envoy.filters.network.dubbo_proxy,envoy.filters.network.mysql_proxy,envoy.filters.network.rbac,envoy.filters.network.sni_cluster,envoy.filters.network.thrift_proxy,envoy.filters.network.zookeeper_proxy,envoy.http_connection_manager,envoy.mongo_proxy,envoy.ratelimit,envoy.redis_proxy,envoy.tcp_proxy
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:255]   stat_sinks: envoy.dog_statsd,envoy.metrics_service,envoy.stat_sinks.hystrix,envoy.statsd
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:257]   tracers: envoy.dynamic.ot,envoy.lightstep,envoy.tracers.datadog,envoy.tracers.opencensus,envoy.zipkin
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:260]   transport_sockets.downstream: envoy.transport_sockets.alts,envoy.transport_sockets.tap,raw_buffer,tls
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:263]   transport_sockets.upstream: envoy.transport_sockets.alts,envoy.transport_sockets.tap,raw_buffer,tls
+[2019-08-14 00:25:12.469][9721][info][main] [source/server/server.cc:269] buffer implementation: old (libevent)
+[2019-08-14 00:25:12.486][9721][info][main] [source/server/server.cc:324] admin address: 0.0.0.0:8001
+[2019-08-14 00:25:12.488][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.shrink_heap.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.489][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.504][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.528][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.528][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.528][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.528][9721][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:25:12.528][9721][info][main] [source/server/server.cc:438] runtime: layers:
+  - name: base
+    static_layer:
+      {}
+  - name: admin
+    admin_layer:
+      {}
+[2019-08-14 00:25:12.529][9721][warning][runtime] [source/common/runtime/runtime_impl.cc:486] Skipping unsupported runtime layer: name: "base"
+static_layer {
+}
+
+[2019-08-14 00:25:12.529][9721][info][config] [source/server/configuration_impl.cc:62] loading 0 static secret(s)
+[2019-08-14 00:25:12.529][9721][info][config] [source/server/configuration_impl.cc:68] loading 1 cluster(s)
+[2019-08-14 00:25:12.529][9726][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.534][9721][info][config] [source/extensions/transport_sockets/tls/ssl_socket.cc:498] jianfeih debug Client Context field in constructor ssl_ctx_ 0x45955e0
+[2019-08-14 00:25:12.538][9721][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.539][9721][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:89] starting async DNS resolution for 127.0.0.1
+[2019-08-14 00:25:12.539][9721][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:96] async DNS resolution complete for 127.0.0.1
+[2019-08-14 00:25:12.539][9721][debug][upstream] [source/common/upstream/strict_dns_cluster.cc:122] DNS hosts have changed for 127.0.0.1
+[2019-08-14 00:25:12.539][9721][trace][upstream] [source/common/upstream/upstream_impl.cc:1072] Local locality: 
+[2019-08-14 00:25:12.539][9721][debug][upstream] [source/common/upstream/upstream_impl.cc:844] initializing secondary cluster open_cluster completed
+[2019-08-14 00:25:12.539][9721][debug][init] [source/common/init/manager_impl.cc:45] init manager Cluster open_cluster contains no targets
+[2019-08-14 00:25:12.539][9721][debug][init] [source/common/init/watcher_impl.cc:14] init manager Cluster open_cluster initialized, notifying ClusterImplBase
+[2019-08-14 00:25:12.539][9721][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.539][9721][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:103] cm init: init complete: cluster=open_cluster primary=0 secondary=0
+[2019-08-14 00:25:12.539][9721][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:75] cm init: adding: cluster=open_cluster primary=0 secondary=0
+[2019-08-14 00:25:12.539][9721][info][upstream] [source/common/upstream/cluster_manager_impl.cc:148] cm init: all clusters initialized
+[2019-08-14 00:25:12.539][9721][info][config] [source/server/configuration_impl.cc:72] loading 1 listener(s)
+[2019-08-14 00:25:12.539][9721][debug][config] [source/server/configuration_impl.cc:74] listener #0:
+[2019-08-14 00:25:12.539][9721][debug][config] [source/server/listener_manager_impl.cc:494] begin add/update listener: name=1a018c0a-6c28-45ff-a4fa-6deb659e48a4 hash=8958031929192616257
+[2019-08-14 00:25:12.540][9721][debug][config] [source/server/listener_manager_impl.cc:57]   filter #0:
+[2019-08-14 00:25:12.540][9721][debug][config] [source/server/listener_manager_impl.cc:58]     name: envoy.http_connection_manager
+[2019-08-14 00:25:12.540][9721][debug][config] [source/server/listener_manager_impl.cc:61]   config: {"route_config":{"virtual_hosts":[{"domains":["*"],"routes":[{"match":{"prefix":"/"},"route":{"cluster":"open_cluster"}}],"name":"service"}],"name":"local_route"},"stat_prefix":"httpxtest","codec_type":"auto","http_filters":[{"config":{},"name":"envoy.router"}]}
+[2019-08-14 00:25:12.546][9721][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:340]     http filter #0
+[2019-08-14 00:25:12.546][9721][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:341]       name: envoy.router
+[2019-08-14 00:25:12.546][9721][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:345]     config: {}
+[2019-08-14 00:25:12.547][9721][debug][config] [source/server/listener_manager_impl.cc:376] add active listener: name=1a018c0a-6c28-45ff-a4fa-6deb659e48a4, hash=8958031929192616257, address=0.0.0.0:8000
+[2019-08-14 00:25:12.547][9721][info][config] [source/server/configuration_impl.cc:97] loading tracing configuration
+[2019-08-14 00:25:12.547][9721][info][config] [source/server/configuration_impl.cc:117] loading stats sink configuration
+[2019-08-14 00:25:12.548][9721][info][main] [source/server/server.cc:506] all clusters initialized. initializing init manager
+[2019-08-14 00:25:12.548][9721][debug][init] [source/common/init/manager_impl.cc:45] init manager Server contains no targets
+[2019-08-14 00:25:12.548][9721][debug][init] [source/common/init/watcher_impl.cc:14] init manager Server initialized, notifying RunHelper
+[2019-08-14 00:25:12.548][9721][info][config] [source/server/listener_manager_impl.cc:770] all dependencies initialized. starting workers
+[2019-08-14 00:25:12.548][9728][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.548][9729][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.548][9731][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.548][9730][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.549][9728][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.549][9732][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.549][9733][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.549][9729][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.549][9735][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.549][9731][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.549][9734][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.549][9736][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.549][9728][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.549][9731][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.549][9730][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.549][9737][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.550][9735][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.550][9729][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.550][9738][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.550][9739][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.550][9732][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.550][9740][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.550][9741][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.550][9742][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.550][9738][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.550][9743][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.550][9741][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.550][9744][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.550][9745][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.550][9742][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.550][9747][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.550][9746][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.550][9744][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.550][9749][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.550][9748][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.551][9746][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.551][9730][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.551][9750][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.551][9744][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.551][9751][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.551][9752][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.551][9749][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.551][9746][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.551][9732][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.551][9753][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.551][9738][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.551][9754][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.551][9752][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.551][9750][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.551][9755][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.551][9742][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.551][9756][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.552][9735][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9741][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9757][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.552][9754][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.552][9752][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9750][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9749][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9754][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9758][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.552][9759][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.552][9757][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.552][9760][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.552][9761][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.552][9757][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9762][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.552][9759][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.552][9763][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.552][9761][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.552][9764][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.552][9759][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.552][9765][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.553][9761][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.553][9763][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.553][9766][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.553][9767][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.553][9763][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.553][9768][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.553][9765][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.553][9767][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.553][9769][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.553][9771][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.553][9770][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.553][9772][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.553][9767][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.553][9768][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.553][9773][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.553][9765][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.553][9770][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.553][9775][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.553][9774][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.554][9772][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.554][9776][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.554][9768][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.554][9777][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.554][9770][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.554][9775][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.554][9772][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.554][9778][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.554][9779][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.554][9777][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.554][9781][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.554][9779][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.554][9775][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.554][9777][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.554][9779][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.554][9780][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.554][9782][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.554][9783][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.554][9784][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.554][9781][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.555][9785][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.555][9781][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.555][9783][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.555][9787][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.555][9786][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.555][9785][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.555][9783][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.555][9787][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.555][9790][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.555][9721][info][main] [source/server/server.cc:523] starting main dispatch loop
+[2019-08-14 00:25:12.555][9789][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:25:12.555][9785][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.555][9788][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.555][9787][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:12.555][9789][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:25:12.555][9791][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:25:12.556][9789][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:25:16.078][9789][debug][main] [source/server/connection_handler_impl.cc:280] [C0] new connection
+[2019-08-14 00:25:16.079][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 3
+[2019-08-14 00:25:16.079][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:25:16.079][9789][trace][connection] [source/common/network/connection_impl.cc:495] [C0] read ready
+[2019-08-14 00:25:16.079][9789][trace][connection] [source/common/network/raw_buffer_socket.cc:23] [C0] read returns: 78
+[2019-08-14 00:25:16.079][9789][trace][connection] [source/common/network/raw_buffer_socket.cc:37] [C0] read error: Resource temporarily unavailable
+[2019-08-14 00:25:16.079][9789][trace][http] [source/common/http/http1/codec_impl.cc:369] [C0] parsing 78 bytes
+[2019-08-14 00:25:16.079][9789][trace][http] [source/common/http/http1/codec_impl.cc:492] [C0] message begin
+[2019-08-14 00:25:16.079][9789][debug][http] [source/common/http/conn_manager_impl.cc:247] [C0] new stream
+[2019-08-14 00:25:16.079][9789][trace][http] [source/common/http/http1/codec_impl.cc:337] [C0] completed header: key=Host value=localhost:8000
+[2019-08-14 00:25:16.084][9789][trace][http] [source/common/http/http1/codec_impl.cc:337] [C0] completed header: key=User-Agent value=curl/7.58.0
+[2019-08-14 00:25:16.084][9789][trace][http] [source/common/http/http1/codec_impl.cc:458] [C0] headers complete
+[2019-08-14 00:25:16.084][9789][trace][http] [source/common/http/http1/codec_impl.cc:337] [C0] completed header: key=Accept value=*/*
+[2019-08-14 00:25:16.084][9789][trace][http] [source/common/http/http1/codec_impl.cc:479] [C0] message complete
+[2019-08-14 00:25:16.084][9789][debug][http] [source/common/http/conn_manager_impl.cc:601] [C0][S7052003105405194293] request headers complete (end_stream=true):
+':authority', 'localhost:8000'
+':path', '/'
+':method', 'GET'
+'user-agent', 'curl/7.58.0'
+'accept', '*/*'
+
+[2019-08-14 00:25:16.084][9789][debug][http] [source/common/http/conn_manager_impl.cc:1149] [C0][S7052003105405194293] request end stream
+[2019-08-14 00:25:16.084][9789][debug][router] [source/common/router/router.cc:402] [C0][S7052003105405194293] cluster 'open_cluster' match for URL '/'
+[2019-08-14 00:25:16.084][9789][debug][router] [source/common/router/router.cc:515] [C0][S7052003105405194293] router decoding headers:
+':authority', 'localhost:8000'
+':path', '/'
+':method', 'GET'
+':scheme', 'https'
+'user-agent', 'curl/7.58.0'
+'accept', '*/*'
+'x-forwarded-proto', 'http'
+'x-request-id', 'c53089f9-3719-4505-9a18-9a4d66899fc7'
+'x-envoy-expected-rq-timeout-ms', '15000'
+
+[2019-08-14 00:25:16.085][9789][info][config] [source/extensions/transport_sockets/tls/ssl_socket.cc:510] jianfeih debug the used for creatint socket ssl_ctx_ 0x45955e0 
+[2019-08-14 00:25:16.085][9789][debug][client] [source/common/http/codec_client.cc:26] [C1] connecting
+[2019-08-14 00:25:16.085][9789][debug][connection] [source/common/network/connection_impl.cc:703] [C1] connecting to 127.0.0.1:9000
+[2019-08-14 00:25:16.085][9789][debug][connection] [source/common/network/connection_impl.cc:712] [C1] connection in progress
+[2019-08-14 00:25:16.086][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:25:16.086][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = (nil)
+[2019-08-14 00:25:16.086][9789][debug][http2] [source/common/http/http2/codec_impl.cc:726] [C1] setting stream-level initial window size to 268435456
+[2019-08-14 00:25:16.086][9789][debug][http2] [source/common/http/http2/codec_impl.cc:748] [C1] updating connection-level initial window size to 268435456
+[2019-08-14 00:25:16.086][9789][debug][pool] [source/common/http/conn_pool_base.cc:20] queueing request due to no available connections
+[2019-08-14 00:25:16.086][9789][trace][http] [source/common/http/conn_manager_impl.cc:858] [C0][S7052003105405194293] decode headers called: filter=0x46f2f60 status=1
+[2019-08-14 00:25:16.086][9789][trace][http] [source/common/http/http1/codec_impl.cc:390] [C0] parsed 78 bytes
+[2019-08-14 00:25:16.086][9789][trace][connection] [source/common/network/connection_impl.cc:289] [C0] readDisable: enabled=true disable=true
+[2019-08-14 00:25:16.086][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 2
+[2019-08-14 00:25:16.086][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.086][9789][debug][connection] [source/common/network/connection_impl.cc:551] [C1] connected
+[2019-08-14 00:25:16.086][9789][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C1] handshake error: 2
+[2019-08-14 00:25:16.086][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 2
+[2019-08-14 00:25:16.086][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:25:16.090][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 3
+[2019-08-14 00:25:16.090][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.091][9789][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C1] handshake error: 2
+[2019-08-14 00:25:16.091][9789][trace][connection] [source/common/network/connection_impl.cc:495] [C1] read ready
+[2019-08-14 00:25:16.091][9789][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C1] handshake error: 2
+[2019-08-14 00:25:16.092][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 3
+[2019-08-14 00:25:16.092][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.092][9789][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:156] [C1] handshake complete
+[2019-08-14 00:25:16.092][9789][debug][client] [source/common/http/codec_client.cc:83] [C1] connected
+[2019-08-14 00:25:16.092][9789][debug][pool] [source/common/http/http2/conn_pool.cc:96] [C1] creating stream
+[2019-08-14 00:25:16.092][9789][debug][router] [source/common/router/router.cc:1543] [C0][S7052003105405194293] pool ready
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/codec_impl.cc:559] [C1] send data: bytes=24
+[2019-08-14 00:25:16.092][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C1] writing 24 bytes, end_stream false
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: end transmission of client magic
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = (nil)
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: next frame: payloadlen=12, type=4, flags=0x00, stream_id=0
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: start transmitting frame type=4, length=21
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/codec_impl.cc:559] [C1] send data: bytes=21
+[2019-08-14 00:25:16.092][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C1] writing 21 bytes, end_stream false
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: end transmission of a frame
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/codec_impl.cc:511] [C1] sent frame type=4
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = 0x46edd60
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: next frame: payloadlen=4, type=8, flags=0x00, stream_id=0
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: start transmitting frame type=8, length=13
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/codec_impl.cc:559] [C1] send data: bytes=13
+[2019-08-14 00:25:16.092][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C1] writing 13 bytes, end_stream false
+[2019-08-14 00:25:16.092][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: end transmission of a frame
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/codec_impl.cc:511] [C1] sent frame type=8
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = 0x46ede00
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: dep_add dep_stream(0x4516a20)=0, stream(0x45e5680)=1
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating :authority: localhost:8000
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: name match index=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit indname index=0, valuelen=14, indexing_mode=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=localhost:8000, length=14, huffman=1, encoded_length=10
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating :path: /
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: name/value match index=3
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit indexed index=3, 1 bytes
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating :method: GET
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: name/value match index=1
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit indexed index=1, 1 bytes
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating :scheme: https
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: name/value match index=6
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit indexed index=6, 1 bytes
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating user-agent: curl/7.58.0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: name match index=57
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit indname index=57, valuelen=11, indexing_mode=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=curl/7.58.0, length=11, huffman=1, encoded_length=8
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating accept: */*
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: name match index=18
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit indname index=18, valuelen=3, indexing_mode=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=*/*, length=3, huffman=0, encoded_length=3
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating x-forwarded-proto: http
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit newname namelen=17, valuelen=4, indexing_mode=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=x-forwarded-proto, length=17, huffman=1, encoded_length=13
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=http, length=4, huffman=1, encoded_length=3
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating x-request-id: c53089f9-3719-4505-9a18-9a4d66899fc7
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit newname namelen=12, valuelen=36, indexing_mode=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=x-request-id, length=12, huffman=1, encoded_length=9
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=c53089f9-3719-4505-9a18-9a4d66899fc7, length=36, huffman=1, encoded_length=26
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: deflating x-envoy-expected-rq-timeout-ms: 15000
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit newname namelen=30, valuelen=5, indexing_mode=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=x-envoy-expected-rq-timeout-ms, length=30, huffman=1, encoded_length=22
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: emit string str=15000, length=5, huffman=1, encoded_length=4
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: deflatehd: all input name/value pairs were deflated
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: HEADERS/PUSH_PROMISE, payloadlen=116
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: before padding, HEADERS serialized in 125 bytes
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: padding selected: payloadlen=116, padlen=0
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: padlen = 0, nothing to do
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: HEADERS finally serialized in 125 bytes
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: next frame: payloadlen=116, type=1, flags=0x05, stream_id=1
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: start transmitting frame type=1, length=125
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/codec_impl.cc:559] [C1] send data: bytes=125
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C1] writing 125 bytes, end_stream false
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: end transmission of a frame
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/codec_impl.cc:511] [C1] sent frame type=1
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:25:16.093][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = 0x46edf40
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:233] [C1] ssl write returns: 183
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/common/network/connection_impl.cc:495] [C1] read ready
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C1] ssl read returns: -1
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:147] [C1] ssl read 0 bytes into 0 slices
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 2
+[2019-08-14 00:25:16.093][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.101][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 3
+[2019-08-14 00:25:16.101][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.101][9789][trace][connection] [source/common/network/connection_impl.cc:495] [C1] read ready
+[2019-08-14 00:25:16.101][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C1] ssl read returns: 180
+[2019-08-14 00:25:16.101][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C1] ssl read returns: -1
+[2019-08-14 00:25:16.101][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:147] [C1] ssl read 180 bytes into 1 slices
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/codec_impl.cc:343] [C1] dispatching 180 bytes
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: connection recv_window_size=0, local_window=268435456
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_FIRST_SETTINGS]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_HEAD]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: payloadlen=6, type=4, flags=0x00, stream_id=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: SETTINGS
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_SETTINGS]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: readlen=6, payloadleft=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/codec_impl.cc:401] [C1] recv frame type=4
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_HEAD]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: payloadlen=0, type=4, flags=0x01, stream_id=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: SETTINGS
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_SETTINGS]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: readlen=0, payloadleft=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/codec_impl.cc:401] [C1] recv frame type=4
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_HEAD]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: payloadlen=4, type=8, flags=0x00, stream_id=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: WINDOW_UPDATE
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_NBYTE]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: readlen=4, payloadleft=0, left=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/codec_impl.cc:401] [C1] recv frame type=8
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_HEAD]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: payloadlen=64, type=1, flags=0x04, stream_id=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: HEADERS
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: no padding in payload
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: call on_begin_headers callback stream_id=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_HEADER_BLOCK]
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: readlen=64, payloadleft=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: block final=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: decoding header block 64 bytes
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: indexed repr
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 8
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: index=8
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: header emission: :status: 200
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: literal header repr - indexed name
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: indexing required=0, no_index=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 28
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: index=28
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: huffman encoded=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: valuelen=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: 2 bytes read
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: header emission: content-length: 61
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=5
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: literal header repr - indexed name
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: indexing required=1, no_index=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 31
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: index=31
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: huffman encoded=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 7
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: valuelen=7
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: 7 bytes read
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: header emission: content-type: text/plain
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=9
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: literal header repr - indexed name
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: indexing required=0, no_index=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 46
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: index=46
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: huffman encoded=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 16
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: valuelen=16
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: 16 bytes read
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: header emission: location: http://localhost:8000/
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=19
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: literal header repr - indexed name
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: indexing required=1, no_index=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 33
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: index=33
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: huffman encoded=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 22
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: valuelen=22
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: 22 bytes read
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: header emission: date: Wed, 14 Aug 2019 00:25:15 GMT
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=24
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: literal header repr - indexed name
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: indexing required=1, no_index=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 54
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: index=54
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: huffman encoded=1
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: decoded integer is 4
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: valuelen=4
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: 4 bytes read
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: header emission: server: envoy
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=6
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: start state=2
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: all input bytes were processed
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: inflatehd: in_final set
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: proclen=0
+[2019-08-14 00:25:16.101][9789][trace][http2] [source/common/http/http2/codec_impl.cc:401] [C1] recv frame type=1
+[2019-08-14 00:25:16.101][9789][debug][router] [source/common/router/router.cc:1003] [C0][S7052003105405194293] upstream headers complete: end_stream=false
+[2019-08-14 00:25:16.102][9789][debug][http] [source/common/http/conn_manager_impl.cc:1416] [C0][S7052003105405194293] encoding headers via codec (end_stream=false):
+':status', '200'
+'content-length', '61'
+'content-type', 'text/plain'
+'location', 'http://localhost:8000/'
+'date', 'Wed, 14 Aug 2019 00:25:16 GMT'
+'server', 'envoy'
+'x-envoy-upstream-service-time', '15'
+
+[2019-08-14 00:25:16.102][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C0] writing 186 bytes, end_stream false
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_HEAD]
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: payloadlen=61, type=0, flags=0x01, stream_id=1
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: DATA
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: no padding in payload
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: [IB_READ_DATA]
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: readlen=61, payloadleft=0
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: recv: data_readlen=61
+[2019-08-14 00:25:16.102][9789][trace][http2] [source/common/http/http2/codec_impl.cc:401] [C1] recv frame type=0
+[2019-08-14 00:25:16.102][9789][debug][client] [source/common/http/codec_client.cc:114] [C1] response complete
+[2019-08-14 00:25:16.102][9789][trace][main] [source/common/event/dispatcher_impl.cc:158] item added to deferred deletion list (size=1)
+[2019-08-14 00:25:16.102][9789][debug][pool] [source/common/http/http2/conn_pool.cc:233] [C1] destroying stream: 0 remaining
+[2019-08-14 00:25:16.102][9789][trace][http] [source/common/http/conn_manager_impl.cc:1554] [C0][S7052003105405194293] encoding data via codec (size=61 end_stream=true)
+[2019-08-14 00:25:16.102][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C0] writing 61 bytes, end_stream false
+[2019-08-14 00:25:16.103][9789][trace][main] [source/common/event/dispatcher_impl.cc:158] item added to deferred deletion list (size=2)
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:289] [C0] readDisable: enabled=false disable=false
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: stream(0x45e5680)=1 close
+[2019-08-14 00:25:16.103][9789][debug][http2] [source/common/http/http2/codec_impl.cc:568] [C1] stream closed: 0
+[2019-08-14 00:25:16.103][9789][trace][main] [source/common/event/dispatcher_impl.cc:158] item added to deferred deletion list (size=3)
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: destroy closed stream(0x45e5680)=1
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: dep_remove stream(0x45e5680)=1
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/codec_impl.cc:358] [C1] dispatched 180 bytes
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: next frame: payloadlen=0, type=4, flags=0x01, stream_id=0
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: start transmitting frame type=4, length=9
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/codec_impl.cc:559] [C1] send data: bytes=9
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:393] [C1] writing 9 bytes, end_stream false
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: stream: adjusting kept idle streams num_idle_streams=0, max=100
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: end transmission of a frame
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/codec_impl.cc:511] [C1] sent frame type=4
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:25:16.103][9789][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = 0x46edcc0
+[2019-08-14 00:25:16.103][9789][trace][main] [source/common/event/dispatcher_impl.cc:76] clearing deferred deletion list (size=3)
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 2
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:233] [C1] ssl write returns: 9
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 2
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/raw_buffer_socket.cc:66] [C0] write returns: 247
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 3
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/connection_impl.cc:495] [C0] read ready
+[2019-08-14 00:25:16.103][9789][trace][connection] [source/common/network/raw_buffer_socket.cc:23] [C0] read returns: 0
+[2019-08-14 00:25:16.103][9789][debug][connection] [source/common/network/connection_impl.cc:519] [C0] remote close
+[2019-08-14 00:25:16.103][9789][debug][connection] [source/common/network/connection_impl.cc:189] [C0] closing socket: 0
+[2019-08-14 00:25:16.103][9789][debug][main] [source/server/connection_handler_impl.cc:80] [C0] adding to cleanup list
+[2019-08-14 00:25:16.103][9789][trace][main] [source/common/event/dispatcher_impl.cc:158] item added to deferred deletion list (size=1)
+[2019-08-14 00:25:16.103][9789][trace][main] [source/common/event/dispatcher_impl.cc:76] clearing deferred deletion list (size=1)
+[2019-08-14 00:25:17.539][9721][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:89] starting async DNS resolution for 127.0.0.1
+[2019-08-14 00:25:17.539][9721][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:96] async DNS resolution complete for 127.0.0.1
+[2019-08-14 00:25:17.549][9721][debug][main] [source/server/server.cc:169] flushing stats
+[2019-08-14 00:25:22.544][9721][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:89] starting async DNS resolution for 127.0.0.1
+[2019-08-14 00:25:22.544][9721][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:96] async DNS resolution complete for 127.0.0.1
+[2019-08-14 00:25:22.549][9721][debug][main] [source/server/server.cc:169] flushing stats

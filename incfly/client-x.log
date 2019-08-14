@@ -1,0 +1,327 @@
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:240] initializing epoch 0 (hot restart version=11.104)
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:242] statically linked extensions:
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:244]   access_loggers: envoy.file_access_log,envoy.http_grpc_access_log
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:247]   filters.http: envoy.buffer,envoy.cors,envoy.csrf,envoy.ext_authz,envoy.fault,envoy.filters.http.dynamic_forward_proxy,envoy.filters.http.grpc_http1_reverse_bridge,envoy.filters.http.header_to_metadata,envoy.filters.http.jwt_authn,envoy.filters.http.original_src,envoy.filters.http.rbac,envoy.filters.http.tap,envoy.grpc_http1_bridge,envoy.grpc_json_transcoder,envoy.grpc_web,envoy.gzip,envoy.health_check,envoy.http_dynamo_filter,envoy.ip_tagging,envoy.lua,envoy.rate_limit,envoy.router,envoy.squash
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:250]   filters.listener: envoy.listener.http_inspector,envoy.listener.original_dst,envoy.listener.original_src,envoy.listener.proxy_protocol,envoy.listener.tls_inspector
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:253]   filters.network: envoy.client_ssl_auth,envoy.echo,envoy.ext_authz,envoy.filters.network.dubbo_proxy,envoy.filters.network.mysql_proxy,envoy.filters.network.rbac,envoy.filters.network.sni_cluster,envoy.filters.network.thrift_proxy,envoy.filters.network.zookeeper_proxy,envoy.http_connection_manager,envoy.mongo_proxy,envoy.ratelimit,envoy.redis_proxy,envoy.tcp_proxy
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:255]   stat_sinks: envoy.dog_statsd,envoy.metrics_service,envoy.stat_sinks.hystrix,envoy.statsd
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:257]   tracers: envoy.dynamic.ot,envoy.lightstep,envoy.tracers.datadog,envoy.tracers.opencensus,envoy.zipkin
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:260]   transport_sockets.downstream: envoy.transport_sockets.alts,envoy.transport_sockets.tap,raw_buffer,tls
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:263]   transport_sockets.upstream: envoy.transport_sockets.alts,envoy.transport_sockets.tap,raw_buffer,tls
+[2019-08-14 00:26:10.590][10105][info][main] [source/server/server.cc:269] buffer implementation: old (libevent)
+[2019-08-14 00:26:10.607][10105][info][main] [source/server/server.cc:324] admin address: 0.0.0.0:8001
+[2019-08-14 00:26:10.609][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.shrink_heap.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.610][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.624][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.640][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.640][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.640][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.640][10105][debug][main] [source/server/overload_manager_impl.cc:173] No overload action is configured for envoy.overload_actions.stop_accepting_connections.
+[2019-08-14 00:26:10.640][10105][info][main] [source/server/server.cc:438] runtime: layers:
+  - name: base
+    static_layer:
+      {}
+  - name: admin
+    admin_layer:
+      {}
+[2019-08-14 00:26:10.641][10105][warning][runtime] [source/common/runtime/runtime_impl.cc:486] Skipping unsupported runtime layer: name: "base"
+static_layer {
+}
+
+[2019-08-14 00:26:10.641][10105][info][config] [source/server/configuration_impl.cc:62] loading 0 static secret(s)
+[2019-08-14 00:26:10.641][10105][info][config] [source/server/configuration_impl.cc:68] loading 1 cluster(s)
+[2019-08-14 00:26:10.641][10110][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.647][10105][info][config] [source/extensions/transport_sockets/tls/ssl_socket.cc:498] jianfeih debug Client Context field in constructor ssl_ctx_ 0x491f5e0
+[2019-08-14 00:26:10.650][10105][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.651][10105][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:89] starting async DNS resolution for 127.0.0.1
+[2019-08-14 00:26:10.651][10105][trace][upstream] [source/common/upstream/strict_dns_cluster.cc:96] async DNS resolution complete for 127.0.0.1
+[2019-08-14 00:26:10.651][10105][debug][upstream] [source/common/upstream/strict_dns_cluster.cc:122] DNS hosts have changed for 127.0.0.1
+[2019-08-14 00:26:10.651][10105][trace][upstream] [source/common/upstream/upstream_impl.cc:1072] Local locality: 
+[2019-08-14 00:26:10.651][10105][debug][upstream] [source/common/upstream/upstream_impl.cc:844] initializing secondary cluster open_cluster completed
+[2019-08-14 00:26:10.651][10105][debug][init] [source/common/init/manager_impl.cc:45] init manager Cluster open_cluster contains no targets
+[2019-08-14 00:26:10.651][10105][debug][init] [source/common/init/watcher_impl.cc:14] init manager Cluster open_cluster initialized, notifying ClusterImplBase
+[2019-08-14 00:26:10.651][10105][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.651][10105][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:103] cm init: init complete: cluster=open_cluster primary=0 secondary=0
+[2019-08-14 00:26:10.651][10105][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:75] cm init: adding: cluster=open_cluster primary=0 secondary=0
+[2019-08-14 00:26:10.651][10105][info][upstream] [source/common/upstream/cluster_manager_impl.cc:148] cm init: all clusters initialized
+[2019-08-14 00:26:10.651][10105][info][config] [source/server/configuration_impl.cc:72] loading 1 listener(s)
+[2019-08-14 00:26:10.651][10105][debug][config] [source/server/configuration_impl.cc:74] listener #0:
+[2019-08-14 00:26:10.651][10105][debug][config] [source/server/listener_manager_impl.cc:494] begin add/update listener: name=584bf9f6-cb4a-438f-bd96-03e9f4335515 hash=8958031929192616257
+[2019-08-14 00:26:10.652][10105][debug][config] [source/server/listener_manager_impl.cc:57]   filter #0:
+[2019-08-14 00:26:10.652][10105][debug][config] [source/server/listener_manager_impl.cc:58]     name: envoy.http_connection_manager
+[2019-08-14 00:26:10.652][10105][debug][config] [source/server/listener_manager_impl.cc:61]   config: {"route_config":{"virtual_hosts":[{"domains":["*"],"name":"service","routes":[{"route":{"cluster":"open_cluster"},"match":{"prefix":"/"}}]}],"name":"local_route"},"stat_prefix":"httpxtest","codec_type":"auto","http_filters":[{"config":{},"name":"envoy.router"}]}
+[2019-08-14 00:26:10.658][10105][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:340]     http filter #0
+[2019-08-14 00:26:10.658][10105][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:341]       name: envoy.router
+[2019-08-14 00:26:10.658][10105][debug][config] [source/extensions/filters/network/http_connection_manager/config.cc:345]     config: {}
+[2019-08-14 00:26:10.659][10105][debug][config] [source/server/listener_manager_impl.cc:376] add active listener: name=584bf9f6-cb4a-438f-bd96-03e9f4335515, hash=8958031929192616257, address=0.0.0.0:8000
+[2019-08-14 00:26:10.659][10105][info][config] [source/server/configuration_impl.cc:97] loading tracing configuration
+[2019-08-14 00:26:10.659][10105][info][config] [source/server/configuration_impl.cc:117] loading stats sink configuration
+[2019-08-14 00:26:10.660][10105][info][main] [source/server/server.cc:506] all clusters initialized. initializing init manager
+[2019-08-14 00:26:10.660][10105][debug][init] [source/common/init/manager_impl.cc:45] init manager Server contains no targets
+[2019-08-14 00:26:10.660][10105][debug][init] [source/common/init/watcher_impl.cc:14] init manager Server initialized, notifying RunHelper
+[2019-08-14 00:26:10.660][10105][info][config] [source/server/listener_manager_impl.cc:770] all dependencies initialized. starting workers
+[2019-08-14 00:26:10.660][10112][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.660][10113][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.660][10114][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.661][10113][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.661][10115][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.661][10112][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.661][10117][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.661][10114][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.661][10116][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.661][10118][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.661][10113][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.661][10119][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.661][10112][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.661][10114][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.661][10117][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.661][10121][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.661][10117][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.661][10120][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.662][10122][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.662][10121][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.662][10119][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.662][10123][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.662][10124][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.662][10125][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.662][10122][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.662][10126][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.662][10122][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.662][10127][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.662][10119][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.662][10125][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.662][10129][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.662][10126][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.662][10128][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.662][10130][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.662][10131][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.663][10125][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.663][10126][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.663][10121][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.663][10132][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.663][10131][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.663][10128][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.663][10132][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.663][10134][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.663][10135][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.663][10136][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.663][10133][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.663][10137][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.663][10131][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.663][10132][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.663][10128][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.663][10138][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.663][10135][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.664][10137][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.664][10140][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.664][10139][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.664][10135][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.664][10141][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.664][10137][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.664][10139][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.664][10141][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.664][10144][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.664][10145][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.664][10139][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.664][10141][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.664][10146][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.664][10143][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.664][10142][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.664][10145][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.664][10147][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.664][10148][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.665][10146][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.665][10149][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.665][10142][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.665][10145][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.665][10146][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.665][10151][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.665][10150][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.665][10148][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.665][10142][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.665][10153][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.665][10152][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.665][10150][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.665][10155][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.665][10148][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.665][10154][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.665][10156][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.665][10150][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.666][10154][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.665][10157][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.666][10158][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.666][10152][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.666][10159][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.666][10154][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.666][10156][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.666][10152][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.666][10161][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.666][10160][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.666][10157][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.666][10156][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.666][10162][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.666][10161][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.666][10163][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.666][10164][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.666][10157][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.666][10165][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.666][10161][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.666][10166][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.667][10162][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.667][10168][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.667][10167][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.667][10165][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.667][10169][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.667][10166][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.667][10162][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.667][10172][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.667][10168][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.667][10165][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.667][10173][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.667][10105][info][main] [source/server/server.cc:523] starting main dispatch loop
+[2019-08-14 00:26:10.667][10171][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.667][10170][debug][main] [source/server/worker_impl.cc:101] worker entering dispatch loop
+[2019-08-14 00:26:10.667][10166][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.667][10168][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.667][10172][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.667][10174][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.667][10170][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:839] adding TLS initial cluster open_cluster
+[2019-08-14 00:26:10.667][10175][debug][grpc] [source/common/grpc/google_async_client_impl.cc:43] completionThread running
+[2019-08-14 00:26:10.667][10172][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:10.667][10170][debug][upstream] [source/common/upstream/cluster_manager_impl.cc:999] membership update for TLS cluster open_cluster added 1 removed 0
+[2019-08-14 00:26:13.329][10168][debug][main] [source/server/connection_handler_impl.cc:280] [C0] new connection
+[2019-08-14 00:26:13.329][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 3
+[2019-08-14 00:26:13.329][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:26:13.329][10168][trace][connection] [source/common/network/connection_impl.cc:495] [C0] read ready
+[2019-08-14 00:26:13.329][10168][trace][connection] [source/common/network/raw_buffer_socket.cc:23] [C0] read returns: 78
+[2019-08-14 00:26:13.329][10168][trace][connection] [source/common/network/raw_buffer_socket.cc:37] [C0] read error: Resource temporarily unavailable
+[2019-08-14 00:26:13.330][10168][trace][http] [source/common/http/http1/codec_impl.cc:369] [C0] parsing 78 bytes
+[2019-08-14 00:26:13.330][10168][trace][http] [source/common/http/http1/codec_impl.cc:492] [C0] message begin
+[2019-08-14 00:26:13.330][10168][debug][http] [source/common/http/conn_manager_impl.cc:247] [C0] new stream
+[2019-08-14 00:26:13.330][10168][trace][http] [source/common/http/http1/codec_impl.cc:337] [C0] completed header: key=Host value=localhost:8000
+[2019-08-14 00:26:13.335][10168][trace][http] [source/common/http/http1/codec_impl.cc:337] [C0] completed header: key=User-Agent value=curl/7.58.0
+[2019-08-14 00:26:13.335][10168][trace][http] [source/common/http/http1/codec_impl.cc:458] [C0] headers complete
+[2019-08-14 00:26:13.335][10168][trace][http] [source/common/http/http1/codec_impl.cc:337] [C0] completed header: key=Accept value=*/*
+[2019-08-14 00:26:13.335][10168][trace][http] [source/common/http/http1/codec_impl.cc:479] [C0] message complete
+[2019-08-14 00:26:13.335][10168][debug][http] [source/common/http/conn_manager_impl.cc:601] [C0][S13230701691613077083] request headers complete (end_stream=true):
+':authority', 'localhost:8000'
+':path', '/'
+':method', 'GET'
+'user-agent', 'curl/7.58.0'
+'accept', '*/*'
+
+[2019-08-14 00:26:13.335][10168][debug][http] [source/common/http/conn_manager_impl.cc:1149] [C0][S13230701691613077083] request end stream
+[2019-08-14 00:26:13.335][10168][debug][router] [source/common/router/router.cc:402] [C0][S13230701691613077083] cluster 'open_cluster' match for URL '/'
+[2019-08-14 00:26:13.336][10168][debug][router] [source/common/router/router.cc:515] [C0][S13230701691613077083] router decoding headers:
+':authority', 'localhost:8000'
+':path', '/'
+':method', 'GET'
+':scheme', 'https'
+'user-agent', 'curl/7.58.0'
+'accept', '*/*'
+'x-forwarded-proto', 'http'
+'x-request-id', '6c317116-d760-4ef9-861e-05ae8e7f296f'
+'x-envoy-expected-rq-timeout-ms', '15000'
+
+[2019-08-14 00:26:13.336][10168][debug][pool] [source/common/http/httpx/conn_pool.cc:89] creating a new connection
+[2019-08-14 00:26:13.336][10168][info][config] [source/extensions/transport_sockets/tls/ssl_socket.cc:510] jianfeih debug the used for creatint socket ssl_ctx_ 0x491f5e0 
+[2019-08-14 00:26:13.336][10168][debug][client] [source/common/http/codec_client.cc:26] [C1] connecting
+[2019-08-14 00:26:13.336][10168][debug][connection] [source/common/network/connection_impl.cc:703] [C1] connecting to 127.0.0.1:9000
+[2019-08-14 00:26:13.336][10168][debug][connection] [source/common/network/connection_impl.cc:712] [C1] connection in progress
+[2019-08-14 00:26:13.337][10168][debug][pool] [source/common/http/conn_pool_base.cc:20] queueing request due to no available connections
+[2019-08-14 00:26:13.337][10168][trace][http] [source/common/http/conn_manager_impl.cc:858] [C0][S13230701691613077083] decode headers called: filter=0x4a88180 status=1
+[2019-08-14 00:26:13.337][10168][trace][http] [source/common/http/http1/codec_impl.cc:390] [C0] parsed 78 bytes
+[2019-08-14 00:26:13.337][10168][trace][connection] [source/common/network/connection_impl.cc:289] [C0] readDisable: enabled=true disable=true
+[2019-08-14 00:26:13.337][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 2
+[2019-08-14 00:26:13.337][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:26:13.337][10168][debug][connection] [source/common/network/connection_impl.cc:551] [C1] connected
+[2019-08-14 00:26:13.337][10168][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C1] handshake error: 2
+[2019-08-14 00:26:13.337][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C0] socket event: 2
+[2019-08-14 00:26:13.337][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C0] write ready
+[2019-08-14 00:26:13.341][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 3
+[2019-08-14 00:26:13.341][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:26:13.342][10168][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C1] handshake error: 2
+[2019-08-14 00:26:13.342][10168][trace][connection] [source/common/network/connection_impl.cc:495] [C1] read ready
+[2019-08-14 00:26:13.342][10168][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:167] [C1] handshake error: 2
+[2019-08-14 00:26:13.343][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 3
+[2019-08-14 00:26:13.343][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:26:13.343][10168][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:156] [C1] handshake complete
+[2019-08-14 00:26:13.343][10168][debug][client] [source/common/http/codec_client.cc:83] [C1] connected
+[2019-08-14 00:26:13.343][10168][debug][pool] [source/common/http/httpx/conn_pool.cc:244] [C1] attaching to next request
+[2019-08-14 00:26:13.343][10168][debug][router] [source/common/router/router.cc:1543] [C0][S13230701691613077083] pool ready
+[2019-08-14 00:26:13.343][10168][trace][connection] [source/common/network/connection_impl.cc:393] [C1] writing 213 bytes, end_stream false
+[2019-08-14 00:26:13.343][10168][info][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:396] jianfeih debug consulting the alpn in sslsocket.
+[2019-08-14 00:26:13.343][10168][info][pool] [source/common/http/httpx/conn_pool.cc:190] incfly debug connection alpn h2
+[2019-08-14 00:26:13.343][10168][info][client] [source/common/http/codec_client.cc:44] [C1] incfly debug about to ugprade.
+[2019-08-14 00:26:13.344][10168][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: reset nghttp2_active_outbound_item
+[2019-08-14 00:26:13.344][10168][trace][http2] [source/common/http/http2/nghttp2.cc:20] nghttp2: send: aob->item = (nil)
+[2019-08-14 00:26:13.344][10168][debug][http2] [source/common/http/http2/codec_impl.cc:726] [C1] setting stream-level initial window size to 268435456
+[2019-08-14 00:26:13.344][10168][debug][http2] [source/common/http/http2/codec_impl.cc:748] [C1] updating connection-level initial window size to 268435456
+[2019-08-14 00:26:13.344][10168][info][client] [source/common/http/codec_client.cc:59] [C1] incfly debug ugprade finish.
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:233] [C1] ssl write returns: 213
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/common/network/connection_impl.cc:495] [C1] read ready
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C1] ssl read returns: -1
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:147] [C1] ssl read 0 bytes into 0 slices
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 2
+[2019-08-14 00:26:13.344][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:26:14.344][10168][trace][connection] [source/common/network/connection_impl.cc:457] [C1] socket event: 3
+[2019-08-14 00:26:14.345][10168][trace][connection] [source/common/network/connection_impl.cc:542] [C1] write ready
+[2019-08-14 00:26:14.345][10168][trace][connection] [source/common/network/connection_impl.cc:495] [C1] read ready
+[2019-08-14 00:26:14.345][10168][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:72] [C1] ssl read returns: 0
+[2019-08-14 00:26:14.345][10168][trace][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:147] [C1] ssl read 0 bytes into 0 slices
+[2019-08-14 00:26:14.345][10168][debug][connection] [source/common/network/connection_impl.cc:519] [C1] remote close
+[2019-08-14 00:26:14.345][10168][debug][connection] [source/common/network/connection_impl.cc:189] [C1] closing socket: 0
+[2019-08-14 00:26:14.345][10168][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:269] [C1] SSL shutdown: rc=1
+[2019-08-14 00:26:14.345][10168][debug][connection] [source/extensions/transport_sockets/tls/ssl_socket.cc:200] [C1] 
+[2019-08-14 00:26:14.345][10168][debug][client] [source/common/http/codec_client.cc:101] [C1] disconnect. resetting 1 pending requests
+[2019-08-14 00:26:14.345][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:81] Caught Segmentation fault, suspect faulting address 0x0
+[2019-08-14 00:26:14.345][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:69] Backtrace (use tools/stack_decode.py to get line numbers):
+[2019-08-14 00:26:14.363][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #0: Envoy::SignalAction::sigHandler() [0x1cffd2c]
+[2019-08-14 00:26:14.363][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #1: __restore_rt [0x7f0b6a511890]
+[2019-08-14 00:26:14.379][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #2: Envoy::Network::ConnectionImpl::raiseEvent() [0x11bb9b3]
+[2019-08-14 00:26:14.396][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #3: Envoy::Network::ConnectionImpl::closeSocket() [0x11ba616]
+[2019-08-14 00:26:14.412][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #4: Envoy::Network::ConnectionImpl::onReadReady() [0x11bdc8e]
+[2019-08-14 00:26:14.428][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #5: Envoy::Network::ConnectionImpl::onFileEvent() [0x11bd92d]
+[2019-08-14 00:26:14.444][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #6: Envoy::Network::ConnectionImpl::ConnectionImpl()::$_2::operator()() [0x11bfcee]
+[2019-08-14 00:26:14.461][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #7: std::_Function_handler<>::_M_invoke() [0x11bfba1]
+[2019-08-14 00:26:14.477][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #8: std::function<>::operator()() [0x11b1fda]
+[2019-08-14 00:26:14.493][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #9: Envoy::Event::FileEventImpl::assignEvents()::$_0::operator()() [0x11b1ba7]
+[2019-08-14 00:26:14.509][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #10: Envoy::Event::FileEventImpl::assignEvents()::$_0::__invoke() [0x11b19d9]
+[2019-08-14 00:26:14.526][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #11: event_process_active_single_queue [0x1820f8d]
+[2019-08-14 00:26:14.542][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #12: event_base_loop [0x181d800]
+[2019-08-14 00:26:14.559][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #13: Envoy::Event::LibeventScheduler::run() [0x11d833c]
+[2019-08-14 00:26:14.575][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #14: Envoy::Event::DispatcherImpl::run() [0x11abe48]
+[2019-08-14 00:26:14.592][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #15: Envoy::Server::WorkerImpl::threadRoutine() [0x1194621]
+[2019-08-14 00:26:14.608][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #16: Envoy::Server::WorkerImpl::start()::$_3::operator()() [0x119564f]
+[2019-08-14 00:26:14.624][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #17: std::_Function_handler<>::_M_invoke() [0x11954fd]
+[2019-08-14 00:26:14.641][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #18: std::function<>::operator()() [0x62493e]
+[2019-08-14 00:26:14.657][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #19: Envoy::Thread::ThreadImplPosix::ThreadImplPosix()::$_0::operator()() [0x1d03ca0]
+[2019-08-14 00:26:14.673][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #20: Envoy::Thread::ThreadImplPosix::ThreadImplPosix()::$_0::__invoke() [0x1d03c75]
+[2019-08-14 00:26:14.674][10168][critical][backtrace] [bazel-out/k8-dbg/bin/source/server/_virtual_includes/backtrace_lib/server/backtrace.h:73] #21: start_thread [0x7f0b6a5066db]

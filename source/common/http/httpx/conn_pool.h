@@ -34,13 +34,15 @@ namespace Httpx {
  *   informatin can help determine what CodecClient will be used.
  * - Data plane H2C negotiation will be used. TODO(incfly): log an issue for this.
  *
+ *
  * TODO(incfly) Work Item
  * - [Done] Finish E2E TLS + H2 config for setup example.
  * - [Done] HTTP1 request routed to httpx conn pool.
  * - [Done] log out the ALPN in a timer callback, shows http/1.1.
- *   [TODO] refator to create codec client in onConnectionEvent callback.
+ *   [Done] refator to create codec client in onConnectionEvent callback.
  * - Copy Http2 Client handling stuff.
  * - Handling API change for this feauture in cluster.proto.
+ * - Overtime migrate HTTP1 to HTTPx.
  */
 class ConnPoolImpl : public ConnectionPool::Instance, public ConnPoolImplBase {
 public:
@@ -61,6 +63,19 @@ public:
 
   // ConnPoolImplBase
   void checkForDrained() override;
+
+
+  // HTTP2 hack methods copied.
+  // TODO(incfly): remove hack.
+  // Http::ConnectionPool::Instance
+  // TODO(incfly): here, see how it's called.
+  Http::Protocol protocol_todo() const { return Http::Protocol::Http2; }
+  //void addDrainedCallback(DrainedCb cb) override;
+  //void drainConnections() override;
+  //bool hasActiveConnections() const override;
+  //ConnectionPool::Cancellable* newStream(Http::StreamDecoder& response_decoder,
+                                         //ConnectionPool::Callbacks& callbacks) override;
+  // Upstream::HostDescriptionConstSharedPtr host() const override { return host_; };
 
 protected:
   struct ActiveClient;
@@ -94,9 +109,13 @@ protected:
 
   using StreamWrapperPtr = std::unique_ptr<StreamWrapper>;
 
+  // TODO(incfly): some methods are still different than http2's.
+  // OnCnnectoinTimeOut e.g
   struct ActiveClient : LinkedObject<ActiveClient>,
                         public Network::ConnectionCallbacks,
-                        public Event::DeferredDeletable {
+                        public Event::DeferredDeletable ,
+                        public Http::ConnectionCallbacks,
+                        public CodecClientCallbacks {
     ActiveClient(ConnPoolImpl& parent);
     ~ActiveClient() override;
 
@@ -109,6 +128,31 @@ protected:
     void onAboveWriteBufferHighWatermark() override {}
     void onBelowWriteBufferLowWatermark() override {}
 
+
+
+    // HTTP2 hack
+    // TODO(incfly): here!
+    // parent conn pool implementation is as same as one here. considering
+    // put in base class for sharing.
+    // void onConnectTimeout() { parent_.onConnectTimeout(*this); }
+
+    // Network::ConnectionCallbacks
+    //void onEvent(Network::ConnectionEvent event) override {
+      //parent_.onConnectionEvent(*this, event);
+    //}
+    //void onAboveWriteBufferHighWatermark() override {}
+    //void onBelowWriteBufferLowWatermark() override {}
+
+    // CodecClientCallbacks
+    void onStreamDestroy() override { parent_.onStreamDestroy(*this); }
+    void onStreamReset(Http::StreamResetReason reason) override {
+      parent_.onStreamReset(*this, reason);
+    }
+
+    // Http::ConnectionCallbacks
+    void onGoAway() override { parent_.onGoAway(*this); }
+
+
     ConnPoolImpl& parent_;
     CodecClientPtr codec_client_;
     Upstream::HostDescriptionConstSharedPtr real_host_description_;
@@ -117,9 +161,20 @@ protected:
     Event::TimerPtr alpn_debug_timer_;
     Stats::TimespanPtr conn_length_;
     uint64_t remaining_requests_;
+
+    // TODO(incfly): clean up before merging. 
+    // HTTP2 fields
+    // ConnPoolImpl& parent_;
+    // CodecClientPtr client_;
+    // Upstream::HostDescriptionConstSharedPtr real_host_description_;
+    uint64_t total_streams_{};
+    // Event::TimerPtr connect_timer_;
+    bool upstream_ready_{};
+    //Stats::TimespanPtr conn_length_;
+    bool closed_with_active_rq_{};
   };
 
-  using ActiveClientPtr = std::unique_ptr<ActiveClient>;
+	 using ActiveClientPtr = std::unique_ptr<ActiveClient>;
 
   void attachRequestToClient(ActiveClient& client, StreamDecoder& response_decoder,
                              ConnectionPool::Callbacks& callbacks);
@@ -131,6 +186,21 @@ protected:
   void onUpstreamReady();
   void processIdleClient(ActiveClient& client, bool delay);
 
+
+  // HTTP2 hackk
+  //void checkForDrained() override;
+
+  //virtual CodecClientPtr createCodecClient(Upstream::Host::CreateConnectionData& data) PURE;
+  virtual uint32_t maxTotalStreams() PURE;
+  void movePrimaryClientToDraining();
+  //void onConnectionEvent(ActiveClient& client, Network::ConnectionEvent event);
+  void onConnectTimeout(ActiveClient& client);
+  void onGoAway(ActiveClient& client);
+  void onStreamDestroy(ActiveClient& client);
+  void onStreamReset(ActiveClient& client, Http::StreamResetReason reason);
+  void newClientStream(Http::StreamDecoder& response_decoder, ConnectionPool::Callbacks& callbacks);
+  //void onUpstreamReady();
+
   Stats::TimespanPtr conn_connect_ms_;
   Event::Dispatcher& dispatcher_;
   std::list<ActiveClientPtr> ready_clients_;
@@ -139,6 +209,15 @@ protected:
   const Network::ConnectionSocket::OptionsSharedPtr socket_options_;
   Event::TimerPtr upstream_ready_timer_;
   bool upstream_ready_enabled_{false};
+
+  // HTTP2 fields.
+  // TODO(incfly): remove this hack
+  // Stats::TimespanPtr conn_connect_ms_;
+  // Event::Dispatcher& dispatcher_;
+  ActiveClientPtr primary_client_;
+  ActiveClientPtr draining_client_;
+  // std::list<DrainedCb> drained_callbacks_;
+  // const Network::ConnectionSocket::OptionsSharedPtr socket_options_;
 };
 
 /**
@@ -153,6 +232,12 @@ public:
 
   // ConnPoolImpl
   CodecClientPtr createCodecClient(Upstream::Host::CreateConnectionData& data) override;
+
+  uint32_t maxTotalStreams() override;
+
+  // All streams are 2^31. Client streams are half that, minus stream 0. Just to be on the safe
+  // side we do 2^29.
+  static const uint64_t MAX_STREAMS = (1 << 29);
 };
 
 } // namespace Httpx

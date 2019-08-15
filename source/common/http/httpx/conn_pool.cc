@@ -123,6 +123,8 @@ ConnectionPool::Cancellable* ConnPoolImpl::newStream(StreamDecoder& response_dec
 }
 
 void ConnPoolImpl::onConnectionEvent(ActiveClient& client, Network::ConnectionEvent event) {
+  // TODO(incfly): this will be different, http2 has its own client primary and secondary 
+  // handling.
   if (event == Network::ConnectionEvent::RemoteClose ||
       event == Network::ConnectionEvent::LocalClose) {
     // The client died.
@@ -188,7 +190,7 @@ void ConnPoolImpl::onConnectionEvent(ActiveClient& client, Network::ConnectionEv
     conn_connect_ms_->complete();
     ENVOY_LOG(info, "incfly debug connection alpn {}", client.codec_client_->ALPNProtocol());
     client.codec_client_->upgrade();
-    processIdleClient(client, false);
+    // processIdleClient(client, false);
   }
 }
 
@@ -354,6 +356,75 @@ CodecClientPtr ProdConnPoolImpl::createCodecClient(Upstream::Host::CreateConnect
                                            data.host_description_, dispatcher_)};
   return codec;
 }
+
+/*
+HTTP2 Hack
+*/
+
+void ConnPoolImpl::onGoAway(ActiveClient& client) {
+  ENVOY_CONN_LOG(debug, "remote goaway", *client.codec_client_);
+  host_->cluster().stats().upstream_cx_close_notify_.inc();
+  if (&client == primary_client_.get()) {
+    movePrimaryClientToDraining();
+  }
+}
+
+
+
+void ConnPoolImpl::onStreamDestroy(ActiveClient& client) {
+  ENVOY_CONN_LOG(debug, "destroying stream: {} remaining", *client.codec_client_,
+                 client.codec_client_->numActiveRequests());
+  host_->stats().rq_active_.dec();
+  host_->cluster().stats().upstream_rq_active_.dec();
+  host_->cluster().resourceManager(priority_).requests().dec();
+  if (&client == draining_client_.get() && client.codec_client_->numActiveRequests() == 0) {
+    // Close out the draining client if we no long have active requests.
+    client.codec_client_->close();
+  }
+
+  // If we are destroying this stream because of a disconnect, do not check for drain here. We will
+  // wait until the connection has been fully drained of streams and then check in the connection
+  // event callback.
+  if (!client.closed_with_active_rq_) {
+    checkForDrained();
+  }
+}
+
+void ConnPoolImpl::onStreamReset(ActiveClient& client, Http::StreamResetReason reason) {
+  if (reason == StreamResetReason::ConnectionTermination ||
+      reason == StreamResetReason::ConnectionFailure) {
+    host_->cluster().stats().upstream_rq_pending_failure_eject_.inc();
+    client.closed_with_active_rq_ = true;
+  } else if (reason == StreamResetReason::LocalReset) {
+    host_->cluster().stats().upstream_rq_tx_reset_.inc();
+  } else if (reason == StreamResetReason::RemoteReset) {
+    host_->cluster().stats().upstream_rq_rx_reset_.inc();
+  }
+}
+
+
+void ConnPoolImpl::movePrimaryClientToDraining() {
+  ENVOY_CONN_LOG(debug, "moving primary to draining", *primary_client_->codec_client_);
+  if (draining_client_) {
+    // This should pretty much never happen, but is possible if we start draining and then get
+    // a goaway for example. In this case just kill the current draining connection. It's not
+    // worth keeping a list.
+    draining_client_->codec_client_->close();
+  }
+
+  ASSERT(!draining_client_);
+  if (primary_client_->codec_client_->numActiveRequests() == 0) {
+    // If we are making a new connection and the primary does not have any active requests just
+    // close it now.
+    primary_client_->codec_client_->close();
+  } else {
+    draining_client_ = std::move(primary_client_);
+  }
+
+  ASSERT(!primary_client_);
+}
+
+uint32_t ProdConnPoolImpl::maxTotalStreams() { return MAX_STREAMS; }
 
 } // namespace Http1
 } // namespace Http

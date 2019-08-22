@@ -99,6 +99,11 @@ void RdsRouteConfigSubscription::onConfigUpdate(
     throw EnvoyException(fmt::format("Unexpected RDS configuration (expecting {}): {}",
                                      route_config_name_, route_config.name()));
   }
+  for (auto* provider : route_config_providers_) {
+    // This seems inefficient, though it is necessary to validate config in each context,
+    // especially when it comes with per_filter_config,
+    provider->validateConfig(route_config);
+  }
 
   if (config_update_info_->onRdsUpdate(route_config, version_info)) {
     stats_.config_reload_.inc();
@@ -143,7 +148,8 @@ void RdsRouteConfigSubscription::onConfigUpdate(
   }
 }
 
-void RdsRouteConfigSubscription::onConfigUpdateFailed(const EnvoyException*) {
+void RdsRouteConfigSubscription::onConfigUpdateFailed(Envoy::Config::ConfigUpdateFailureReason,
+                                                      const EnvoyException*) {
   // We need to allow server startup to continue, even if we have a bad
   // config.
   init_target_.ready();
@@ -195,6 +201,12 @@ void RdsRouteConfigProviderImpl::onConfigUpdate() {
       new ConfigImpl(config_update_info_->routeConfiguration(), factory_context_, false));
   tls_->runOnAllThreads(
       [this, new_config]() -> void { tls_->getTyped<ThreadLocalConfig>().config_ = new_config; });
+}
+
+void RdsRouteConfigProviderImpl::validateConfig(
+    const envoy::api::v2::RouteConfiguration& config) const {
+  // TODO(lizan): consider cache the config here until onConfigUpdate.
+  ConfigImpl validation_config(config, factory_context_, false);
 }
 
 RouteConfigProviderManagerImpl::RouteConfigProviderManagerImpl(Server::Admin& admin) {

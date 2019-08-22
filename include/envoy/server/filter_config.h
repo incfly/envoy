@@ -117,6 +117,12 @@ public:
   virtual AccessLog::AccessLogManager& accessLogManager() PURE;
 
   /**
+   * @return envoy::api::v2::core::TrafficDirection the direction of the traffic relative to the
+   * local proxy.
+   */
+  virtual envoy::api::v2::core::TrafficDirection direction() const PURE;
+
+  /**
    * @return const Network::DrainDecision& a drain decision that filters can use to determine if
    *         they should be doing graceful closes on connections when possible.
    */
@@ -322,6 +328,11 @@ public:
    * produced by the factory.
    */
   virtual std::string name() PURE;
+
+  /**
+   * @return bool true if this filter must be the last filter in a filter chain, false otherwise.
+   */
+  virtual bool isTerminalFilter() { return false; }
 };
 
 /**
@@ -422,6 +433,11 @@ public:
    * produced by the factory.
    */
   virtual std::string name() PURE;
+
+  /**
+   * @return bool true if this filter must be the last filter in a filter chain, false otherwise.
+   */
+  virtual bool isTerminalFilter() { return false; }
 };
 
 } // namespace Configuration

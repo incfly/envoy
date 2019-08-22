@@ -146,8 +146,6 @@ protected:
     void onBelowWriteBufferLowWatermark() override {}
 
 
-
-
     // HTTP2 hack
     // TODO(incfly): here!
     // parent conn pool implementation is as same as one here. considering
@@ -238,7 +236,6 @@ protected:
   ActiveClientPtr draining_client_;
   // std::list<DrainedCb> drained_callbacks_;
   // const Network::ConnectionSocket::OptionsSharedPtr socket_options_;
-
   CodecClient::Type http_protocol_;
 };
 

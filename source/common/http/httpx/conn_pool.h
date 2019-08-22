@@ -40,7 +40,11 @@ namespace Httpx {
  * - [Done] HTTP1 request routed to httpx conn pool.
  * - [Done] log out the ALPN in a timer callback, shows http/1.1.
  *   [Done] refator to create codec client in onConnectionEvent callback.
- * - Copy Http2 Client handling stuff.
+ * - [DONE]  Copy Http2 Client handling stuff.
+ * - Verify http1/http2 from stats. (nghttp2 is red-herring, listener has http2 traffic as well).
+ *     - [DONE] server side http2 metrics is correct.
+ *     - [WIP] client side is not, just http1,
+ *       cluster.old_cluster.upstream_cx_http2_total not incremented, only http1
  * - Handling API change for this feauture in cluster.proto.
  * - Overtime migrate HTTP1 to HTTPx.
  */
@@ -63,6 +67,11 @@ public:
 
   // ConnPoolImplBase
   void checkForDrained() override;
+
+  // HTTPX specifics
+  CodecClient::Type http_protocol() {
+    return http_protocol_;
+  }
 
 
   // HTTP2 hack methods copied.
@@ -125,8 +134,17 @@ protected:
     void onEvent(Network::ConnectionEvent event) override {
       parent_.onConnectionEvent(*this, event);
     }
+
+    void upgrade() {
+      if (http_protocol_ == CodecClient::Type::HTTP2) {
+        return;
+      }
+      codec_client_->upgrade();
+      http_protocol_ = CodecClient::Type::HTTP2;
+    }
     void onAboveWriteBufferHighWatermark() override {}
     void onBelowWriteBufferLowWatermark() override {}
+
 
 
 
@@ -158,9 +176,9 @@ protected:
     Upstream::HostDescriptionConstSharedPtr real_host_description_;
     StreamWrapperPtr stream_wrapper_;
     Event::TimerPtr connect_timer_;
-    Event::TimerPtr alpn_debug_timer_;
     Stats::TimespanPtr conn_length_;
     uint64_t remaining_requests_;
+    CodecClient::Type http_protocol_;
 
     // TODO(incfly): clean up before merging. 
     // HTTP2 fields
@@ -186,8 +204,10 @@ protected:
   void onUpstreamReady();
   void processIdleClient(ActiveClient& client, bool delay);
 
+  // HTTPX specifics.
+  void upgrade();
 
-  // HTTP2 hackk
+  // HTTP2 hack
   //void checkForDrained() override;
 
   //virtual CodecClientPtr createCodecClient(Upstream::Host::CreateConnectionData& data) PURE;
@@ -199,7 +219,7 @@ protected:
   void onStreamDestroy(ActiveClient& client);
   void onStreamReset(ActiveClient& client, Http::StreamResetReason reason);
   void newClientStream(Http::StreamDecoder& response_decoder, ConnectionPool::Callbacks& callbacks);
-  //void onUpstreamReady();
+  void HTTP2onUpstreamReady();
 
   Stats::TimespanPtr conn_connect_ms_;
   Event::Dispatcher& dispatcher_;
@@ -218,6 +238,8 @@ protected:
   ActiveClientPtr draining_client_;
   // std::list<DrainedCb> drained_callbacks_;
   // const Network::ConnectionSocket::OptionsSharedPtr socket_options_;
+
+  CodecClient::Type http_protocol_;
 };
 
 /**

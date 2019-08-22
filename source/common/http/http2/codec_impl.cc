@@ -927,6 +927,8 @@ int ClientConnectionImpl::onBeginHeaders(const nghttp2_frame* frame) {
 
 int ClientConnectionImpl::onHeader(const nghttp2_frame* frame, HeaderString&& name,
                                    HeaderString&& value) {
+  ENVOY_CONN_LOG(info, "incfly debug real http2 Stream kick in {} ", connection_);
+
   // The client code explicitly does not currently support push promise.
   ASSERT(frame->hd.type == NGHTTP2_HEADERS);
   ASSERT(frame->headers.cat == NGHTTP2_HCAT_RESPONSE || frame->headers.cat == NGHTTP2_HCAT_HEADERS);

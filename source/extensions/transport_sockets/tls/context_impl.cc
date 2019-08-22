@@ -677,8 +677,6 @@ ClientContextImpl::ClientContextImpl(Stats::Scope& scope,
     for (auto& ctx : tls_contexts_) {
       int rc = SSL_CTX_set_alpn_protos(ctx.ssl_ctx_.get(), &parsed_alpn_protocols_[0],
                                        parsed_alpn_protocols_.size());
-      //ENVOY_LOG_MISC(info, "jianfeih debug  the client constructor return code {}, alpn value is {}, ssl_ctx_ {}",
-          //rc, parsed_alpn_protocols_[0], ctx.ssl_ctx_.get());
       RELEASE_ASSERT(rc == 0, "");
     }
   }

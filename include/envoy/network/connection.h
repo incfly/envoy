@@ -113,7 +113,7 @@ public:
   virtual void enableHalfClose(bool enabled) PURE;
 
   /**
-   */  
+   */
   virtual bool isSecureTransport() const PURE;
 
   /**
